@@ -40,9 +40,21 @@
 
 * [awesome-react-native](https://github.com/wabg/awesome-react-native)
 
+* [redux-persist](https://github.com/rt2zz/redux-persist)
+
+* [realm](https://realm.io/docs/javascript/latest/)
+
+* [redux-thunk](https://github.com/reduxjs/redux-thunk)
+
+* [redux-saga](https://github.com/redux-saga/redux-saga)
+
 * [react-native-awesome](https://github.com/crazycodeboy/react-native-awesome)
 
 * [react-native-awesome](https://github.com/crazycodeboy/react-native-awesome)
+
+* [react-native-animatable](https://github.com/oblador/react-native-animatable)
+
+* [ignite](https://github.com/infinitered/ignite)
 
 
 
