@@ -2292,6 +2292,11 @@ escape-html@~1.0.3:
   resolved "https://r.cnpmjs.org/escape-html/download/escape-html-1.0.3.tgz#0258eae4d3d0c0974de1c169188ef0051d1d1988"
   integrity sha1-Aljq5NPQwJdN4cFpGI7wBR0dGYg=
 
+escape-string-regexp@2.0.0:
+  version "2.0.0"
+  resolved "https://registry.npm.taobao.org/escape-string-regexp/download/escape-string-regexp-2.0.0.tgz#a30304e99daa32e23b2fd20f51babd07cffca344"
+  integrity sha1-owME6Z2qMuI7L9IPUbq9B8/8o0Q=
+
 escape-string-regexp@^1.0.5:
   version "1.0.5"
   resolved "https://r.cnpmjs.org/escape-string-regexp/download/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
@@ -2454,9 +2459,9 @@ expo-status-bar@^1.0.2:
   resolved "https://r.cnpmjs.org/expo-status-bar/download/expo-status-bar-1.0.2.tgz#2441a77c56be31597898337b0d086981f2adefd8"
   integrity sha1-JEGnfFa+MVl4mDN7DQhpgfKt79g=
 
-expo@~38.0.8:
+expo@^38.0.9:
   version "38.0.9"
-  resolved "https://r.cnpmjs.org/expo/download/expo-38.0.9.tgz#dac9e4ccee0b86747b71c1b3a827d60fe340c81e"
+  resolved "https://registry.npm.taobao.org/expo/download/expo-38.0.9.tgz#dac9e4ccee0b86747b71c1b3a827d60fe340c81e"
   integrity sha1-2snkzO4LhnR7ccGzqCfWD+NAyB4=
   dependencies:
     "@babel/runtime" "^7.1.2"
@@ -2555,6 +2560,11 @@ fancy-log@^1.3.2:
     color-support "^1.1.3"
     parse-node-version "^1.0.0"
     time-stamp "^1.0.0"
+
+fast-base64-decode@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.npm.taobao.org/fast-base64-decode/download/fast-base64-decode-1.0.0.tgz#b434a0dd7d92b12b43f26819300d2dafb83ee418"
+  integrity sha1-tDSg3X2SsStD8mgZMA0tr7g+5Bg=
 
 fb-watchman@^2.0.0:
   version "2.0.1"
@@ -2967,7 +2977,7 @@ inquirer@^3.0.6:
     strip-ansi "^4.0.0"
     through "^2.3.6"
 
-invariant@^2.2.2, invariant@^2.2.4:
+invariant@2.2.4, invariant@^2.2.2, invariant@^2.2.4:
   version "2.2.4"
   resolved "https://r.cnpmjs.org/invariant/download/invariant-2.2.4.tgz#610f3c92c9359ce1db616e538008d23ff35158e6"
   integrity sha1-YQ88ksk1nOHbYW5TgAjSP/NRWOY=
@@ -3920,6 +3930,10 @@ nan@^2.12.1:
   resolved "https://r.cnpmjs.org/nan/download/nan-2.14.1.tgz#d7be34dfa3105b91494c3147089315eff8874b01"
   integrity sha1-174036MQW5FJTDFHCJMV7/iHSwE=
 
+nanoid@ai/nanoid:
+  version "3.1.12"
+  resolved "https://codeload.github.com/ai/nanoid/tar.gz/2deb4b52a36b08cd4b68a68f462d52b03abe29b7"
+
 nanomatch@^1.2.9:
   version "1.2.13"
   resolved "https://r.cnpmjs.org/nanomatch/download/nanomatch-1.2.13.tgz#b87a8aa4fc0de8fe6be88895b38983ff265bd119"
@@ -4398,6 +4412,13 @@ react-native-appearance@~0.3.3:
     invariant "^2.2.4"
     use-subscription "^1.0.0"
 
+react-native-get-random-values@^1.4.0:
+  version "1.4.0"
+  resolved "https://registry.npm.taobao.org/react-native-get-random-values/download/react-native-get-random-values-1.4.0.tgz#1234d4dde6b56b2fab0eaa7dc1719e2f8c32c336"
+  integrity sha1-EjTU3ea1ay+rDqp9wXGeL4wywzY=
+  dependencies:
+    fast-base64-decode "^1.0.0"
+
 react-native-safe-area-context@~3.0.7:
   version "3.0.7"
   resolved "https://r.cnpmjs.org/react-native-safe-area-context/download/react-native-safe-area-context-3.0.7.tgz#0f53de7a30d626d82936000f3f6db374ecc4b800"
@@ -4418,6 +4439,14 @@ react-native-web@~0.11.7:
     normalize-css-color "^1.0.2"
     prop-types "^15.6.0"
     react-timer-mixin "^0.13.4"
+
+react-native-webview@9.4.0:
+  version "9.4.0"
+  resolved "https://registry.npm.taobao.org/react-native-webview/download/react-native-webview-9.4.0.tgz#108da34a6c7e1c032dcabc942b7e4947ca1d8028"
+  integrity sha1-EI2jSmx+HAMtyryUK35JR8odgCg=
+  dependencies:
+    escape-string-regexp "2.0.0"
+    invariant "2.2.4"
 
 "react-native@https://github.com/expo/react-native/archive/sdk-38.0.2.tar.gz":
   version "0.62.2"
@@ -5333,6 +5362,11 @@ uuid@^7.0.3:
   version "7.0.3"
   resolved "https://r.cnpmjs.org/uuid/download/uuid-7.0.3.tgz#c5c9f2c8cf25dc0a372c4df1441c41f5bd0c680b"
   integrity sha1-xcnyyM8l3Ao3LE3xRBxB9b0MaAs=
+
+uuid@^8.3.0:
+  version "8.3.0"
+  resolved "https://registry.npm.taobao.org/uuid/download/uuid-8.3.0.tgz?cache=0&sync_timestamp=1595885088251&other_urls=https%3A%2F%2Fregistry.npm.taobao.org%2Fuuid%2Fdownload%2Fuuid-8.3.0.tgz#ab738085ca22dc9a8c92725e459b1d507df5d6ea"
+  integrity sha1-q3OAhcoi3JqMknJeRZsdUH311uo=
 
 vary@~1.1.2:
   version "1.1.2"
