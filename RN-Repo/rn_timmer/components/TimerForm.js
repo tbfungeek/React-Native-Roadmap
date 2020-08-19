@@ -24,6 +24,27 @@ export default class TimerForm extends React.Component {
         this.setState({project})
     };
 
+    handleSubmitTimer = () => {
+
+        const {id,onSubmitTimmer} = this.props;
+        const {title,project} = this.state;
+
+        if (!onSubmitTimmer) return;
+
+        onSubmitTimmer({
+            title:title ? title:"Title",
+            project:project ? project:"Project",
+        })
+    };
+
+    handleCloseTimer = () => {
+        const {onCloseTimer} = this.props;
+
+        if (!onCloseTimer) return;
+
+        onCloseTimer()
+    };
+
     render() {
 
         const {title, project} = this.state;
@@ -57,8 +78,8 @@ export default class TimerForm extends React.Component {
                 </View>
     
                 <View style = { styles.bottonGroup } >
-                    <TimerButton small color = '#21BA45' title={submitText}/>
-                    <TimerButton small color = '#DB2828' title='Cancel'/>
+                    <TimerButton small color = '#21BA45' title={submitText} onPress = {this.handleSubmitTimer}/>
+                    <TimerButton small color = '#DB2828' title='Cancel' onPress = {this.handleCloseTimer}/>
                 </View>
             </View>
         )

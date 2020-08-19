@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View ,ScrollView,StatusBar,KeyboardAvoidingView} from 'react-native';
 import EditableTimer from './components/EditableTimer'
 import ToggleableTimerForm from './components/ToggleableTimerForm'
+import {newTimer} from './utils/TimeUtils'
 
 import 'react-native-get-random-values';
 import { v4 as uuidv4 } from 'uuid';
@@ -25,6 +26,10 @@ export default class App extends React.Component {
         isRunning:false,
       }
     ]
+  };
+
+  onCreateTimmerForm = (timer) => {
+    this.setState({timers:[newTimer(timer),...this.state.timers]});
   }
 
   render() {
@@ -42,7 +47,7 @@ export default class App extends React.Component {
         <KeyboardAvoidingView>
   
         <ScrollView style={styles.timmerList}>
-          <ToggleableTimerForm isOpen = {false}></ToggleableTimerForm>
+          <ToggleableTimerForm isOpen = {false} onCreateTimmerForm = {this.onCreateTimmerForm}></ToggleableTimerForm>
 
           {
             //map() 方法返回一个新数组，数组中的元素为原始数组元素调用函数处理后的值。

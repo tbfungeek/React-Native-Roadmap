@@ -21,4 +21,14 @@ const pad = (numberString, size) => {
     }
     return padded;
   };
+
+  export const newTimer = (attrs = {}) => { const timer = {
+    title: attrs.title || 'Timer', 
+    project: attrs.project || 'Project', 
+    id: Math.random()*100,
+    elapsed: 0,
+    isRunning: false,
+    };
+    return timer; 
+};
   
