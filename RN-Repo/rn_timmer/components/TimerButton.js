@@ -1,5 +1,6 @@
 import React from 'react';
-import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import {ColorPropType, StyleSheet, Text, TouchableOpacity} from 'react-native';
+import PropTypes from 'prop-types';
 
 export default function TimerButton({
     color,
@@ -62,3 +63,15 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
     }
 })
+
+TimerButton.propTypes = {
+    color: ColorPropType.isRequired, 
+    title: PropTypes.string.isRequired, 
+    small: PropTypes.bool,
+    onPress: PropTypes.func.isRequired,
+};
+
+TimerButton.defaultProps = {
+    //由于small是非必须的所以要指定默认值
+    small:false,
+}
