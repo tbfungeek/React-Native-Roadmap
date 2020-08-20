@@ -7,8 +7,12 @@ export default class Avatar extends React.Component {
     static propTypes = {
         initials:PropTypes.string.isRequired,
         size:PropTypes.number.isRequired,
-        backgroundColor:ColorPropType.isRequired,
+        backgroundColor:ColorPropType,
     };
+
+    static defaultProps = {
+        backgroundColor:'red'
+    }
 
     render() {
 
