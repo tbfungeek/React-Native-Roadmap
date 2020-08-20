@@ -1,10 +1,12 @@
 import React from 'react';
 import Constants from 'expo-constants'
 import { StyleSheet, Text, View ,StatusBar } from 'react-native';
-import CardList from  './components/CardList'
+import Feed from  './components/Feed'
 export default class App extends React.Component {
   render() {
 
+    //移除测试数据
+    /*
     const items = [
         { id: 0, author: 'Bob Ross' },
         { id: 1, author: 'Chuck Jimmy' },
@@ -16,13 +18,12 @@ export default class App extends React.Component {
         { id: 8, author: 'LATAS Norris' },
         { id: 9, author: 'YESS Norris' },
         { id: 10, author: 'DODO Norris' },
-    ];
+    ];*/
 
-      
     return (
       <View style={styles.container}>
         <StatusBar barStyle="dark-content"></StatusBar>
-        <CardList items = {items}/>
+        <Feed style = {styles.feed}/>
       </View>
     )
   }
@@ -34,6 +35,10 @@ const styles = StyleSheet.create({
     marginTop:Constants.statusBarHeight,
     flex: 1,
     backgroundColor: '#fff',
+  },
+
+  feed: {
+    flex: 1,
   }
-  
+
 });
