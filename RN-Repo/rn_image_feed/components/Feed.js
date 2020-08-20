@@ -5,7 +5,6 @@ import PropTypes from 'prop-types';
 import CardList from './CardList'
 import {fetchImages} from '../utils/api'
 
-
 export default class Feed extends React.Component {
 
     state = {

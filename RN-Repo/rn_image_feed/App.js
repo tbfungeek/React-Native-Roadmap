@@ -1,7 +1,10 @@
 import React from 'react';
 import Constants from 'expo-constants'
-import { StyleSheet, Text, View ,StatusBar } from 'react-native';
+import { StyleSheet, Platform, View ,StatusBar } from 'react-native';
 import Feed from  './components/Feed'
+
+const platformVersion = Platform.OS === 'ios' ? parseInt(Platform.Version , 10) : Platform.Version
+
 export default class App extends React.Component {
   render() {
 
@@ -32,7 +35,7 @@ export default class App extends React.Component {
 const styles = StyleSheet.create({
 
   container: {
-    marginTop:Constants.statusBarHeight,
+    marginTop:Platform.OS === 'android' || platformVersion < 11 ? Constants.statusBarHeight:0,
     flex: 1,
     backgroundColor: '#fff',
   },
