@@ -3,6 +3,7 @@ import Constants from 'expo-constants'
 import { StyleSheet, Platform, View ,StatusBar } from 'react-native';
 import Feed from  './components/Feed'
 import CommentList from './components/CommentList'
+import NavigationBar from './components/NavigationBar'
 
 const platformVersion = Platform.OS === 'ios' ? parseInt(Platform.Version , 10) : Platform.Version
 
@@ -24,38 +25,11 @@ export default class App extends React.Component {
         { id: 10, author: 'DODO Norris' },
     ];*/
 
-    const items = [
-      'Bob Ross' , 
-      'Chuck Jimmy',
-      'Chudddck Jimmy',
-      'Chudddsck Jimmy',
-      'Csssdhuck Jimmy',
-      'Chfsdsfsuck Jimmy',
-      'Chufsdfsck Jimmy',
-      'Chusfdfsck Jimmy',
-      'Bob Ross' , 
-      'Chuck Jimmy',
-      'Chudddck Jimmy',
-      'Chudddsck Jimmy',
-      'Csssdhuck Jimmy',
-      'Chfsdsfsuck Jimmy',
-      'Chufsdfsck Jimmy',
-      'Chusfdfsck Jimmy',
-      'Bob Ross' , 
-      'Chuck Jimmy',
-      'Chudddck Jimmy',
-      'Chudddsck Jimmy',
-      'Csssdhuck Jimmy',
-      'Chfsdsfsuck Jimmy',
-      'Chufsdfsck Jimmy',
-      'Chusfdfsck Jimmy',
-    ];
-
     return (
       <View style={styles.container}>
         <StatusBar barStyle="dark-content"></StatusBar>
         {/*<Feed style = {styles.feed}/>*/}
-        <CommentList items = {items} style = {styles.comment}></CommentList>
+        <NavigationBar title = "Hello" leftText = "Close" onPressLeftText = {() => {}}></NavigationBar>
       </View>
     )
   }
