@@ -6,13 +6,30 @@ import Card from './Card'
 
 export default class CardList extends React.Component {
 
+    static propTypes = {
+        items:PropTypes.arrayOf(
+            PropTypes.shape({
+                id: PropTypes.number.isRequired,
+                author: PropTypes.string.isRequired,
+            }),
+        ).isRequired,
+        commentsForItem:PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+        onPressComments:PropTypes.func.isRequired,
+    }
+
     renderItem = (object) => {
+
         const {id , author} = object.item;
+        const {commentsForItem,onPressComments} = this.props;
+        const comments = commentsForItem[id];
+
         return (
-            <Card  fullName = {author} image = {{uri:getImageFromId(id)}} linkText={"Comments"}
+            <Card fullName = {author} 
+                  image = {{uri:getImageFromId(id)}} 
+                  linkText={`${comments ? comments.length : 0} Comments`}
             onPressLinkText={
                 ()=>{
-                console.log('Pressed link!')
+                    onPressComments(id)
                 }
             }/>
         )
@@ -30,19 +47,17 @@ export default class CardList extends React.Component {
 
     render() {
 
-        const {items} = this.props;
+        const {items,commentsForItem} = this.props;
+
         const keyExtractor = ({ id }) => id.toString();
+
         return (
             <FlatList 
                 data = {items}
                 renderItem = {this.renderItem}
                 keyExtractor = {keyExtractor}
+                extraData = {commentsForItem}
             />
         )
     }
 }
-
-const styles = StyleSheet.create({
-
-})
-

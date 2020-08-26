@@ -1,11 +1,17 @@
 import React from 'react';
-import {ColorPropType,View,StyleSheet,Text,SafeAreaView, ActivityIndicator} from 'react-native';
+import {ViewPropTypes,ColorPropType,View,StyleSheet,Text,SafeAreaView, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 
 import CardList from '../components/CardList'
 import {fetchImages} from '../utils/api'
 
 export default class Feed extends React.Component {
+
+    static propTypes= {
+        style:ViewPropTypes.style,
+        commentsForItem: PropTypes.objectOf(PropTypes.arrayOf(PropTypes.string)).isRequired,
+        onPressComments: PropTypes.func.isRequired,
+    }
 
     state = {
         items: [],
@@ -29,12 +35,13 @@ export default class Feed extends React.Component {
     }
     render() {
         const {style} = this.props;
+        const {commentsForItem,onPressComments} = this.props;
         const {items,loading,error} = this.state;
         return (
             <SafeAreaView style = {style}> 
                 {loading && (<ActivityIndicator size = 'large' style = {StyleSheet.absoluteFill}/>)}
                 {error && (<Text>Error Happened</Text>)}
-                <CardList items = {items}/>
+                <CardList items = {items} commentsForItem = {commentsForItem} onPressComments = {onPressComments}/>
             </SafeAreaView>
         )
     }

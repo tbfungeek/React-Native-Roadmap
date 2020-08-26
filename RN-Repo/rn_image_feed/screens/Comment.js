@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet,SafeAreaView,View} from 'react-native';
+import {StyleSheet,SafeAreaView,View, ViewPropTypes} from 'react-native';
 import PropTypes from 'prop-types';
 
 import CommentInput from '../components/CommentInput'
@@ -9,19 +9,19 @@ import NavigationBar from '../components/NavigationBar'
 export default class Comment extends React.Component {
 
     static propTypes = {
-
+        style:ViewPropTypes.style,
+        comments:PropTypes.arrayOf(PropTypes.string).isRequired,
+        onClose: PropTypes.func.isRequired,
+        onSubmitComment:PropTypes.func.isRequired,
     };
 
-    static defaultProps= { 
-
+    static defaultProps = { 
+        style :  null
     };
 
     render() {
-
         const {style, onClose, onSubmitComment,comments} = this.props;
-
         return (
-
             <SafeAreaView  style = {style}>
                 <NavigationBar
                     title = "Comments"
@@ -30,12 +30,6 @@ export default class Comment extends React.Component {
                 <CommentInput placeholder="Leave a comment" onSubmit={onSubmitComment} />
                 <CommentList items={comments} />
             </SafeAreaView>
-
         );
     }
-
 }
-
-const styles = StyleSheet.create({
-
-})
