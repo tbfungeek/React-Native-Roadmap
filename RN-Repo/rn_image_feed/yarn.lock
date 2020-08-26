@@ -2456,7 +2456,7 @@ expo-status-bar@^1.0.2:
 
 expo@^38.0.9:
   version "38.0.9"
-  resolved "https://r.cnpmjs.org/expo/download/expo-38.0.9.tgz#dac9e4ccee0b86747b71c1b3a827d60fe340c81e"
+  resolved "https://registry.npm.taobao.org/expo/download/expo-38.0.9.tgz#dac9e4ccee0b86747b71c1b3a827d60fe340c81e"
   integrity sha1-2snkzO4LhnR7ccGzqCfWD+NAyB4=
   dependencies:
     "@babel/runtime" "^7.1.2"
@@ -4402,6 +4402,11 @@ react-native-safe-area-context@~3.0.7:
   version "3.0.7"
   resolved "https://registry.npm.taobao.org/react-native-safe-area-context/download/react-native-safe-area-context-3.0.7.tgz#0f53de7a30d626d82936000f3f6db374ecc4b800"
   integrity sha1-D1PeejDWJtgpNgAPP22zdOzEuAA=
+
+react-native-vconsole@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.npm.taobao.org/react-native-vconsole/download/react-native-vconsole-0.0.1.tgz#db670a45f9fdca5074ec0e76042cf4544d9cc2d4"
+  integrity sha1-22cKRfn9ylB07A52BCz0VE2cwtQ=
 
 react-native-web@~0.11.7:
   version "0.11.7"

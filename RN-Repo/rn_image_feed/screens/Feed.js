@@ -2,7 +2,7 @@ import React from 'react';
 import {ColorPropType,View,StyleSheet,Text,SafeAreaView, ActivityIndicator} from 'react-native';
 import PropTypes from 'prop-types';
 
-import CardList from './CardList'
+import CardList from '../components/CardList'
 import {fetchImages} from '../utils/api'
 
 export default class Feed extends React.Component {

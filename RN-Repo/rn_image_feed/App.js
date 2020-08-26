@@ -1,9 +1,7 @@
 import React from 'react';
 import Constants from 'expo-constants'
 import { StyleSheet, Platform, View ,StatusBar } from 'react-native';
-import Feed from  './components/Feed'
-import CommentList from './components/CommentList'
-import NavigationBar from './components/NavigationBar'
+import Feed from  './screens/Feed'
 
 const platformVersion = Platform.OS === 'ios' ? parseInt(Platform.Version , 10) : Platform.Version
 
@@ -24,12 +22,11 @@ export default class App extends React.Component {
         { id: 9, author: 'YESS Norris' },
         { id: 10, author: 'DODO Norris' },
     ];*/
-
     return (
+
       <View style={styles.container}>
         <StatusBar barStyle="dark-content"></StatusBar>
         {/*<Feed style = {styles.feed}/>*/}
-        <NavigationBar title = "Hello" leftText = "Close" onPressLeftText = {() => {}}></NavigationBar>
       </View>
     )
   }
