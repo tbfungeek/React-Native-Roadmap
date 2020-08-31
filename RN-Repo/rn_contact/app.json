@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "rn_navigations",
-    "slug": "rn_navigations",
+    "name": "rn_contact",
+    "slug": "rn_contact",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
