@@ -6,7 +6,7 @@ const mapContact = contact => {
   } = contact;
 
   return {
-    id: self.Random(1,1000),
+    id: Random(1,1000),
     name: `${capitalize(name.first)} ${capitalize(name.last)}`,
     avatar: picture.large,
     phone,
