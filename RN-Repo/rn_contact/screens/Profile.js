@@ -18,12 +18,15 @@ export default class Profile extends React.Component {
             this.setState({
                 contract: contract
             })
-        } catch (err) {}
+        } catch (err) {
+
+        }
     }
 
-    render() {
-        const {avatar,name,phone,email,cell} = this.state.contract;
-        console.log(this.state.contract)
+    render() { 
+        const {route} = this.props;
+        const {avatar,name,phone,email,cell} = route.params;
+
         return (
             <View style={styles.container}>
                 <ContactThumbnail style={styles.avatarSection} avatar={avatar} name={name} phone={phone} onPress = {() => {}}/>

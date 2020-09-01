@@ -8,6 +8,9 @@ import {
     ActivityIndicator
 } from 'react-native';
 
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import {fetchContacts} from '../utils/api';
 import ContractItemCell from '../components/ContractItemCell'
 
@@ -40,8 +43,15 @@ export default class Contracts extends React.Component {
     renderContract = ({item}) => {
         const {avatar, name, phone} = item;
         return (
-            <ContractItemCell avatar={avatar} name={name} phone={phone} onPressItem = {()=>{}}/>
+            <ContractItemCell avatar={avatar} name={name} phone={phone} onPressItem = {() => {
+                this.viewUserProfile(item)
+            }}/>
         )
+    }
+    
+    viewUserProfile = (item) => {
+        const {navigation} = this.props;
+        navigation.push('Profile',item);
     }
 
     render() {

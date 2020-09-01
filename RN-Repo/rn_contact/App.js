@@ -14,7 +14,7 @@ export default function App() {
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Contract'>
         <Stack.Screen name='Contract' component={Contracts}/>
-        <Stack.Screen name='Profile' component={Profile}/>
+        <Stack.Screen name='Profile' component={Profile} initialParams = {{item:{}}}/>
       </Stack.Navigator>
     </NavigationContainer>
     
