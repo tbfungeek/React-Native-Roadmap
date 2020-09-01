@@ -1,18 +1,15 @@
 import 'react-native-gesture-handler';
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View , Button} from 'react-native';
-import Contracts from './screens/Contacts'
-import Profile from './screens/Profile'
-import Favorites from './screens/Favorites'
-import User from './screens/User'
-import {NavigationContainer} from '@react-navigation/native';
-import {createStackNavigator} from '@react-navigation/stack';
-import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import {MainScreen} from './routes'
 
-const Stack = createStackNavigator()
-const Tab = createBottomTabNavigator();
+//https://icons.expo.fyi/
 
+export default function App() {
+  return (
+    <MainScreen/>
+  )
+}
+/*
 export default function App() {
   return (
     <NavigationContainer>
@@ -49,13 +46,4 @@ export default function App() {
     </NavigationContainer>
     
   );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  }
-});
+}*/
