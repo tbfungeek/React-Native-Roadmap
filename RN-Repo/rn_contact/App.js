@@ -1,14 +1,23 @@
+import 'react-native-gesture-handler';
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import Contracts from './screens/Contacts'
 import Profile from './screens/Profile'
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
+
+const Stack = createStackNavigator()
 
 export default function App() {
   return (
-    <Profile style={styles.container}>
-      <StatusBar style={styles.statusbar}/>
-    </Profile>
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName='Contract'>
+        <Stack.Screen name='Contract' component={Contracts}/>
+        <Stack.Screen name='Profile' component={Profile}/>
+      </Stack.Navigator>
+    </NavigationContainer>
+    
   );
 }
 
