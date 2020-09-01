@@ -42,6 +42,7 @@ export default class Profile extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
+        backgroundColor:'rgb(49,154,220)',
         flex:1,
     },
 

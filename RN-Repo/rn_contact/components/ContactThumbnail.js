@@ -15,13 +15,15 @@ export default class ContactThumbnail extends React.Component {
 
     static propTypes = {
         avatar:PropTypes.string.isRequired,
-        name: PropTypes.string.isRequired,
-        phone: PropTypes.string.isRequired,
+        name: PropTypes.string,
+        phone: PropTypes.string,
         onPress: PropTypes.func,
     }
 
     static defaultProps = {
-        onPress: () => {}
+        onPress: () => {},
+        name: '',
+        phone: '',
     }
     render() {
         const {avatar, name, phone, onPress} = this.props;
@@ -46,9 +48,8 @@ export default class ContactThumbnail extends React.Component {
 const styles = StyleSheet.create({
 
     container: {
-        flex:1,
-        backgroundColor:'rgb(49,154,220)',
-        flexDirection: 'column',
+        paddingVertical: 30,
+        paddingHorizontal:10,
         justifyContent: 'center',
         alignItems: 'center'   
     },
