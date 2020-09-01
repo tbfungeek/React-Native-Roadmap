@@ -13,8 +13,12 @@ export default function App() {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName='Contract'>
-        <Stack.Screen name='Contract' component={Contracts}/>
-        <Stack.Screen name='Profile' component={Profile} initialParams = {{item:{}}}/>
+        <Stack.Screen name='Contract' component={Contracts} options = {
+          {
+            title:"Cotract List"
+          }
+        }/>
+        <Stack.Screen name='Profile' component={Profile} initialParams = {{item:{}}} options = {({route}) => {return {title: route.params.name}}}/>
       </Stack.Navigator>
     </NavigationContainer>
     
