@@ -15,10 +15,28 @@ export default function App() {
       <Stack.Navigator initialRouteName='Contract'>
         <Stack.Screen name='Contract' component={Contracts} options = {
           {
-            title:"Cotract List"
+            title:"Cotract List",
+            headerStyle: {
+              backgroundColor: 'rgb(49,154,220)',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            },
           }
         }/>
-        <Stack.Screen name='Profile' component={Profile} initialParams = {{item:{}}} options = {({route}) => {return {title: route.params.name}}}/>
+        <Stack.Screen name='Profile' component={Profile} initialParams = {{item:{}}} options = {
+          ({navigation,route}) => {return {
+            title: route.params.name,
+            headerStyle: {
+              backgroundColor: 'rgb(49,154,220)',
+            },
+            headerTintColor: '#fff',
+            headerTitleStyle: {
+              fontWeight: 'bold',
+            }
+          }}
+          }/>
       </Stack.Navigator>
     </NavigationContainer>
     
