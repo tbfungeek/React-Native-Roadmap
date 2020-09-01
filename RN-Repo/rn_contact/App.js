@@ -8,13 +8,15 @@ import Favorites from './screens/Favorites'
 import User from './screens/User'
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 const Stack = createStackNavigator()
+const Tab = createBottomTabNavigator();
 
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='User'
+      <Tab.Navigator initialRouteName='Contacts'
         screenOptions = {{
           headerStyle: {
             backgroundColor: 'rgb(49,154,220)',
@@ -25,10 +27,9 @@ export default function App() {
           },
         }}
       >
-        <Stack.Screen name='User' component={User} options = {User.navigationOptions}/>
-        <Stack.Screen name='Contract' component={Contracts} options = {
+        <Tab.Screen name='Contacts' component={Contracts} options = {
           {
-            title:"Cotract List",
+            title:"Cotracts",
             headerRight: () => (
               <Button
                 onPress={() => alert('This is a button!')}
@@ -37,12 +38,14 @@ export default function App() {
             )
           }
         }/>
-        <Stack.Screen name='Profile' component={Profile} initialParams = {{item:{}}} options = {
+        <Tab.Screen name='Favorites' component={Favorites} initialParams = {{item:{}}} options = {
           ({navigation,route}) => {return {
             title: route.params.name,
           }}
           }/>
-      </Stack.Navigator>
+          
+        <Tab.Screen name='User' component={User} options = {User.navigationOptions}/>
+      </Tab.Navigator>
     </NavigationContainer>
     
   );
