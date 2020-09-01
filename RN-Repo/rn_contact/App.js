@@ -2,7 +2,6 @@ import 'react-native-gesture-handler';
 import React from 'react';
 import {MainScreen} from './routes'
 
-//https://icons.expo.fyi/
 
 export default function App() {
   return (

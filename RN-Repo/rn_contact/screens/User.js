@@ -9,16 +9,9 @@ import {
 import {fetchUserContact} from '../utils/api'
 import colors from '../utils/colors'
 import ContactThumbnail from '../components/ContactThumbnail'
+import Icon from 'react-native-vector-icons';
 
 export default class User extends React.Component {
-
-    static navigationOptions = {
-        title: 'Me', 
-        headerTintColor: 'white', 
-        headerStyle: {
-            backgroundColor: colors.blue, 
-        },
-    };
 
     state = {
         user:[],
@@ -29,7 +22,6 @@ export default class User extends React.Component {
     async componentDidMount() {
         try {
             const user = await fetchUserContact();
-            console.log(user)
             this.setState({
                 user,
                 loading:false,

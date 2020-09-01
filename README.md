@@ -10,7 +10,9 @@
 
 ### 开源库推荐
 
-1. UI库
+* [react-native-vector-icons](https://oblador.github.io/react-native-vector-icons/)
+
+* [vector-icons ](https://github.com/expo/vector-icons)
 
 * [react-native-elements](https://github.com/react-native-elements/react-native-elements)
 

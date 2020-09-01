@@ -5,6 +5,8 @@ import Contracts from './screens/Contacts'
 import Profile from './screens/Profile'
 import Favorites from './screens/Favorites'
 import User from './screens/User'
+import Option from './screens/Option'
+import colors from './utils/colors';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
@@ -74,8 +76,24 @@ export class FavoritesScreens extends React.Component {
 export class UserScreens extends React.Component {
     render() {
         return (
-            <Stack.Navigator initialRouteName="User">
-                <Stack.Screen name = "User" component = {User}/>
+            <Stack.Navigator initialRouteName="User" mode="modal">
+                <Stack.Screen name = "User" component = {User} options = {({routes,navigation}) => 
+                (
+                    {
+                        title: 'Me', 
+                        headerRight:() => {
+                            return (<Icon name="settings" size={24} style = {{marginRight:10}} onPress={() => navigation.navigate('Option')}/>)
+                        }
+                    })
+                }/>
+                <Stack.Screen name = "Option" component = {Option} options = {({navigation}) => ({
+                    title: 'Options',
+                    headerLeft:() => (
+                            <Icon name = "close" size = {24} style = {{color : colors.black, marginLeft: 10}} onPress={
+                                () => navigation.goBack()
+                            }/>
+                    )
+                })}/>                
             </Stack.Navigator>
         )
     }

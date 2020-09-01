@@ -21,10 +21,13 @@ export default class DetailListItem extends React.Component {
 
         return (
             <View style={styles.container}>
-                <Icon name={icon} size={24} style={styles.icon}/>
+                {icon && (
+                    <Icon name={icon} size={24} style={styles.icon}/>
+                )}
+                
                 <View style={styles.detail}>
                     <Text style={styles.title}>{title}</Text>
-                    <Text style={styles.value}>{value}</Text>
+                    {value &&<Text style={styles.value}>{value}</Text>}
                 </View>
             </View>
         )
