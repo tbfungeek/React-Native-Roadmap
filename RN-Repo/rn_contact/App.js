@@ -12,29 +12,25 @@ const Stack = createStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Contract'>
+      <Stack.Navigator initialRouteName='Contract'
+        screenOptions = {{
+          headerStyle: {
+            backgroundColor: 'rgb(49,154,220)',
+          },
+          headerTintColor: '#fff',
+          headerTitleStyle: {
+            fontWeight: 'bold',
+          },
+        }}
+      >
         <Stack.Screen name='Contract' component={Contracts} options = {
           {
             title:"Cotract List",
-            headerStyle: {
-              backgroundColor: 'rgb(49,154,220)',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            },
           }
         }/>
         <Stack.Screen name='Profile' component={Profile} initialParams = {{item:{}}} options = {
           ({navigation,route}) => {return {
             title: route.params.name,
-            headerStyle: {
-              backgroundColor: 'rgb(49,154,220)',
-            },
-            headerTintColor: '#fff',
-            headerTitleStyle: {
-              fontWeight: 'bold',
-            }
           }}
           }/>
       </Stack.Navigator>
