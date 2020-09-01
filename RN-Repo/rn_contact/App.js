@@ -5,6 +5,7 @@ import { StyleSheet, Text, View , Button} from 'react-native';
 import Contracts from './screens/Contacts'
 import Profile from './screens/Profile'
 import Favorites from './screens/Favorites'
+import User from './screens/User'
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 
@@ -13,7 +14,7 @@ const Stack = createStackNavigator()
 export default function App() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName='Favorites'
+      <Stack.Navigator initialRouteName='User'
         screenOptions = {{
           headerStyle: {
             backgroundColor: 'rgb(49,154,220)',
@@ -24,11 +25,7 @@ export default function App() {
           },
         }}
       >
-        <Stack.Screen name='Favorites' component={Favorites} options = {
-          {
-            title:"Favorites",
-          }
-        }/>
+        <Stack.Screen name='User' component={User} options = {User.navigationOptions}/>
         <Stack.Screen name='Contract' component={Contracts} options = {
           {
             title:"Cotract List",
