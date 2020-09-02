@@ -10,13 +10,16 @@ import colors from './utils/colors';
 
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 const Stack = createStackNavigator()
 const Tab = createBottomTabNavigator();
+const Drawer = createDrawerNavigator();
 
+/*
 export class MainScreen extends React.Component {
     render() {
         return (
@@ -49,13 +52,57 @@ export class MainScreen extends React.Component {
             </NavigationContainer>
           )
     }   
+}*/
+
+export class MainScreen extends React.Component {
+    render() {
+        return (
+            <NavigationContainer>
+              <Drawer.Navigator initialRouteName='Contacts'>
+                <Drawer.Screen name='Contacts' component={ContactsScreens} options = {
+                    {
+                        tabBarIcon:({ focused, color, size }) => {
+                            return <Icon name='contacts' size={size} color={color}/>
+                        },
+                    }
+                }/>
+
+                <Drawer.Screen name='Favorites' component={FavoritesScreens} options = {
+                    {
+                        tabBarIcon:({ focused, color, size }) => {
+                            return <Icon name='favorite' size={size} color={color}/>
+                        }
+                    }
+                } />
+                <Drawer.Screen name='User' component={UserScreens} options = {
+                    {
+                        tabBarIcon:({ focused, color, size }) => {
+                            return <Icon name='assignment-ind' size={size} color={color}/>
+                        }
+                    }
+                }
+                />
+              </Drawer.Navigator>
+            </NavigationContainer>
+          )
+    }   
 }
 
 export class ContactsScreens extends React.Component {
     render() {
         return (
             <Stack.Navigator initialRouteName="Contracts">
-                <Stack.Screen name = "Contracts" component = {Contracts}/>
+                <Stack.Screen name = "Contracts" component = {Contracts} options = { ({navigation}) => (
+                    {
+                        headerLeft: () => (
+                            <Icon name ="menu" size={24} style = {{color : colors.black, marginLeft: 10}} onPress = {() => {
+                                navigation.openDrawer();
+                                //navigation.closeDrawer();
+                                //navigation.toggleDrawer();
+                            }}/>
+                        )
+                    }
+                )}/>
                 <Stack.Screen name = "Profile" component = {Profile}/>
             </Stack.Navigator>
         )
@@ -66,7 +113,15 @@ export class FavoritesScreens extends React.Component {
     render() {
         return (
             <Stack.Navigator initialRouteName="Favorites">
-                <Stack.Screen name = "Favorites" component = {Favorites}/>
+                <Stack.Screen name = "Favorites" component = {Favorites} options = { ({navigation}) => (
+                    {
+                        headerLeft: () => (
+                            <Icon name ="menu" size={24} style = {{color : colors.black, marginLeft: 10}} onPress = {() => {
+                                navigation.openDrawer();
+                            }}/>
+                        )
+                    }
+                )}/>
                 <Stack.Screen name = "Profile" component = {Profile}/>
             </Stack.Navigator>
         )
@@ -83,8 +138,14 @@ export class UserScreens extends React.Component {
                         title: 'Me', 
                         headerRight:() => {
                             return (<Icon name="settings" size={24} style = {{marginRight:10}} onPress={() => navigation.navigate('Option')}/>)
-                        }
-                    })
+                        },
+                        headerLeft: () => (
+                            <Icon name ="menu" size={24} style = {{color : colors.black, marginLeft: 10}} onPress = {() => {
+                                navigation.openDrawer();
+                            }}/>
+                        )
+                    }
+                )
                 }/>
                 <Stack.Screen name = "Option" component = {Option} options = {({navigation}) => ({
                     title: 'Options',
