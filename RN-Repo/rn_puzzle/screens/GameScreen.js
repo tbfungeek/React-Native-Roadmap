@@ -10,6 +10,9 @@ import PropTypes from 'prop-types';
 
 import configureTransition from '../utils/configureTransition'
 import PuzzlePropType from '../validators/PuzzlePropType'
+import Preview from '../components/Preview';
+import Stats from '../components/Stats';
+
 
 const State = {
     LoadingImage:'LoadingImage',
@@ -58,6 +61,14 @@ export default class GameScreen extends React.Component {
 
             )}
 
+            {transitionState !== State.LoadingImage && (
+                <View style={styles.centerd}>
+                    <View style={styles.header}>
+                        <Preview image = {image} boardSize={size}/>
+                        <Stats moves={moves} time={elapsed}/>
+                    </View>
+                </View>
+            )}
             </View>
         )
     }
