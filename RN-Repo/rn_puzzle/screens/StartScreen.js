@@ -30,6 +30,19 @@ export default class StartScreen extends React.Component {
     toggleOpacity = new Animated.Value(0);
     buttonOpacity = new Animated.Value(0);
 
+    handleGameStart = async() => {
+
+        const {onStartGame} = this.props;
+
+        await configureTransition(() => {
+            this.setState({ transitionState : State.WillTransitionOut});
+        })
+
+        if (!onStartGame) return;
+
+        onStartGame()
+    }
+
     async componentDidMount () {
         await sleep(500);
         await configureTransition(() => {
@@ -60,25 +73,27 @@ export default class StartScreen extends React.Component {
         const buttonStyle = { opacity: this.buttonOpacity };
 
         return (
-            <View style={styles.container}>
-                <View style={styles.logo}>
-                    <Logo/>
+            transitionState !== State.WillTransitionOut && (
+                <View style={styles.container}>
+                    <View style={styles.logo}>
+                        <Logo/>
+                    </View>
+
+                    {transitionState !== State.Launching && (
+                        <Animated.View style={toggleStyle}>
+                            <Toggle options = {BOARD_SIZES} 
+                                    value = {size} 
+                                onChange = {onChangeSize}/>
+                        </Animated.View>
+                    )}
+
+                    {transitionState !== State.Launching && (
+                        <Animated.View style={buttonStyle}>
+                            <Button title = {'Start Game'} onPress = {this.handleGameStart}/>
+                        </Animated.View>
+                    )}
                 </View>
-
-                {transitionState !== State.Launching && (
-                    <Animated.View style={toggleStyle}>
-                        <Toggle options = {BOARD_SIZES} 
-                                  value = {size} 
-                               onChange = {onChangeSize}/>
-                    </Animated.View>
-                )}
-
-                {transitionState !== State.Launching && (
-                    <Animated.View style={buttonStyle}>
-                        <Button title = {'Start Game'} onPress = {() => {}}/>
-                    </Animated.View>
-                )}
-            </View>
+            )
         )
     }
 }
