@@ -1,10 +1,10 @@
 import {LinearGradient} from 'expo-linear-gradient';
-import {Constants} from 'expo-constants'
 import React from 'react';
 import { 
   StyleSheet, 
   Text, 
   View , 
+  Image,
   StatusBar, 
   SafeAreaView , 
   Platform,
@@ -12,6 +12,7 @@ import {
 } from 'react-native';
 import StartScreen from './screens/StartScreen'
 import GameScreen from './screens/GameScreen'
+import {getRandomImage} from './utils/api'
 
 if (Platform.OS == 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -25,6 +26,18 @@ export default class App extends React.Component {
     puzzle:null,
     image:null,
   };
+
+  async componentDidMount() {
+    this.preloadNextImage()
+  }
+
+  async preloadNextImage() {
+    const image = await getRandomImage()
+    console.log(image.uri)
+    Image.prefetch(image.uri);
+    this.setState({image})
+  }
+
   render() {
 
     const {size , puzzle, image} = this.state;
