@@ -11,6 +11,7 @@ import {
   UIManager
 } from 'react-native';
 import StartScreen from './screens/StartScreen'
+import GameScreen from './screens/GameScreen'
 
 if (Platform.OS == 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
   UIManager.setLayoutAnimationEnabledExperimental(true);
@@ -32,9 +33,19 @@ export default class App extends React.Component {
       <LinearGradient style={styles.background} colors={BACKGROUND_COLORS}>
         <StatusBar barStyle={'light-content'} />
         <SafeAreaView style={styles.container}>
-        <StartScreen size = {size} 
-             onChangeSize = {this.handleChangeSize}
-              onStartGame = {this.handleStartGame} />
+
+        {!puzzle && (
+          <StartScreen size = {size} 
+               onChangeSize = {this.handleChangeSize}
+               onStartGame = {this.handleStartGame} />
+        )}
+
+        {puzzle && (
+          <GameScreen  puzzle = {puzzle}
+                       image = {image}
+                       onChange = {this.handleGameChange}
+                       onQuit = {this.handleGameQuit}/>
+        )}
         </SafeAreaView>
       </LinearGradient>
     )
@@ -46,6 +57,14 @@ export default class App extends React.Component {
 
   handleChangeSize = () => {
     
+  }
+
+  handleGameChange = () => {
+
+  }
+
+  handleGameQuit = () => {
+
   }
 }
 
