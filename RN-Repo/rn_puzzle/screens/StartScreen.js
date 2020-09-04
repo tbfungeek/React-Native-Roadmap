@@ -35,7 +35,7 @@ export default class StartScreen extends React.Component {
                 </View>
 
                 <View>
-                    <Toggle options={BOARD_SIZES}/>
+                    <Toggle options={BOARD_SIZES} value = {size} onChange = {onChangeSize}/>
                 </View>
 
                 <View>

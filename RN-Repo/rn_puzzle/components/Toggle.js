@@ -19,7 +19,6 @@ export default class Toggle extends React.Component {
     render() {
 
         const {options, value, onChange} = this.props;
-
         return (
             <View style={styles.container}>
                 <Text style = {styles.title}>{'Choose Size'}</Text>

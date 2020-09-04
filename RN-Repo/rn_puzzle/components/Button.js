@@ -10,10 +10,15 @@ import PropTypes from 'prop-types';
 
 export default class Button extends React.Component {
     render() {
-        const {title} = this.props;
+        const {title, height, onPress, color, borderRadius, fontSize} = this.props;
+        const containerStyle = {
+            height
+        }
         return (
-            <TouchableWithoutFeedback>
-                <View style = {styles.container}>
+            <TouchableWithoutFeedback
+                onPress={onPress}
+            >
+                <View style = {[styles.container,containerStyle]}>
                     <Text style = {styles.title}>{title}</Text>
                 </View>
             </TouchableWithoutFeedback>
@@ -29,7 +34,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#1F1E2A',
         borderWidth: 2,
-        height:100,
     },
     title: {
         backgroundColor:'transparent',
