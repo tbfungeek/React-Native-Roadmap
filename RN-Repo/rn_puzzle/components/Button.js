@@ -54,7 +54,7 @@ export default class Button extends React.Component {
             || this.state.pressed !== nextState.pressed
         ) {
             Animated.timing(this.value,{
-                duration:200,
+                duration:20,
                 toValue:getValue(nextState.pressed,nextState.disabled),
                 easing:Easing.out(Easing.quad),
             }).start();
@@ -70,17 +70,16 @@ export default class Button extends React.Component {
     }
 
     handlePressIn = () => {
-
+        this.setState({pressed : true});
     }
 
     handlePressOut = () => {
-
+        this.setState({pressed : false});
     }
 
     render() {
 
         const {title, height, onPress, color, borderRadius, fontSize} = this.props;
-
         const animatedColor = this.value.interpolate({
             inputRange:[0,1],
             outputRange:['black',color],
@@ -108,8 +107,9 @@ export default class Button extends React.Component {
                 onPressIn = {this.handlePressIn}
                 onPressOut = {this.handlePressOut}
                 onPress={onPress}>
+
                 <Animated.View style = {[styles.container,containerStyle]}>
-                    <Animated.Text style = {styles.title}>{[title,this.titleStyle]}</Animated.Text>
+                    <Animated.Text style = {[styles.title,titleStyle]}>{title}</Animated.Text>
                 </Animated.View>
             </TouchableWithoutFeedback>
         )
