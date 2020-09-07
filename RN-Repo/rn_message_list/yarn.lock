@@ -2392,15 +2392,7 @@ expo-asset@~8.1.7:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-constants@^9.1.1:
-  version "9.1.1"
-  resolved "https://r.cnpmjs.org/expo-constants/download/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
-  integrity sha1-vKFB7j1FUOMIeYEo9mxtnGogbKE=
-  dependencies:
-    fbjs "1.0.0"
-    uuid "^3.3.2"
-
-expo-constants@~9.1.1:
+expo-constants@^9.1.1, expo-constants@~9.1.1:
   version "9.1.1"
   resolved "https://registry.npm.taobao.org/expo-constants/download/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
   integrity sha1-vKFB7j1FUOMIeYEo9mxtnGogbKE=
@@ -4431,6 +4423,11 @@ react-native-appearance@~0.3.3:
     fbemitter "^2.1.1"
     invariant "^2.2.4"
     use-subscription "^1.0.0"
+
+react-native-maps@0.27.1:
+  version "0.27.1"
+  resolved "https://r.cnpmjs.org/react-native-maps/download/react-native-maps-0.27.1.tgz#2f10cd417bb2fd938c9e015b1c9b6d9b1a44b97f"
+  integrity sha1-LxDNQXuy/ZOMngFbHJttmxpEuX8=
 
 react-native-safe-area-context@~3.0.7:
   version "3.0.7"
