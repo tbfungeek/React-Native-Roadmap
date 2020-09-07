@@ -1,8 +1,25 @@
 import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
+import NetInfo from "@react-native-community/netinfo";
 
 export default class App extends React.Component {
+
+  state = {
+    isConnected: false,
+  }
+
+  componentWillMount() {
+    this.unsubscribe = NetInfo.addEventListener(state => {
+      const {isConnected} = state;
+      this.setState({isConnected})
+    })
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe()
+  }
+
   render() {
     return (
       <View style={styles.container}>
