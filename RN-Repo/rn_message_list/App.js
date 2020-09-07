@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, Text, View, Alert } from 'react-native';
 import Status from './components/Status'
 //https://github.com/react-native-community/react-native-netinfo
 import MessageList from './components/MessageList'
@@ -31,7 +31,7 @@ export default class App extends React.Component {
   renderMessageList() {
     const { messages } = this.state;
     return (
-      <MessageList style={styles.content} messages = {messages} onPressMessage = {() => {}}/>
+      <MessageList style={styles.content} messages = {messages} onPressMessage = {this.handlePressMessage}/>
     )
   }
 
@@ -47,6 +47,31 @@ export default class App extends React.Component {
     return (
       <View style = {styles.toolbar}></View>
     )
+  }
+
+  handlePressMessage = ({id,type}) => {
+    switch (type) {
+      case 'text':
+        Alert.alert(
+          'Delete message?',
+          'Are you sure you want to permanently delete this message?',
+          [
+            {
+                text:'Cancel',
+                style:'cancel'
+            },
+            {
+                text:'Delete',
+                style:'destructive',
+                onPress: () => {
+                  const {messages} = this.state;
+                  this.setState({messages:messages.filter((message) => message.id !== id)})
+                }
+            }
+          ]
+        )
+        break;
+    }
   }
 }
 
