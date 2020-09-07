@@ -2,6 +2,7 @@ import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import NetInfo from "@react-native-community/netinfo";
+//https://github.com/react-native-community/react-native-netinfo
 
 export default class App extends React.Component {
 
