@@ -1,29 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
-import NetInfo from "@react-native-community/netinfo";
+import Status from './components/Status'
 //https://github.com/react-native-community/react-native-netinfo
 
 export default class App extends React.Component {
 
-  state = {
-    isConnected: false,
-  }
-
-  componentWillMount() {
-    this.unsubscribe = NetInfo.addEventListener(state => {
-      const {isConnected} = state;
-      this.setState({isConnected})
-    })
-  }
-
-  componentWillUnmount() {
-    this.unsubscribe()
-  }
-
   render() {
     return (
       <View style={styles.container}>
+        <Status/>
         {this.renderMessageList()}
         {this.renderToolbar()}
         {this.renderInputMethodEditor()}
@@ -61,11 +46,9 @@ const styles = StyleSheet.create({
   },
   content : {
     flex:1,
-    backgroundColor:'red',
   },
   inputMethodEditor: {
     flex:1,
-    backgroundColor:'blue',
   },
   toolbar: {
     borderTopWidth:1,

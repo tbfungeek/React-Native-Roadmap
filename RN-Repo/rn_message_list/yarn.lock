@@ -2392,6 +2392,14 @@ expo-asset@~8.1.7:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
+expo-constants@^9.1.1:
+  version "9.1.1"
+  resolved "https://r.cnpmjs.org/expo-constants/download/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
+  integrity sha1-vKFB7j1FUOMIeYEo9mxtnGogbKE=
+  dependencies:
+    fbjs "1.0.0"
+    uuid "^3.3.2"
+
 expo-constants@~9.1.1:
   version "9.1.1"
   resolved "https://registry.npm.taobao.org/expo-constants/download/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
