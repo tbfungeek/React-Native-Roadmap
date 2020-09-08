@@ -1,5 +1,12 @@
 import React from 'react';
-import { StyleSheet, Text, View, Alert } from 'react-native';
+import { 
+  StyleSheet, 
+  Text, 
+  View, 
+  Alert,
+  Image,
+  TouchableHighlight,
+} from 'react-native';
 import Status from './components/Status'
 //https://github.com/react-native-community/react-native-netinfo
 import MessageList from './components/MessageList'
@@ -14,7 +21,15 @@ export default class App extends React.Component {
       createTextMessage('Hello'), 
       createLocationMessage({ latitude: 37.78825 , longitude: -122.4324, }),
     ], 
+
+    fullScreenImageId: null,
+
   };
+
+  dismissFullScreenImage = () => {
+    this.setState({fullScreenImageId:null});
+  };
+
   
 
   render() {
@@ -24,6 +39,7 @@ export default class App extends React.Component {
         {this.renderMessageList()}
         {this.renderToolbar()}
         {this.renderInputMethodEditor()}
+        {this.renderFullScreenImage()}
       </View>
     )
   }
@@ -49,6 +65,23 @@ export default class App extends React.Component {
     )
   }
 
+  renderFullScreenImage = () => {
+    const {messages, fullScreenImageId} = this.state;
+    if (!fullScreenImageId) return null;
+
+    const message = messages.find(message => message.id === fullScreenImageId);
+    if (!message) return null;
+
+    const {image} = message;
+    
+    return (
+      <TouchableHighlight style = {styles.fullScreenOverlay} onPress = {this.dismissFullScreenImage}>
+        <Image style={styles.fullScreenImage} source={{uri:image}}/>
+      </TouchableHighlight>
+    );
+
+  }
+
   handlePressMessage = ({id,type}) => {
     switch (type) {
       case 'text':
@@ -71,6 +104,9 @@ export default class App extends React.Component {
           ]
         )
         break;
+        case 'image':
+        this.setState({fullScreenImageId:id})
+        break;
     }
   }
 }
@@ -92,4 +128,13 @@ const styles = StyleSheet.create({
     borderTopColor:'rgba(0,0,0,0.04)',
     backgroundColor:'white',
   },
+  fullScreenOverlay: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor:'black',
+    zIndex:2,
+  },
+  fullScreenImage: {
+    flex:1,
+    resizeMode: 'contain',
+  }
 });
