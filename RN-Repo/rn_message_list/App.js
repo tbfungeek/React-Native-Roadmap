@@ -182,6 +182,7 @@ const styles = StyleSheet.create({
   },
   inputMethodEditor: {
     flex:1,
+    backgroundColor:'white'
   },
   toolbar: {
     borderTopWidth:1,
