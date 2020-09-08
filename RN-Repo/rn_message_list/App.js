@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import Status from './components/Status';
 import Toolbar from './components/Toolbar';
+import ImageGrid from './components/ImageGrid'
 //https://github.com/react-native-community/react-native-netinfo
 import MessageList from './components/MessageList';
 import {createImageMessage,createTextMessage,createLocationMessage} from './utils/MessageUtils'
@@ -74,7 +75,7 @@ export default class App extends React.Component {
   renderInputMethodEditor() {
     return (
       <View style = {styles.inputMethodEditor}>
-
+        <ImageGrid/>
       </View>
     );
   }
