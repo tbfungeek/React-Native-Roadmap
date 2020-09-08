@@ -92,7 +92,8 @@ export default class App extends React.Component {
   }
 
   handleSubmit = (text) => {
-
+    const {messages} = this.state;
+    this.setState({messages:[createTextMessage(text),...messages]});
   }
 
   handleCamera = () => {
@@ -100,6 +101,13 @@ export default class App extends React.Component {
   }
 
   handleLocation = () => {
+    const {messages} = this.state;
+    navigator.geolocation.getCurrentPosition((position) => {
+      const { coords: {latitude,longitude}} = position;
+      this.setState({ messages:
+        [createLocationMessage({latitude,longitude}),...messages]
+      })
+    })
 
   }
 
@@ -148,7 +156,7 @@ export default class App extends React.Component {
         )
         break;
         case 'image':
-        this.setState({fullScreenImageId:id})
+        this.setState({fullScreenImageId:id,inputFocus:false})
         break;
     }
   }
