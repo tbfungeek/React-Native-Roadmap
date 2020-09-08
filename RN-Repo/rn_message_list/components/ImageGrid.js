@@ -1,8 +1,9 @@
 import React from 'react';
 import {
-    StyleSheet,
+    TouchableOpacity,
     Image,
     Alert,
+    StyleSheet
 } from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
 import * as Permissions from 'expo-permissions';
@@ -74,8 +75,18 @@ export default class ImageGrid extends React.Component {
             marginTop,
         };
 
+        const { onPressImage } = this.props;
+
         return (
-            <Image source={{uri}} style = {style}/>
+
+            <TouchableOpacity
+                key = {uri}
+                activeOpacity = {0.75}
+                onPress = {()=>onPressImage(uri)}
+                style={style}
+            >
+                <Image source={{uri}} style = {styles.image}/>
+            </TouchableOpacity>
         );
     }
 
@@ -90,4 +101,10 @@ export default class ImageGrid extends React.Component {
         )
     }
 }
+
+const styles = StyleSheet.create({
+    image:{
+        flex:1
+    }
+})
 
