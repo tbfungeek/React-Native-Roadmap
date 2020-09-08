@@ -1103,6 +1103,11 @@
     "@types/yargs" "^15.0.0"
     chalk "^3.0.0"
 
+"@react-native-community/cameraroll@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.npm.taobao.org/@react-native-community/cameraroll/download/@react-native-community/cameraroll-4.0.0.tgz#97a4be5d01bc05c387c26599ffa559e1b425e415"
+  integrity sha1-l6S+XQG8BcOHwmWZ/6VZ4bQl5BU=
+
 "@react-native-community/cli-debugger-ui@^4.9.0":
   version "4.9.0"
   resolved "https://registry.npm.taobao.org/@react-native-community/cli-debugger-ui/download/@react-native-community/cli-debugger-ui-4.9.0.tgz#4177764ba69243c97aa26829d59d9501acb2bd71"
@@ -2392,7 +2397,7 @@ expo-asset@~8.1.7:
     path-browserify "^1.0.0"
     url-parse "^1.4.4"
 
-expo-constants@^9.1.1, expo-constants@~9.1.1:
+expo-constants@~9.1.1:
   version "9.1.1"
   resolved "https://registry.npm.taobao.org/expo-constants/download/expo-constants-9.1.1.tgz#bca141ee3d4550e308798128f66c6d9c6a206ca1"
   integrity sha1-vKFB7j1FUOMIeYEo9mxtnGogbKE=
@@ -2449,6 +2454,11 @@ expo-location@~8.2.1:
   integrity sha1-Xqa/09IRk5EXQW2hUfE4TKoV4Ns=
   dependencies:
     invariant "^2.2.4"
+
+expo-media-library@~8.2.1:
+  version "8.2.1"
+  resolved "https://registry.npm.taobao.org/expo-media-library/download/expo-media-library-8.2.1.tgz#2296298dfcf2b19b56c201cb62b2b67c197bede0"
+  integrity sha1-IpYpjfzysZtWwgHLYrK2fBl77eA=
 
 expo-permissions@~9.0.1:
   version "9.0.1"

@@ -11,7 +11,7 @@ import PropTypes from 'prop-types';
 export default class Grid extends React.Component {
 
     static propTypes = {
-        renderItem :PropTypes.func.isRequired,
+        renderItemOfGrid :PropTypes.func.isRequired,
         numColumns: PropTypes.number,
         itemMargin: PropTypes.number,
     };
@@ -22,7 +22,6 @@ export default class Grid extends React.Component {
     };
 
     renderGridItem = (info) => {
-
         const {index} = info;
         const {width} = Dimensions.get('window');
         const {numColumns, itemMargin, renderItemOfGrid} = this.props;
