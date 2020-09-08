@@ -6,6 +6,7 @@ import {
   Alert,
   Image,
   TouchableHighlight,
+  BackHandler,
 } from 'react-native';
 import Status from './components/Status'
 //https://github.com/react-native-community/react-native-netinfo
@@ -30,8 +31,24 @@ export default class App extends React.Component {
     this.setState({fullScreenImageId:null});
   };
 
-  
+  componentWillMount() {
+    this.subscription = BackHandler.addEventListener('hardwareBackPress', () => {
 
+      const {fullScreenImageId} = this.state;
+
+      if (fullScreenImageId) {
+        this.dismissFullScreenImage();
+        return true;
+      }
+
+      return false;
+    });
+  }
+
+  componentWillUnmount() {
+    this.subscription.remove();
+  }
+  
   render() {
     return (
       <View style={styles.container}>
@@ -73,7 +90,7 @@ export default class App extends React.Component {
     if (!message) return null;
 
     const {image} = message;
-    
+
     return (
       <TouchableHighlight style = {styles.fullScreenOverlay} onPress = {this.dismissFullScreenImage}>
         <Image style={styles.fullScreenImage} source={{uri:image}}/>
