@@ -13,6 +13,9 @@ const keyExtractor = ({uri}) => uri;
 
 export default class ImageGrid extends React.Component {
 
+    loading = false;
+    cursor = null;
+
     static propTypes = {
         onPressImage: PropTypes.func, 
     };
@@ -29,10 +32,9 @@ export default class ImageGrid extends React.Component {
         this.getImages();
     }
 
-    getImages = async () => {
+    getImages = async (after) => {
 
         const status = await MediaLibrary.getPermissionsAsync();
-        //console.log("getPermissionsAsync", status);
         if(!status.granted){
             const request = await MediaLibrary.requestPermissionsAsync();
             if(!request.granted){
@@ -41,10 +43,26 @@ export default class ImageGrid extends React.Component {
             }
         } 
 
-      const album = await MediaLibrary.getAlbumAsync('Camera')
-      const photos = await MediaLibrary.getAssetsAsync({ album: album })
-      const {assets} = photos;
-      this.setState({images:assets});       
+        if (this.loading) return;
+        
+        this.loading = true;
+
+        const album = await MediaLibrary.getAlbumAsync('Camera')
+        const photos = await MediaLibrary.getAssetsAsync(
+        {   album: album ,
+            first:20,
+            after,
+        });
+        const {assets,totalCount,hasNextPage,endCursor} = photos;
+        this.setState({images:this.state.images.concat(assets)},() => {
+            this.loading = false;
+            this.cursor = hasNextPage ? endCursor: null;
+        });    
+    }
+
+    getNextImages = () => {
+        if (!this.cursor) return;
+        this.getImages(this.cursor);
     }
 
     renderGridItem = ({item:{uri},size,marginTop,marginLeft}) => {
@@ -55,7 +73,7 @@ export default class ImageGrid extends React.Component {
             marginLeft,
             marginTop,
         };
-        
+
         return (
             <Image source={{uri}} style = {style}/>
         );
@@ -65,6 +83,7 @@ export default class ImageGrid extends React.Component {
         const {images} = this.state;
         return (
             <Grid
+                onEndReached = {this.getNextImages}
                 data = {images}
                 renderItemOfGrid = {this.renderGridItem}
                 keyExtractor = {keyExtractor}/>
