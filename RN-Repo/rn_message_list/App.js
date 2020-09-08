@@ -8,9 +8,10 @@ import {
   TouchableHighlight,
   BackHandler,
 } from 'react-native';
-import Status from './components/Status'
+import Status from './components/Status';
+import Toolbar from './components/Toolbar';
 //https://github.com/react-native-community/react-native-netinfo
-import MessageList from './components/MessageList'
+import MessageList from './components/MessageList';
 import {createImageMessage,createTextMessage,createLocationMessage} from './utils/MessageUtils'
 
 export default class App extends React.Component {
@@ -24,6 +25,8 @@ export default class App extends React.Component {
     ], 
 
     fullScreenImageId: null,
+
+    inputFocus:false,
 
   };
 
@@ -77,9 +80,32 @@ export default class App extends React.Component {
   }
 
   renderToolbar() {
+    const {inputFocus} = this.state;
     return (
-      <View style = {styles.toolbar}></View>
+      <Toolbar style = {styles.toolbar} 
+              onSubmit = {this.handleSubmit}
+              isFocused = {inputFocus}
+              onPressCamera = {this.handleCamera}
+              onPressLocation = {this.handleLocation}
+              onChangeFocus = {this.handleFocusChange}/>
     )
+  }
+
+  handleSubmit = (text) => {
+
+  }
+
+  handleCamera = () => {
+
+  }
+
+  handleLocation = () => {
+
+  }
+
+  handleFocusChange = (focus) => {
+    console.log(focus);
+    self.setState({inputFocus:focus});
   }
 
   renderFullScreenImage = () => {
