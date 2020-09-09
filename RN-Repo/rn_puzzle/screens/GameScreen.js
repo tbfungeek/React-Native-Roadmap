@@ -12,7 +12,8 @@ import configureTransition from '../utils/configureTransition'
 import PuzzlePropType from '../validators/PuzzlePropType'
 import Preview from '../components/Preview';
 import Stats from '../components/Stats';
-
+import Button from '../components/Button';
+import Board from '../components/Board'
 
 const State = {
     LoadingImage:'LoadingImage',
@@ -38,6 +39,20 @@ export default class GameScreen extends React.Component {
         configureTransition();
     }
 
+    shouldComponentUpdate(nextProps,nextState) {
+
+        const { image } = nextProps;
+        const { transitionState } = this.state;
+
+        if (image && transitionState === State.LoadingImage) {
+            configureTransition(() => {
+                this.setState({ transitionState: State.WillTransitionIn });
+            });
+        }
+
+        return true;
+    } 
+
     static propTypes= {
         puzzle : PuzzlePropType.isRequired,
         image:   Image.propTypes.isRequired,
@@ -57,26 +72,67 @@ export default class GameScreen extends React.Component {
         return (
             <View style = {styles.container}>
             {transitionState === State.LoadingImage && (
-                <ActActivityIndicator size={'large'} color={'rgba(255,255,255,0.5)'}/>
-
+                <ActivityIndicator size={'large'} color={'rgba(255,255,255,0.5)'}/>
             )}
 
             {transitionState !== State.LoadingImage && (
-                <View style={styles.centerd}>
+                <View style={styles.centered}>
                     <View style={styles.header}>
-                        <Preview image = {image} boardSize={size}/>
-                        <Stats moves={moves} time={elapsed}/>
+                        <Preview image={image} boardSize={size} />
+                        <Stats moves={move} time={elapsed}/>
                     </View>
+                    <Board
+                        puzzle={puzzle}
+                        image={image}
+                        previousMove={previousMove}
+                        teardown={transitionState === State.RequestTransitionOut}
+                        onMoveSquare={this.handlePressSquare}
+                        onTransitionOut={this.handleBoardTransitionOut}
+                        onTransitionIn={this.handleBoardTransitionIn}
+                    />
+                    <Button title={'Quit'} onPress={this.handlePressQuit} />
                 </View>
             )}
             </View>
         )
     }
+
+    handlePressSquare = () => {
+
+    }
+
+    handleBoardTransitionOut = () => {
+
+    }
+
+    handleBoardTransitionIn = () => {
+
+    }
+
+    handlePressQuit = () => {
+        
+    }
 }
 
 const styles = StyleSheet.create({
     container: {
-        backgroundColor: 'white',
-        flex:1
+        flex:1,
+        justifyContent: 'center'
+    },
+
+    centered: {
+        flex:1,
+        justifyContent:"space-around",
+        alignItems: 'center',
+        marginBottom:10,
+    },
+
+    header: {
+        flexDirection: 'row',
+        justifyContent: 'space-between',
+        alignItems: 'center',
+        paddingLeft: 10,
+        paddingRight: 16,
+        alignSelf: 'stretch',
     }
 })

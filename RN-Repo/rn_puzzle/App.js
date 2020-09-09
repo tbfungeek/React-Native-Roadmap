@@ -2,8 +2,6 @@ import {LinearGradient} from 'expo-linear-gradient';
 import React from 'react';
 import { 
   StyleSheet, 
-  Text, 
-  View , 
   Image,
   StatusBar, 
   SafeAreaView , 
@@ -13,9 +11,10 @@ import {
 import StartScreen from './screens/StartScreen'
 import GameScreen from './screens/GameScreen'
 import {getRandomImage} from './utils/api'
+import {createPuzzle} from './utils/puzzle'
 
 if (Platform.OS == 'android' && UIManager.setLayoutAnimationEnabledExperimental) {
-  UIManager.setLayoutAnimationEnabledExperimental(true);
+    UIManager.setLayoutAnimationEnabledExperimental(true);
 }
 
 const BACKGROUND_COLORS = ['#1B1D34', '#2A2A38'];
@@ -33,8 +32,7 @@ export default class App extends React.Component {
 
   async preloadNextImage() {
     const image = await getRandomImage()
-    console.log(image.uri)
-    Image.prefetch(image.uri);
+    Image.prefetch(image.uri)
     this.setState({image})
   }
 
@@ -65,7 +63,8 @@ export default class App extends React.Component {
   }
 
   handleStartGame = () => {
-
+    const { size } = this.state;
+    this.setState({ puzzle: createPuzzle(size) });
   }
 
   handleChangeSize = () => {

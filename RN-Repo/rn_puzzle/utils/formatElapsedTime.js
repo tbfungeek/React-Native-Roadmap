@@ -33,4 +33,3 @@ const formatNumber = (number, pad = false) => {
   
     return parts.filter(x => x !== false).join(':');
   }
-  © 

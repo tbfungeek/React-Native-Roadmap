@@ -32,7 +32,7 @@ function getRedirectURL(url) {
  */
 export async function getRandomImage() {
   const uri = await invoke({ retry: 3, timeout: 5000 }, () =>
-    getRedirectURL('https://picsum.photos/600/600/?random'),
+    getRedirectURL('https://i.picsum.photos/id/132/600/600.jpg?hmac=DgaI7zrBJYFQGn6DCjWcYbShXAlpNsIv-0BKhiXufzM'),
   );
 
   return { uri, width: 600, height: 600 };
