@@ -6,7 +6,6 @@ import {
     StyleSheet
 } from 'react-native';
 import * as MediaLibrary from 'expo-media-library';
-import * as Permissions from 'expo-permissions';
 import PropTypes from 'prop-types';
 import Grid from './Grid';
 

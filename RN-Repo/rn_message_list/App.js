@@ -1,7 +1,6 @@
 import React from 'react';
 import { 
   StyleSheet, 
-  Text, 
   View, 
   Alert,
   Image,
@@ -14,6 +13,9 @@ import ImageGrid from './components/ImageGrid'
 //https://github.com/react-native-community/react-native-netinfo
 import MessageList from './components/MessageList';
 import {createImageMessage,createTextMessage,createLocationMessage} from './utils/MessageUtils'
+import KeyboardState from './components/KeyboardState';
+import MeasureLayout from './components/MeasureLayout';
+import MessagingContainer ,{INPUT_METHOD} from './components/MessagingContainer';
 
 export default class App extends React.Component {
 
@@ -29,6 +31,7 @@ export default class App extends React.Component {
 
     inputFocus:false,
 
+    inputMethod: INPUT_METHOD.NONE,
   };
 
   dismissFullScreenImage = () => {
@@ -55,12 +58,34 @@ export default class App extends React.Component {
   }
   
   render() {
+
+    const {inputMethod} = this.state;
+
     return (
       <View style={styles.container}>
         <Status/>
-        {this.renderMessageList()}
-        {this.renderToolbar()}
-        {this.renderInputMethodEditor()}
+        <MeasureLayout>
+          {
+            layout => (
+              <KeyboardState layout={layout}>
+                {
+                  keyboardInfo => (
+
+                    <MessagingContainer
+                      {...keyboardInfo}
+                      inputMethod={inputMethod}
+                      onChangeInputMethod={this.handleChangeInputMethod}
+                      renderInputMethodEditor={this.renderInputMethodEditor}
+                    >
+                    {this.renderMessageList()}
+                    {this.renderToolbar()}
+                    </MessagingContainer>
+                  )
+                }
+              </KeyboardState>
+            )
+          }
+        </MeasureLayout>
         {this.renderFullScreenImage()}
       </View>
     )
@@ -88,6 +113,11 @@ export default class App extends React.Component {
     );
   }
 
+  handleChangeInputMethod = (inputMethod) => { 
+    console.log("handleChangeInputMethod ===> ",inputMethod)
+    this.setState({ inputMethod });
+  };
+
   renderToolbar() {
     const {inputFocus} = this.state;
     return (
@@ -106,7 +136,10 @@ export default class App extends React.Component {
   }
 
   handleCamera = () => {
-
+    this.setState({
+      inputFocus:false,
+      inputMethod: INPUT_METHOD.CUSTOM,
+    })
   }
 
   handleLocation = () => {
