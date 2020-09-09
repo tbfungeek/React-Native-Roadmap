@@ -26,7 +26,7 @@ const State = {
     DidTransitionOut:'DidTransitionOut',
 };
 
-export default class Board extends React.Component {
+export default class Board extends React.PureComponent {
 
     static propTypes = {
         puzzle: PuzzlePropType.isRequired,

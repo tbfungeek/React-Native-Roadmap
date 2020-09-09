@@ -128,7 +128,7 @@ export default class GameScreen extends React.Component {
         const { onQuit } = this.props;
 
         await configureTransition(() => {
-        this.setState({ transitionState: State.WillTransitionOut });
+            this.setState({ transitionState: State.WillTransitionOut });
         });
 
         onQuit();
