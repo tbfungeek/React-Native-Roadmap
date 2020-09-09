@@ -81,9 +81,8 @@ export default class ImageGrid extends React.Component {
             <TouchableOpacity
                 key = {uri}
                 activeOpacity = {0.75}
-                onPress = {()=>onPressImage(uri)}
-                style={style}
-            >
+                onPress = {()=> onPressImage(uri)}
+                style={style}>
                 <Image source={{uri}} style = {styles.image}/>
             </TouchableOpacity>
         );

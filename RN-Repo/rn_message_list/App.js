@@ -20,12 +20,7 @@ import MessagingContainer ,{INPUT_METHOD} from './components/MessagingContainer'
 export default class App extends React.Component {
 
   state = {
-    messages: [
-      createImageMessage('https://unsplash.it/300/300/'), 
-      createTextMessage('World'), 
-      createTextMessage('Hello'), 
-      createLocationMessage({ latitude: 37.78825 , longitude: -122.4324, }),
-    ], 
+    messages: [], 
 
     fullScreenImageId: null,
 
@@ -69,9 +64,10 @@ export default class App extends React.Component {
             layout => (
               <KeyboardState layout={layout}>
                 {
-                  keyboardInfo => (
-
-                    <MessagingContainer
+                  
+                  keyboardInfo => {
+                    return (
+                      <MessagingContainer
                       {...keyboardInfo}
                       inputMethod={inputMethod}
                       onChangeInputMethod={this.handleChangeInputMethod}
@@ -80,7 +76,8 @@ export default class App extends React.Component {
                     {this.renderMessageList()}
                     {this.renderToolbar()}
                     </MessagingContainer>
-                  )
+                    )
+                  }
                 }
               </KeyboardState>
             )
@@ -91,7 +88,7 @@ export default class App extends React.Component {
     )
   }
 
-  renderMessageList() {
+  renderMessageList = () => {
     const { messages } = this.state;
     return (
       <MessageList style={styles.content} messages = {messages} onPressMessage = {this.handlePressMessage}/>
@@ -105,7 +102,7 @@ export default class App extends React.Component {
     });
   }
 
-  renderInputMethodEditor() {
+  renderInputMethodEditor = () =>{
     return (
       <View style = {styles.inputMethodEditor}>
         <ImageGrid onPressImage = {this.handlePressImage}/>
@@ -114,11 +111,10 @@ export default class App extends React.Component {
   }
 
   handleChangeInputMethod = (inputMethod) => { 
-    console.log("handleChangeInputMethod ===> ",inputMethod)
     this.setState({ inputMethod });
   };
 
-  renderToolbar() {
+  renderToolbar = () => {
     const {inputFocus} = this.state;
     return (
       <Toolbar style = {styles.toolbar} 
@@ -154,8 +150,7 @@ export default class App extends React.Component {
   }
 
   handleFocusChange = (focus) => {
-    console.log(focus);
-    self.setState({inputFocus:focus});
+    this.setState({inputFocus:focus});
   }
 
   renderFullScreenImage = () => {

@@ -1,6 +1,5 @@
 import React from 'react';
 import {
-    StyleSheet, 
     Keyboard,
     Platform,
 } from 'react-native';
@@ -47,14 +46,12 @@ export default class KeyboardState extends React.Component {
 
     keyboardWillShow = (event) => {
         this.setState({keyboardWillShow: true});
-        this.measure(event);
-        console.log("keyboardWillShow");
+        this.measure(event);  
     };
 
     keyboardWillHide = (event) => {
         this.setState({keyboardWillHide:true});
         this.measure(event);
-        console.log("keyboardWillHide");
     };
 
     keyboardDidShow = (event) => {
@@ -63,7 +60,6 @@ export default class KeyboardState extends React.Component {
                         keyboardVisible:true
         });
         this.measure(event);
-        console.log("keyboardDidShow");
     };
 
     keyboardDidHide = (event) => {
@@ -71,11 +67,10 @@ export default class KeyboardState extends React.Component {
             keyboardWillHide:false,
             keyboardVisible: false,
         })
-        console.log("keyboardDidShow");
+        this.measure(event);
     };
 
     measure = (event) => {
-        console.log("event==>",event);
         const {layout} = this.props;
         const {endCoordinates:{height,screenY},duration=INITIAL_ANIMATION_DURATION} = event;
         this.setState({
@@ -83,7 +78,6 @@ export default class KeyboardState extends React.Component {
             keyboardHeight:height,
             keyboardAnimationDuration:duration,
         })
-        console.log("state==>",this.state);
     };
 
 
@@ -98,8 +92,6 @@ export default class KeyboardState extends React.Component {
         ).isRequired,
         children: PropTypes.func.isRequired,
     };
-
-
 
     render() {
 

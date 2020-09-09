@@ -6,7 +6,7 @@ export const MessageShape = PropTypes.shape({
     text: PropTypes.string,
     image: PropTypes.string,
     coordinate: PropTypes.shape({
-        latitude: PropTypes.number.isRequired,
+        latitude: PropTypes.number,
         longitude: PropTypes.number,
     }),
 });

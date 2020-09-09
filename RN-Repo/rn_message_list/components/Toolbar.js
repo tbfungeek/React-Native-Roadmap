@@ -35,27 +35,36 @@ export default class Toolbar extends React.Component {
     }
 
     handleFocus = () => {
-        console.log("handleFocus");
         const {onChangeFocus} = this.props;
         if (!onChangeFocus) return;
         onChangeFocus(true);
     }
 
     handleBlur = () => {
-        console.log("handleBlur");
         const {onChangeFocus} = this.props;
         if (!onChangeFocus) return;
         onChangeFocus(false);
     }
 
-    componentWillReceiveProps(nextProps) {
+    //getDerivedStateFromProps is a static method which is invoked after a component is instantiated 
+    //as well as when it receives new props. 
+    //Since it is a static method, you cannot access this inside this method neither you can access any other class method
+    //Unlike componentWillReceiveProps you cannot set state inside this method, so the only way to update state is returning an object. 
+    //If you don’t want to update any state, simply return null.
+    /*static getDerivedStateFromProps(nextProps, prevState) {
+        if (nextProps.isFocused !== prevState.isFocused) { 
+        }
+    }*/
+
+    shouldComponentUpdate(nextProps, nextState) {
         if (nextProps.isFocused !== this.props.isFocused) {
             if (nextProps.isFocused) {
-                self.input.focus();
+                this.input.focus();
             } else {
-                self.input.blur();
+                this.input.blur();
             }
         }
+        return true;
     }
 
     handleChangeText = (text) => {
@@ -89,9 +98,9 @@ export default class Toolbar extends React.Component {
                         value = {text}
                         onChangeText = {this.handleChangeText}
                         onSubmitEditing = {this.handleSubmitEditing}
-                        ref = {self.setInputRef}
-                        onBlur = {self.handleBlur}
-                        onFocus = {self.handleFocus}
+                        ref = {this.setInputRef}
+                        onBlur = {this.handleBlur}
+                        onFocus = {this.handleFocus}
                     />
 
                 </View>

@@ -50,20 +50,16 @@ export default class MessagingContainer extends React.Component {
             contentHeight,
             keyboardWillShow,
             keyboardWillHide,
+            keyboardHeight,
         } = this.props;
 
         const useContentHeight = keyboardWillShow || inputMethod === INPUT_METHOD.KEYBOARD;
-
         const containerStyle = {
             height:useContentHeight ? contentHeight : containerHeight,
         }
-
         const showCustomInput = inputMethod === INPUT_METHOD.CUSTOM && !keyboardWillShow;
-
         const keyboardIsHidden = inputMethod == INPUT_METHOD.NONE && !keyboardWillShow;
-
         const keyboardIsHiding = inputMethod == INPUT_METHOD.KEYBOARD && keyboardWillHide;
-
         const inputStyle = {
             height:showCustomInput ? keyboardHeight || 250:0,
             marginTop: isIphoneX() && (keyboardIsHidden || keyboardIsHiding) ? 24 : 0,
@@ -77,17 +73,15 @@ export default class MessagingContainer extends React.Component {
         )
     }
 
-    componentWillUpdate(prevProps, prevState, snapshot) {
-        console.log("componentWillUpdate  prevProps ===> ",prevProps);
+    shouldComponentUpdate(nextProps, nextState) {
 
         const {onChangeInputMethod} = this.props;
-        if (!prevProps.keyboardVisible && this.props.keyboardVisible) {
+        if (!this.props.keyboardVisible && nextProps.keyboardVisible) {
             onChangeInputMethod(INPUT_METHOD.KEYBOARD)
-
         } else if (
-            prevProps.keyboardVisible 
-            && !this.props.keyboardVisible 
-            && this.props.inputMethod !== INPUT_METHOD.CUSTOM
+            this.props.keyboardVisible 
+            && !nextProps.keyboardVisible 
+            && nextProps.inputMethod !== INPUT_METHOD.CUSTOM
         ) {
             onChangeInputMethod(INPUT_METHOD.NONE);
         }
@@ -100,13 +94,13 @@ export default class MessagingContainer extends React.Component {
             LayoutAnimation.Properties.opacity,
         );
         LayoutAnimation.configureNext(animation);
-
+        return true;
     }
 
     componentDidMount() {
         this.subscription = BackHandler.addEventListener('hardwareBackPress',() => {
             const {onChangeInputMethod,inputMethod} = this.props;
-            if (inputMethod == INPUT_METHOD.CUSTOM) {
+            if (inputMethod === INPUT_METHOD.CUSTOM) {
                 onChangeInputMethod(INPUT_METHOD.NONE);
                 return true;
             }
