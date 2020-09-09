@@ -61,12 +61,9 @@ export default class Button extends React.Component {
         }
     }
 
-    componentWillUpdate(nextProps, nextState) {
+    shouldComponentUpdate(nextProps, nextState) {
         this.updateValue(nextProps,nextState);
-    }
-
-    componentWillReceiveProps(nextProps, nextState) {
-        this.updateValue(nextProps,nextState);
+        return true;
     }
 
     handlePressIn = () => {

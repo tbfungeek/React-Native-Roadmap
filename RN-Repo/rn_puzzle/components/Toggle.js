@@ -33,7 +33,7 @@ export default class Toggle extends React.Component {
                             <View key={option} style={[styles.item, style]}>
                                 <Button
                                     title={option.toString()}
-                                    disabled={option != value}
+                                    disabled={option !== value}
                                     onPress={() => onChange(option)}
                                     color={'#69B8FF'}
                                     height={100}

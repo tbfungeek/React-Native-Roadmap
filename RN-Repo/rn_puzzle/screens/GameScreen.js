@@ -2,6 +2,7 @@ import React from 'react';
 import {
     View,
     Image,
+    Alert,
     StyleSheet,
     ActivityIndicator
 } from 'react-native';
@@ -14,6 +15,7 @@ import Preview from '../components/Preview';
 import Stats from '../components/Stats';
 import Button from '../components/Button';
 import Board from '../components/Board'
+import { move, movableSquares, isSolved } from '../utils/puzzle';
 
 const State = {
     LoadingImage:'LoadingImage',
@@ -97,20 +99,61 @@ export default class GameScreen extends React.Component {
         )
     }
 
-    handlePressSquare = () => {
+    handlePressSquare = (square) => {
 
+        const { puzzle, onChange } = this.props;
+        const { moves } = this.state;
+
+        //不可以移动
+        if (!movableSquares(puzzle).includes(square)) return;
+
+        const updated = move(puzzle, square);
+
+        this.setState({ moves: moves + 1, previousMove: square });
+
+        onChange(updated);
+
+        if (isSolved(updated)) {
+            this.requestTransitionOut();
+        }
     }
 
-    handleBoardTransitionOut = () => {
+    requestTransitionOut = () => {
+        clearInterval(this.intervalId);
+        this.setState({ transitionState: State.RequestTransitionOut });
+    };
 
+    handleBoardTransitionOut = async () => {
+
+        const { onQuit } = this.props;
+
+        await configureTransition(() => {
+        this.setState({ transitionState: State.WillTransitionOut });
+        });
+
+        onQuit();
     }
 
     handleBoardTransitionIn = () => {
-
+        this.intervalId = setInterval(() => {
+            const { elapsed } = this.state;
+            this.setState({ elapsed: elapsed + 1 });
+        }, 1000);
     }
 
     handlePressQuit = () => {
-        
+        Alert.alert(
+            'Quit',
+            'Do you want to quit and lose progress on this puzzle?',
+            [
+              { text: 'Cancel', style: 'cancel' },
+              {
+                text: 'Quit',
+                style: 'destructive',
+                onPress: this.requestTransitionOut,
+              },
+            ],
+          );
     }
 }
 

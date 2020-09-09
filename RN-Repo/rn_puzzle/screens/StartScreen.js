@@ -69,6 +69,8 @@ export default class StartScreen extends React.Component {
         const {size, onChangeSize} = this.props;
         const {transitionState} = this.state;
 
+        console.log(size)
+
         const toggleStyle = { opacity: this.toggleOpacity }; 
         const buttonStyle = { opacity: this.buttonOpacity };
 

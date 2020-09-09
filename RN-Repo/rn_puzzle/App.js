@@ -67,16 +67,17 @@ export default class App extends React.Component {
     this.setState({ puzzle: createPuzzle(size) });
   }
 
-  handleChangeSize = () => {
-    
-  }
+  handleChangeSize = size => {
+    this.setState({ size });
+  };
 
-  handleGameChange = () => {
-
-  }
+  handleGameChange = puzzle => {
+    this.setState({ puzzle });
+  };
 
   handleGameQuit = () => {
-
+    this.setState({ puzzle: null, image: null });
+    this.preloadNextImage();
   }
 }
 
