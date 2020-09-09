@@ -33,21 +33,18 @@ export default class App extends React.Component {
     this.setState({fullScreenImageId:null});
   };
 
-  componentWillMount() {
+  componentDidMount() {
 
     this.subscription = BackHandler.addEventListener('hardwareBackPress', () => {
-
       const {fullScreenImageId} = this.state;
-
       if (fullScreenImageId) {
         this.dismissFullScreenImage();
         return true;
       }
-
       return false;
     });
   }
-
+  
   componentWillUnmount() {
     this.subscription.remove();
   }
