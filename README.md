@@ -7,6 +7,8 @@
 1. [React Native Express](http://www.reactnativeexpress.com/)
 2. [Fullstack React Native: Create beautiful mobile apps with JavaScript and React Native](https://www.amazon.com/Fullstack-React-Native-beautiful-JavaScript/dp/1728995558)
 
+3. [GitHub React Native](https://github.com/search?q=react+native&type=Repositories)
+
 
 ### 开源库推荐
 
@@ -52,7 +54,13 @@
 
 * [react-native-awesome](https://github.com/crazycodeboy/react-native-awesome)
 
-* [react-native-awesome](https://github.com/crazycodeboy/react-native-awesome)
+* [awesome-react-native](https://github.com/jondot/awesome-react-native)
+
+* [react-native-guide](https://github.com/reactnativecn/react-native-guide)
+
+* [30-days-of-react-native](https://github.com/fangwei716/30-days-of-react-native)
+
+* [react-native-open-project](https://github.com/MarnoDev/react-native-open-project)
 
 * [react-native-animatable](https://github.com/oblador/react-native-animatable)
 
