@@ -6,12 +6,12 @@ import {
   CardStyleInterpolators,
 } from '@react-navigation/stack';
 import React from 'react';
-import Home from '@/screens/pages/Home';
+import TabNavigator from './TabNavigator';
 import Detail from '@/screens/pages/Detail';
 import {Platform, StyleSheet} from 'react-native';
 
 type RootStackParamList = {
-  Home: undefined;
+  TabNavigator: undefined;
   Detail: {
     id: number;
   };
@@ -19,7 +19,7 @@ type RootStackParamList = {
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
 export type DetailRouteProp = RouteProp<RootStackParamList, 'Detail'>;
-export type HomeRouteProp = RouteProp<RootStackParamList, 'Home'>;
+export type HomeRouteProp = RouteProp<RootStackParamList, 'TabNavigator'>;
 
 const Stack = createStackNavigator<RootStackParamList>();
 
@@ -43,16 +43,8 @@ export default class Navigator extends React.Component {
               }),
             },
           }}>
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{headerTitle: '首页'}}
-          />
-          <Stack.Screen
-            name="Detail"
-            component={Detail}
-            options={{headerTitle: '详情页'}}
-          />
+          <Stack.Screen name="TabNavigator" component={TabNavigator} />
+          <Stack.Screen name="Detail" component={Detail} />
         </Stack.Navigator>
       </NavigationContainer>
     );

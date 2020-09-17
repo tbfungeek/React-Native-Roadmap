@@ -1,6 +1,6 @@
 import React from 'react';
 import {View, Text} from 'react-native';
-import {DetailRouteProp} from '@/navigators/index';
+import {DetailRouteProp} from '@/navigators/StackNavigator';
 
 interface IProps {
   route: DetailRouteProp;

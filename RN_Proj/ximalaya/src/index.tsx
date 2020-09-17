@@ -1,3 +1,3 @@
-import Navigator from '@/navigators/index';
+import Navigator from '@/navigators/StackNavigator';
 
 export default Navigator;
