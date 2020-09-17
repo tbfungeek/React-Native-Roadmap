@@ -1,4 +1,8 @@
-import {NavigationContainer, RouteProp} from '@react-navigation/native';
+import {
+  NavigationContainer,
+  RouteProp,
+  TabNavigationState,
+} from '@react-navigation/native';
 import {
   createStackNavigator,
   StackNavigationProp,
@@ -11,7 +15,9 @@ import Detail from '@/screens/pages/Detail';
 import {Platform, StyleSheet} from 'react-native';
 
 type RootStackParamList = {
-  TabNavigator: undefined;
+  TabNavigator: {
+    screen: string;
+  };
   Detail: {
     id: number;
   };
@@ -19,11 +25,13 @@ type RootStackParamList = {
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
 export type DetailRouteProp = RouteProp<RootStackParamList, 'Detail'>;
-export type HomeRouteProp = RouteProp<RootStackParamList, 'TabNavigator'>;
+export type TabRouteProp = RouteProp<RootStackParamList, 'TabNavigator'> & {
+  state?: TabNavigationState;
+};
 
 const Stack = createStackNavigator<RootStackParamList>();
 
-export default class Navigator extends React.Component {
+export default class StackNavigator extends React.Component {
   render() {
     return (
       <NavigationContainer>
