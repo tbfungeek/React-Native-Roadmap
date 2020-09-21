@@ -1,5 +1,6 @@
 import {create} from 'dva-core-ts';
 import modules from '@/model/index';
+import createLoading from 'dva-loading-ts';
 
 //创建应用
 const app = create();
@@ -8,6 +9,8 @@ const app = create();
 modules.forEach((model) => {
   app.model(model);
 });
+
+app.use(createLoading());
 
 //启动dva
 app.start();
