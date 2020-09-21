@@ -17,7 +17,7 @@ interface IProps extends ModelState {
 }
 
 class Home extends React.Component<IProps> {
-  handlePress = () => {
+  syncAdd = () => {
     //const {navigation} = this.props;
     //navigation.navigate('Detail', {id: 100});
     const {dispatch} = this.props;
@@ -27,12 +27,21 @@ class Home extends React.Component<IProps> {
     });
   };
 
+  asyncAdd = () => {
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'home/asyncAdd',
+      payload: {num: 2},
+    });
+  }
+
   render() {
     const {num} = this.props;
     return (
       <View>
         <Text>Home{num}</Text>
-        <Button title="执行加10操作" onPress={this.handlePress} />
+        <Button title="执行同步加10操作" onPress={this.syncAdd} />
+        <Button title="执行异步加2操作" onPress={this.asyncAdd} />
       </View>
     );
   }

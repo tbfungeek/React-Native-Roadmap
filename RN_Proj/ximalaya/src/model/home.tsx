@@ -1,4 +1,4 @@
-import {Model} from 'dva-core-ts';
+import {Effect, Model} from 'dva-core-ts';
 import {Reducer} from 'redux';
 
 //继承dva-core-ts 中的 Model 实现HomeModel接口
@@ -7,6 +7,9 @@ interface HomeModel extends Model {
   state: HomeState;
   reducers: {
     add: Reducer<HomeState>;
+  };
+  effects: {
+    asyncAdd: Effect;
   };
 }
 
@@ -27,6 +30,21 @@ const homeModel: HomeModel = {
       };
     },
   },
+  effects: {
+    *asyncAdd({payload}, {call, put}) {
+      yield call(delay, 3000);
+      yield put({
+        type: 'add',
+        payload,
+      });
+    },
+  },
 };
+
+function delay(times: number) {
+  return new Promise((resolve) => {
+    setTimeout(resolve, times);
+  });
+}
 
 export default homeModel;
