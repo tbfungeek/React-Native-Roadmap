@@ -12,7 +12,7 @@ import {
 import React from 'react';
 import TabNavigator from './TabNavigator';
 import Detail from '@/screens/pages/Detail';
-import {Platform, StyleSheet} from 'react-native';
+import {Platform, StyleSheet, StatusBar} from 'react-native';
 
 type RootStackParamList = {
   TabNavigator: {
@@ -44,6 +44,7 @@ export default class StackNavigator extends React.Component {
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
             gestureEnabled: true,
             gestureDirection: 'horizontal',
+            headerStatusBarHeight: StatusBar.currentHeight,
             headerTitleStyle: {
               color: 'white',
               fontSize: 16,
