@@ -1,6 +1,9 @@
 import React from 'react';
-import {Image, StyleSheet} from 'react-native';
-import SnapCarousel from 'react-native-snap-carousel';
+import {StyleSheet} from 'react-native';
+import SnapCarousel, {
+  AdditionalParallaxProps,
+  ParallaxImage,
+} from 'react-native-snap-carousel';
 import {screenWidth, wp, hp} from '@/utils/DimensionsUtils';
 
 const data = [
@@ -21,8 +24,18 @@ const itemWidth = contentWidth + itemHorizontalMargin * 2; //每项宽度
 const carouselHeight = contentHeight + itemVerticalMargin * 2;
 
 export default class Carousel extends React.Component {
-  renderItem = ({item}: {item: string}) => {
-    return <Image source={{uri: item}} style={styles.image} />;
+  renderItem = (
+    {item}: {item: string},
+    parallaxProps?: AdditionalParallaxProps,
+  ) => {
+    return (
+      <ParallaxImage
+        source={{uri: item}}
+        style={styles.image}
+        containerStyle={styles.imageContainer}
+        {...parallaxProps}
+      />
+    );
   };
   /*https://github.com/archriss/react-native-snap-carousel/issues/61*/
   render() {
@@ -34,15 +47,20 @@ export default class Carousel extends React.Component {
         sliderHeight={carouselHeight}
         itemHeight={contentHeight}
         itemWidth={itemWidth}
+        hasParallaxImages
       />
     );
   }
 }
 
 const styles = StyleSheet.create({
-  image: {
+  imageContainer: {
     width: itemWidth,
     height: contentHeight,
+  },
+  image: {
+    ...StyleSheet.absoluteFillObject,
+    resizeMode: 'cover',
     borderRadius: 6,
   },
 });
