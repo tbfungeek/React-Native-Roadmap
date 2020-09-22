@@ -6,6 +6,8 @@ import Listen from '@/screens/pages/Listen';
 import Found from '@/screens/pages/Found';
 import Account from '@/screens/pages/Account';
 import {RootStackNavigation} from '@/navigators/StackNavigator';
+import Icon from '@/assets/iconfont';
+import {color} from 'react-native-reanimated';
 
 export type TabRootParamList = {
   Home: undefined;
@@ -34,22 +36,42 @@ export default class TabNavigator extends React.Component<IProps> {
         <Tab.Screen
           name="Home"
           component={Home}
-          options={{tabBarLabel: '首页'}}
+          options={{
+            tabBarLabel: '首页',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="iconshouye" color={color} size={size} />
+            ),
+          }}
         />
         <Tab.Screen
           name="Listen"
           component={Listen}
-          options={{tabBarLabel: '我听'}}
+          options={{
+            tabBarLabel: '我听',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="iconqingting" color={color} size={size} />
+            ),
+          }}
         />
         <Tab.Screen
           name="Found"
           component={Found}
-          options={{tabBarLabel: '发现'}}
+          options={{
+            tabBarLabel: '发现',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="iconyikeapp15" color={color} size={size} />
+            ),
+          }}
         />
         <Tab.Screen
           name="Account"
           component={Account}
-          options={{tabBarLabel: '我的'}}
+          options={{
+            tabBarLabel: '我的',
+            tabBarIcon: ({color, size}) => (
+              <Icon name="iconwode" color={color} size={size} />
+            ),
+          }}
         />
       </Tab.Navigator>
     );
