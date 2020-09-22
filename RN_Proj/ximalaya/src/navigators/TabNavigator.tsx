@@ -7,10 +7,10 @@ import Found from '@/screens/pages/Found';
 import Account from '@/screens/pages/Account';
 import {RootStackNavigation} from '@/navigators/StackNavigator';
 import Icon from '@/assets/iconfont';
-import {color} from 'react-native-reanimated';
+import HomeTopTabNavigator from '@/navigators/HomeTopTabs';
 
 export type TabRootParamList = {
-  Home: undefined;
+  HomeTopTabNavigator: undefined;
   Found: undefined;
   Listen: undefined;
   Account: undefined;
@@ -34,8 +34,8 @@ export default class TabNavigator extends React.Component<IProps> {
     return (
       <Tab.Navigator tabBarOptions={{activeTintColor: '#e94922'}}>
         <Tab.Screen
-          name="Home"
-          component={Home}
+          name="HomeTopTabNavigator"
+          component={HomeTopTabNavigator}
           options={{
             tabBarLabel: '首页',
             tabBarIcon: ({color, size}) => (
@@ -80,10 +80,10 @@ export default class TabNavigator extends React.Component<IProps> {
   getTabHeadTitle(route: TabRouteProp): string {
     const headTitle = route.state
       ? route.state.routes[route.state.index].name
-      : route.params.screen || 'Home';
+      : route.params.screen || 'HomeTopTab';
 
     switch (headTitle) {
-      case 'Home':
+      case 'HomeTopTab':
         return '首页';
       case 'Listen':
         return '我听';
