@@ -1,7 +1,8 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import SnapCarousel, {
   AdditionalParallaxProps,
+  Pagination,
   ParallaxImage,
 } from 'react-native-snap-carousel';
 import {screenWidth, wp, hp} from '@/utils/DimensionsUtils';
@@ -24,6 +25,9 @@ const itemWidth = contentWidth + itemHorizontalMargin * 2; //每项宽度
 const carouselHeight = contentHeight + itemVerticalMargin * 2;
 
 export default class Carousel extends React.Component {
+  state = {
+    activeDotIndex: 0,
+  };
   renderItem = (
     {item}: {item: string},
     parallaxProps?: AdditionalParallaxProps,
@@ -33,22 +37,57 @@ export default class Carousel extends React.Component {
         source={{uri: item}}
         style={styles.image}
         containerStyle={styles.imageContainer}
+        parallaxFactor={0.3}
+        showSpinner
+        spinnerColor={'#e94922'}
         {...parallaxProps}
       />
     );
   };
+
+  onSnapToItem = (index: number) => {
+    this.setState({
+      activeDotIndex: index,
+    });
+  };
   /*https://github.com/archriss/react-native-snap-carousel/issues/61*/
   render() {
     return (
-      <SnapCarousel
-        data={data}
-        renderItem={this.renderItem}
-        sliderWidth={carouselWidth}
-        sliderHeight={carouselHeight}
-        itemHeight={contentHeight}
-        itemWidth={itemWidth}
-        hasParallaxImages
-      />
+      <View>
+        <SnapCarousel
+          data={data}
+          renderItem={this.renderItem}
+          sliderWidth={carouselWidth}
+          sliderHeight={carouselHeight}
+          itemHeight={contentHeight}
+          itemWidth={itemWidth}
+          hasParallaxImages
+          autoplay
+          loop
+          onSnapToItem={this.onSnapToItem}
+        />
+        {this.pagination}
+      </View>
+    );
+  }
+
+  get pagination() {
+    const {activeDotIndex} = this.state;
+    return (
+      <View style={styles.paginationWrapper}>
+        <Pagination
+          dotStyle={styles.dot}
+          dotContainerStyle={styles.dotContainerStyle}
+          containerStyle={styles.paginationContainer}
+          dotsLength={data.length}
+          activeDotIndex={activeDotIndex}
+          inactiveDotScale={0.6}
+          inactiveDotOpacity={0.9}
+          inactiveDotColor={'rgba(255,255,255,0.9)'}
+          dotColor={'#e94922'}
+          tappableDots
+        />
+      </View>
     );
   }
 }
@@ -57,10 +96,32 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: itemWidth,
     height: contentHeight,
+    borderRadius: 6,
   },
   image: {
     ...StyleSheet.absoluteFillObject,
     resizeMode: 'cover',
-    borderRadius: 6,
+  },
+
+  paginationWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paginationContainer: {
+    top: -20,
+    paddingVertical: 4,
+    paddingHorizontal: 10,
+    borderRadius: 10,
+    backgroundColor: 'rgba(0,0,0,0.25)',
+  },
+
+  dot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+  },
+
+  dotContainerStyle: {
+    marginHorizontal: 6,
   },
 });

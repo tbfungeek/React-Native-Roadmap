@@ -25,13 +25,6 @@ export default class HomeTopTabNavigator extends React.Component {
           inactiveTintColor: '#333',
         }}>
         <TopTab.Screen name="Home" component={Home} />
-        <TopTab.Screen name="Home1" component={Home} />
-        <TopTab.Screen name="Home2" component={Home} />
-        <TopTab.Screen name="Home3" component={Home} />
-        <TopTab.Screen name="Home4" component={Home} />
-        <TopTab.Screen name="Home5" component={Home} />
-        <TopTab.Screen name="Home6" component={Home} />
-        <TopTab.Screen name="Home7" component={Home} />
       </TopTab.Navigator>
     );
   }
