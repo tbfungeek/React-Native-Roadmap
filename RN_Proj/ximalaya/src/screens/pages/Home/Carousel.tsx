@@ -85,7 +85,6 @@ export default class Carousel extends React.Component {
           inactiveDotOpacity={0.9}
           inactiveDotColor={'rgba(255,255,255,0.9)'}
           dotColor={'#e94922'}
-          tappableDots
         />
       </View>
     );
