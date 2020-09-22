@@ -11,7 +11,7 @@ class App extends React.Component {
       <Provider store={store}>
         <StatusBar
           backgroundColor={'transparent'}
-          barStyle={'dark-content'}
+          barStyle={'light-content'}
           translucent
         />
         <Navigator />

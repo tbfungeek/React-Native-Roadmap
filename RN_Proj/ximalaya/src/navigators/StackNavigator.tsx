@@ -38,12 +38,18 @@ export default class StackNavigator extends React.Component {
         <Stack.Navigator
           headerMode="float"
           screenOptions={{
+            headerTitle: '首页',
             headerTitleAlign: 'center',
             headerStyleInterpolator: HeaderStyleInterpolators.forUIKit,
             cardStyleInterpolator: CardStyleInterpolators.forHorizontalIOS,
             gestureEnabled: true,
             gestureDirection: 'horizontal',
+            headerTitleStyle: {
+              color: 'white',
+              fontSize: 16,
+            },
             headerStyle: {
+              backgroundColor: '#e94922',
               ...Platform.select({
                 android: {
                   borderBottomWidth: StyleSheet.hairlineWidth,

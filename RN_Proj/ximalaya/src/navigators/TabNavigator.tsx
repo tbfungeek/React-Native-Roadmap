@@ -1,7 +1,6 @@
 import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabRouteProp} from './StackNavigator';
-import Home from '@/screens/pages/Home';
 import Listen from '@/screens/pages/Listen';
 import Found from '@/screens/pages/Found';
 import Account from '@/screens/pages/Account';
@@ -15,7 +14,6 @@ export type TabRootParamList = {
   Listen: undefined;
   Account: undefined;
 };
-
 interface IProps {
   navigation: RootStackNavigation;
   route: TabRouteProp;
