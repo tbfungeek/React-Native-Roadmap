@@ -1,50 +1,59 @@
 import {Effect, Model} from 'dva-core-ts';
 import {Reducer} from 'redux';
+import axios from 'axios';
+
+const CarouselURL = '/mock/11/ximalaya/carousel';
 
 //继承dva-core-ts 中的 Model 实现HomeModel接口
 interface HomeModel extends Model {
   namespace: 'home';
   state: HomeState;
   reducers: {
-    add: Reducer<HomeState>;
+    setState: Reducer<HomeState>;
   };
   effects: {
-    asyncAdd: Effect;
+    fetchCarousel: Effect;
   };
 }
 
-interface HomeState {
-  num: number;
+export interface ICarousel {
+  id: string;
+  image: string;
+  colors: [string, string];
 }
+
+export interface HomeState {
+  carousel: ICarousel[];
+}
+
+const initialState = {
+  carousel: [],
+};
 
 const homeModel: HomeModel = {
   namespace: 'home',
-  state: {
-    num: 0,
-  },
+  state: initialState,
   reducers: {
-    add(state, {payload}) {
+    setState(state, {payload}) {
       return {
         ...state,
-        num: state?.num + payload.num,
+        ...payload,
       };
     },
   },
   effects: {
-    *asyncAdd({payload}, {call, put}) {
-      yield call(delay, 3000);
+    *fetchCarousel(_, {call, put}) {
+      console.log('[LXH][开始请求轮播图数据.....]');
+      const {data} = yield call(axios.get, CarouselURL);
+      console.log('[LXH][返回轮播数据.....]', data);
       yield put({
-        type: 'add',
-        payload,
+        type: 'setState',
+        payload: {
+          carousel: data,
+        },
       });
     },
   },
 };
-
-function delay(times: number) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, times);
-  });
-}
 
 export default homeModel;

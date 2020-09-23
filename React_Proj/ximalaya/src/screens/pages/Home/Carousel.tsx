@@ -6,15 +6,7 @@ import SnapCarousel, {
   ParallaxImage,
 } from 'react-native-snap-carousel';
 import {screenWidth, wp, hp} from '@/utils/DimensionsUtils';
-
-const data = [
-  'https://pic.17qq.com/uploads/dckphkhkdv.jpeg',
-  'http://img01.jituwang.com/170801/256839-1FP110361076.jpg',
-  'https://seopic.699pic.com/photo/40010/8301.jpg_wh1200.jpg',
-  'https://i2.kknews.cc/SIG=3gqa8i3/16p8000546pprqq924np.jpg',
-  'https://i2.kknews.cc/SIG=2rs408i/16q00005796oo7sr83sr.jpg',
-  'https://i2.kknews.cc/SIG=3g4ja50/16po00013sn34opqo0p1.jpg',
-];
+import {ICarousel} from '@/model/home';
 
 const contentWidth = wp(90); //内容宽度
 const itemHorizontalMargin = wp(2); //间距宽度
@@ -24,17 +16,20 @@ const carouselWidth = screenWidth; //轮播图宽度
 const itemWidth = contentWidth + itemHorizontalMargin * 2; //每项宽度
 const carouselHeight = contentHeight + itemVerticalMargin * 2;
 
-export default class Carousel extends React.Component {
+interface IProps {
+  data: ICarousel[];
+}
+export default class Carousel extends React.Component<IProps> {
   state = {
     activeDotIndex: 0,
   };
   renderItem = (
-    {item}: {item: string},
+    {item}: {item: ICarousel},
     parallaxProps?: AdditionalParallaxProps,
   ) => {
     return (
       <ParallaxImage
-        source={{uri: item}}
+        source={{uri: item.image}}
         style={styles.image}
         containerStyle={styles.imageContainer}
         parallaxFactor={0.3}
@@ -52,6 +47,7 @@ export default class Carousel extends React.Component {
   };
   /*https://github.com/archriss/react-native-snap-carousel/issues/61*/
   render() {
+    const {data} = this.props;
     return (
       <View>
         <SnapCarousel
@@ -73,6 +69,7 @@ export default class Carousel extends React.Component {
 
   get pagination() {
     const {activeDotIndex} = this.state;
+    const {data} = this.props;
     return (
       <View style={styles.paginationWrapper}>
         <Pagination

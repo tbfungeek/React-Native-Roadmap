@@ -1,6 +1,7 @@
 import {create} from 'dva-core-ts';
 import modules from '@/model/index';
 import createLoading from 'dva-loading-ts';
+import createLogger from 'dva-logger';
 
 //创建应用
 const app = create();
@@ -11,6 +12,7 @@ modules.forEach((model) => {
 });
 
 app.use(createLoading());
+app.use(createLogger());
 
 //启动dva
 app.start();
