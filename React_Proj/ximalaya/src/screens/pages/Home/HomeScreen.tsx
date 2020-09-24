@@ -3,7 +3,8 @@ import {View} from 'react-native';
 import {RootStackNavigation} from '@/navigators/StackNavigator';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
-import Carousel from '@/screens/pages/Home/Carousel';
+import Carousel from '@/components/Home/Carousel';
+import Guess from '@/components/Home/Guess';
 
 const mapStateToProps = ({home, loading}: RootState) => ({
   carousel: home.carousel,
@@ -18,7 +19,7 @@ interface IProps extends ModelState {
   navigation: RootStackNavigation;
 }
 
-class Home extends React.Component<IProps> {
+class HomeScreen extends React.Component<IProps> {
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch({
@@ -31,9 +32,10 @@ class Home extends React.Component<IProps> {
     return (
       <View>
         <Carousel data={carousel} />
+        <Guess />
       </View>
     );
   }
 }
 
-export default Connecter(Home);
+export default Connecter(HomeScreen);

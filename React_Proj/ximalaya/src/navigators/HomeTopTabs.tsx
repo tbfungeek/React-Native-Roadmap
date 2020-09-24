@@ -1,6 +1,6 @@
 import React from 'react';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
-import Home from '@/screens/pages/Home';
+import HomeScreen from '@/screens/pages/Home/HomeScreen';
 
 const TopTab = createMaterialTopTabNavigator();
 
@@ -24,7 +24,7 @@ export default class HomeTopTabNavigator extends React.Component {
           activeTintColor: '#e94922',
           inactiveTintColor: '#333',
         }}>
-        <TopTab.Screen name="Home" component={Home} />
+        <TopTab.Screen name="Home" component={HomeScreen} />
       </TopTab.Navigator>
     );
   }

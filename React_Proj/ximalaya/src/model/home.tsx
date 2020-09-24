@@ -3,6 +3,7 @@ import {Reducer} from 'redux';
 import axios from 'axios';
 
 const CarouselURL = '/mock/11/ximalaya/carousel';
+const GuessWhatYouLikeURL = '/mock/11/ximalaya/guess';
 
 //继承dva-core-ts 中的 Model 实现HomeModel接口
 interface HomeModel extends Model {
@@ -13,6 +14,7 @@ interface HomeModel extends Model {
   };
   effects: {
     fetchCarousel: Effect;
+    fetchGuess: Effect;
   };
 }
 
@@ -22,12 +24,20 @@ export interface ICarousel {
   colors: [string, string];
 }
 
+export interface IGuess {
+  id: string;
+  image: string;
+  title: string;
+}
+
 export interface HomeState {
   carousel: ICarousel[];
+  guess: IGuess[];
 }
 
 const initialState = {
   carousel: [],
+  guess: [],
 };
 
 const homeModel: HomeModel = {
@@ -50,6 +60,17 @@ const homeModel: HomeModel = {
         type: 'setState',
         payload: {
           carousel: data,
+        },
+      });
+    },
+    *fetchGuess(_, {call, put}) {
+      console.log('[LXH][开始请求猜你喜欢数据.....]');
+      const {data} = yield call(axios.get, GuessWhatYouLikeURL);
+      console.log('[LXH][返回猜你喜欢数据.....]', data);
+      yield put({
+        type: 'setState',
+        payload: {
+          guess: data,
         },
       });
     },
