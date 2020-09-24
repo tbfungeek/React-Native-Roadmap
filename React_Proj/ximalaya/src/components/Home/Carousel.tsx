@@ -7,6 +7,9 @@ import SnapCarousel, {
 } from 'react-native-snap-carousel';
 import {screenWidth, wp, hp} from '@/utils/DimensionsUtils';
 import {ICarousel} from '@/model/home';
+import {connect, ConnectedProps} from 'react-redux';
+import {RootState} from '@/model/index';
+import {type} from '../../assets/iconfont/index';
 
 const contentWidth = wp(90); //内容宽度
 const itemHorizontalMargin = wp(2); //间距宽度
@@ -19,10 +22,27 @@ const carouselHeight = contentHeight + itemVerticalMargin * 2;
 interface IProps {
   data: ICarousel[];
 }
-export default class Carousel extends React.Component<IProps> {
+
+const mapStateToProps = ({home}: RootState) => ({
+  carousel: home.carousel,
+});
+
+const Connector = connect(mapStateToProps);
+
+type ModelState = ConnectedProps<typeof Connector>;
+
+class Carousel extends React.Component<ModelState> {
   state = {
     activeDotIndex: 0,
   };
+
+  componentDidMount() {
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'home/fetchCarousel',
+    });
+  }
+
   renderItem = (
     {item}: {item: ICarousel},
     parallaxProps?: AdditionalParallaxProps,
@@ -47,11 +67,11 @@ export default class Carousel extends React.Component<IProps> {
   };
   /*https://github.com/archriss/react-native-snap-carousel/issues/61*/
   render() {
-    const {data} = this.props;
+    const {carousel} = this.props;
     return (
       <View>
         <SnapCarousel
-          data={data}
+          data={carousel}
           renderItem={this.renderItem}
           sliderWidth={carouselWidth}
           sliderHeight={carouselHeight}
@@ -69,14 +89,14 @@ export default class Carousel extends React.Component<IProps> {
 
   get pagination() {
     const {activeDotIndex} = this.state;
-    const {data} = this.props;
+    const {carousel} = this.props;
     return (
       <View style={styles.paginationWrapper}>
         <Pagination
           dotStyle={styles.dot}
           dotContainerStyle={styles.dotContainerStyle}
           containerStyle={styles.paginationContainer}
-          dotsLength={data.length}
+          dotsLength={carousel.length}
           activeDotIndex={activeDotIndex}
           inactiveDotScale={0.6}
           inactiveDotOpacity={0.9}
@@ -121,3 +141,5 @@ const styles = StyleSheet.create({
     marginHorizontal: 6,
   },
 });
+
+export default Connector(Carousel);
