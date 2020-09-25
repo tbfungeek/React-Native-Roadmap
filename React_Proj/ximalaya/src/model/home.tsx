@@ -4,6 +4,7 @@ import axios from 'axios';
 
 const CarouselURL = '/mock/11/ximalaya/carousel';
 const GuessWhatYouLikeURL = '/mock/11/ximalaya/guess';
+const ChannelListUrl = '/mock/11/ximalaya/channel';
 
 //继承dva-core-ts 中的 Model 实现HomeModel接口
 interface HomeModel extends Model {
@@ -15,6 +16,7 @@ interface HomeModel extends Model {
   effects: {
     fetchCarousel: Effect;
     fetchGuess: Effect;
+    fetchChannelList: Effect;
   };
 }
 
@@ -30,14 +32,25 @@ export interface IGuess {
   title: string;
 }
 
+export interface IChannel {
+  id: string;
+  image: string;
+  title: string;
+  played: number;
+  playing: number;
+  remark: string;
+}
+
 export interface HomeState {
   carousel: ICarousel[];
   guess: IGuess[];
+  channelList: IChannel[];
 }
 
 const initialState = {
   carousel: [],
   guess: [],
+  channelList: [],
 };
 
 const homeModel: HomeModel = {
@@ -71,6 +84,17 @@ const homeModel: HomeModel = {
         type: 'setState',
         payload: {
           guess: data,
+        },
+      });
+    },
+    *fetchChannelList(_, {call, put}) {
+      console.log('[LXH][开始请求频道列表数据......]');
+      const {data} = yield call(axios.get, ChannelListUrl);
+      console.log('[LXH][返回频道列表]', data);
+      yield put({
+        type: 'setState',
+        payload: {
+          channelList: data.results,
         },
       });
     },
