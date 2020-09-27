@@ -1,6 +1,7 @@
 import {Effect, Model} from 'dva-core-ts';
 import {Reducer} from 'redux';
 import axios from 'axios';
+import {RootState} from '@/model/index';
 
 const CarouselURL = '/mock/11/ximalaya/carousel';
 const GuessWhatYouLikeURL = '/mock/11/ximalaya/guess';
@@ -39,18 +40,31 @@ export interface IChannel {
   played: number;
   playing: number;
   remark: string;
+  pageInfo: IPageInfo;
+}
+
+interface IPageInfo {
+  page: number;
+  results: number;
+  hasMore: boolean;
 }
 
 export interface HomeState {
   carousel: ICarousel[];
   guess: IGuess[];
   channelList: IChannel[];
+  pageInfo: IPageInfo;
 }
 
 const initialState = {
   carousel: [],
   guess: [],
   channelList: [],
+  pageInfo: {
+    page: 1,
+    results: 150,
+    hasMore: false,
+  },
 };
 
 const homeModel: HomeModel = {
@@ -87,14 +101,39 @@ const homeModel: HomeModel = {
         },
       });
     },
-    *fetchChannelList({callback}, {call, put}) {
+    *fetchChannelList({callback, payload}, {call, put, select}) {
       console.log('[LXH][开始请求频道列表数据......]');
-      const {data} = yield call(axios.get, ChannelListUrl);
+
+      const {channelList, pageInfo} = yield select(
+        (state: RootState) => state.home,
+      );
+
+      let page = 1;
+      if (payload && payload.loadMore) {
+        page = pageInfo.page + 1;
+      }
+      const {data} = yield call(axios.get, ChannelListUrl, {
+        params: {
+          page,
+        },
+      });
+
+      let newList = data.results;
       console.log('[LXH][返回频道列表]', data);
+
+      if (payload && payload.loadMore) {
+        newList = channelList.concat(newList);
+      }
+
       yield put({
         type: 'setState',
         payload: {
-          channelList: data.results,
+          channelList: newList,
+          pageInfo: {
+            page: data.info.page,
+            results: data.info.results,
+            hasMore: channelList.length < data.info.results,
+          },
         },
       });
 

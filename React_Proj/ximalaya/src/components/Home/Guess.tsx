@@ -14,7 +14,7 @@ const Connecter = connect(mapStateToProps);
 
 type ModelState = ConnectedProps<typeof Connecter>;
 
-class Guess extends React.Component<ModelState> {
+class Guess extends React.PureComponent<ModelState> {
   renderItem = ({item}: {item: IGuess}) => {
     return (
       <Touchable

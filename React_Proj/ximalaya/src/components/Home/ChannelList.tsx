@@ -80,6 +80,8 @@ class ChannelList extends React.Component<IChannelListProps> {
         data={channelList}
         renderItem={this.renderItem}
         onRefresh={this.onRefresh}
+        onEndReached={this.onEndReached}
+        onEndReachedThreshold={0.2}
         refreshing={refreshing}
       />
     );
@@ -100,6 +102,16 @@ class ChannelList extends React.Component<IChannelListProps> {
         this.setState({
           refreshing: false,
         });
+      },
+    });
+  };
+
+  onEndReached = () => {
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'home/fetchChannelList',
+      payload: {
+        loadMore: true,
       },
     });
   };
