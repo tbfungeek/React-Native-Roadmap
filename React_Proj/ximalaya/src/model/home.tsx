@@ -87,7 +87,7 @@ const homeModel: HomeModel = {
         },
       });
     },
-    *fetchChannelList(_, {call, put}) {
+    *fetchChannelList({callback}, {call, put}) {
       console.log('[LXH][开始请求频道列表数据......]');
       const {data} = yield call(axios.get, ChannelListUrl);
       console.log('[LXH][返回频道列表]', data);
@@ -97,6 +97,10 @@ const homeModel: HomeModel = {
           channelList: data.results,
         },
       });
+
+      if (typeof callback === 'function') {
+        callback();
+      }
     },
   },
 };

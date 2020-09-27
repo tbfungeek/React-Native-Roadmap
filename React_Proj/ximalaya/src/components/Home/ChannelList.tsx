@@ -58,6 +58,10 @@ interface IChannelListProps extends ModelState {
 }
 
 class ChannelList extends React.Component<IChannelListProps> {
+  state = {
+    refreshing: false,
+  };
+
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch({
@@ -68,18 +72,36 @@ class ChannelList extends React.Component<IChannelListProps> {
   keyExtractor = (item: IChannel) => item.id;
   render() {
     const {channelList, listHeader} = this.props;
+    const {refreshing} = this.state;
     return (
       <FlatList
         keyExtractor={this.keyExtractor}
         ListHeaderComponent={listHeader}
         data={channelList}
         renderItem={this.renderItem}
+        onRefresh={this.onRefresh}
+        refreshing={refreshing}
       />
     );
   }
   //ListRenderItemInfo
   renderItem = ({item}: {item: IChannel}) => {
     return <ChannelInfoCell data={item} onItemPress={this.onItemPress} />;
+  };
+
+  onRefresh = () => {
+    this.setState({
+      refreshing: true,
+    });
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'home/fetchChannelList',
+      callback: () => {
+        this.setState({
+          refreshing: false,
+        });
+      },
+    });
   };
 
   onItemPress = (data: IChannel) => {
