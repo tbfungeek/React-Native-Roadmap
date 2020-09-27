@@ -4,16 +4,23 @@ import {connect, ConnectedProps} from 'react-redux';
 import {RootState} from '@/model/index';
 import {IChannel} from '../../model/home';
 import Icon from '@/assets/iconfont';
+import Touchable from '@/components/Common/Touchable';
 
 interface IProps {
   data: IChannel;
+  onItemPress: (data: IChannel) => void;
 }
 
-class ChannelInfoCell extends React.Component<IProps> {
+class ChannelInfoCell extends React.PureComponent<IProps> {
+  onPress = () => {
+    const {data, onItemPress} = this.props;
+    onItemPress(data);
+  };
+
   render() {
     const {data} = this.props;
     return (
-      <View style={styles.container}>
+      <Touchable style={styles.container} onPress={this.onPress}>
         <View style={styles.cellType}>
           <Image source={{uri: data.image}} style={styles.imageStyle} />
           <View style={styles.infoType}>
@@ -31,7 +38,7 @@ class ChannelInfoCell extends React.Component<IProps> {
             </View>
           </View>
         </View>
-      </View>
+      </Touchable>
     );
   }
 }
@@ -57,10 +64,13 @@ class ChannelList extends React.Component<IChannelListProps> {
       type: 'home/fetchChannelList',
     });
   }
+
+  keyExtractor = (item: IChannel) => item.id;
   render() {
     const {channelList, listHeader} = this.props;
     return (
       <FlatList
+        keyExtractor={this.keyExtractor}
         ListHeaderComponent={listHeader}
         data={channelList}
         renderItem={this.renderItem}
@@ -69,7 +79,11 @@ class ChannelList extends React.Component<IChannelListProps> {
   }
   //ListRenderItemInfo
   renderItem = ({item}: {item: IChannel}) => {
-    return <ChannelInfoCell data={item} />;
+    return <ChannelInfoCell data={item} onItemPress={this.onItemPress} />;
+  };
+
+  onItemPress = (data: IChannel) => {
+    console.log(data);
   };
 }
 

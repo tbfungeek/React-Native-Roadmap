@@ -30,6 +30,8 @@ class Guess extends React.Component<ModelState> {
     );
   };
 
+  keyExtractor = (item: IGuess) => item.id;
+
   render() {
     const {guess} = this.props;
     return (
@@ -49,7 +51,12 @@ class Guess extends React.Component<ModelState> {
           </Touchable>
         </View>
 
-        <FlatList numColumns={3} data={guess} renderItem={this.renderItem} />
+        <FlatList
+          numColumns={3}
+          data={guess}
+          renderItem={this.renderItem}
+          keyExtractor={this.keyExtractor}
+        />
 
         <Touchable style={styles.changeContainer} onPress={this.freshGuess}>
           <Text style={styles.changeTitleStyle}>换一批</Text>
