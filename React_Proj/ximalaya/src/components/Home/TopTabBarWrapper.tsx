@@ -2,6 +2,7 @@ import React from 'react';
 import {View, StyleSheet, Text} from 'react-native';
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import Touchable from '@/components/Common/Touchable';
+import LinearGradient from 'react-native-linear-gradient';
 
 import {
   MaterialTopTabBarProps,
@@ -15,6 +16,10 @@ class TopTabBarWrapper extends React.Component<IProps> {
     const {props} = this;
     return (
       <View style={styles.topbarWrapper}>
+        <LinearGradient
+          colors={['red', 'blue']}
+          style={styles.linearGradientStyle}
+        />
         <View style={styles.tarbarView}>
           <MaterialTopTabBar {...props} style={styles.barStyle} />
           <Touchable style={styles.catagoriesBtn}>
@@ -35,6 +40,10 @@ class TopTabBarWrapper extends React.Component<IProps> {
 }
 
 const styles = StyleSheet.create({
+  linearGradientStyle: {
+    ...StyleSheet.absoluteFillObject,
+    height: 260,
+  },
   topbarWrapper: {
     paddingTop: getStatusBarHeight() /*给tabbar留出空间*/,
     backgroundColor: '#fff',

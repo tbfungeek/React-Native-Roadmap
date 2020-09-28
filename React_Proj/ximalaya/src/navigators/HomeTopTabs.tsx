@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {
   createMaterialTopTabNavigator,
   MaterialTopTabBarProps,
@@ -17,6 +17,7 @@ export default class HomeTopTabNavigator extends React.Component {
     return (
       <TopTab.Navigator
         lazy
+        sceneContainerStyle={styles.sceneContainer}
         tabBar={this.renderTabBar}
         tabBarOptions={{
           scrollEnabled: true,
@@ -38,3 +39,9 @@ export default class HomeTopTabNavigator extends React.Component {
     );
   }
 }
+
+const styles = StyleSheet.create({
+  sceneContainer: {
+    backgroundColor: 'transparent',
+  },
+});
