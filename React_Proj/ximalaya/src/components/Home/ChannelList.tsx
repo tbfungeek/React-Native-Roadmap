@@ -43,9 +43,11 @@ class ChannelInfoCell extends React.PureComponent<IProps> {
   }
 }
 
-const mapStateToProps = ({home}: RootState) => {
+const mapStateToProps = ({home, loading}: RootState) => {
   return {
     channelList: home.channelList,
+    loading: loading.effects['home/fetchChannelList'],
+    hasMore: home.pageInfo.hasMore,
   };
 };
 
@@ -107,7 +109,10 @@ class ChannelList extends React.Component<IChannelListProps> {
   };
 
   onEndReached = () => {
-    const {dispatch} = this.props;
+    const {dispatch, loading, hasMore} = this.props;
+    if (loading || !hasMore) {
+      return;
+    }
     dispatch({
       type: 'home/fetchChannelList',
       payload: {
