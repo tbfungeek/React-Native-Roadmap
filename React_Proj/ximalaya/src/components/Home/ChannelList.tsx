@@ -79,6 +79,8 @@ class ChannelList extends React.Component<IChannelListProps> {
       <FlatList
         keyExtractor={this.keyExtractor}
         ListHeaderComponent={listHeader}
+        ListFooterComponent={this.listFooter}
+        ListEmptyComponent={this.empty}
         data={channelList}
         renderItem={this.renderItem}
         onRefresh={this.onRefresh}
@@ -88,6 +90,34 @@ class ChannelList extends React.Component<IChannelListProps> {
       />
     );
   }
+
+  get listFooter() {
+    const {hasMore, loading, channelList} = this.props;
+    if (!hasMore) {
+      return (
+        <View style={styles.end}>
+          <Text>----我是有底线的----</Text>
+        </View>
+      );
+    }
+
+    if (loading && hasMore && channelList.length > 0) {
+      return (
+        <View style={styles.loading}>
+          <Text>正在加载中.......</Text>
+        </View>
+      );
+    }
+  }
+
+  get empty() {
+    return (
+      <View style={styles.empty}>
+        <Text>暂无数据</Text>
+      </View>
+    );
+  }
+
   //ListRenderItemInfo
   renderItem = ({item}: {item: IChannel}) => {
     return <ChannelInfoCell data={item} onItemPress={this.onItemPress} />;
@@ -186,6 +216,20 @@ const styles = StyleSheet.create({
     color: '#e94922',
     fontSize: 10,
     marginLeft: 5,
+  },
+
+  end: {
+    alignItems: 'center',
+  },
+
+  loading: {
+    alignItems: 'center',
+  },
+
+  empty: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 140,
   },
 });
 
