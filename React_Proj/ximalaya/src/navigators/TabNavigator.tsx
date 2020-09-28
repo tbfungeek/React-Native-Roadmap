@@ -95,7 +95,7 @@ export default class TabNavigator extends React.Component<IProps> {
   getTabHeadTitle(route: TabRouteProp): string {
     const headTitle = route.state
       ? route.state.routes[route.state.index].name
-      : route.params.screen || 'HomeTopTab';
+      : 'HomeTopTab';
 
     switch (headTitle) {
       case 'HomeTopTab':
