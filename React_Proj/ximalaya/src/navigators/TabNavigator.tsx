@@ -22,11 +22,28 @@ interface IProps {
 const Tab = createBottomTabNavigator<TabRootParamList>();
 
 export default class TabNavigator extends React.Component<IProps> {
-  componentDidUpdate() {
+  setUpNavigation() {
     const {navigation, route} = this.props;
-    navigation.setOptions({
-      headerTitle: this.getTabHeadTitle(route),
-    });
+    const title = this.getTabHeadTitle(route);
+    if (title.length > 0) {
+      navigation.setOptions({
+        headerTransparent: false,
+        headerTitle: title,
+      });
+    } else {
+      navigation.setOptions({
+        headerTransparent: true,
+        headerTitle: '',
+      });
+    }
+  }
+
+  componentDidMount() {
+    this.setUpNavigation();
+  }
+
+  componentDidUpdate() {
+    this.setUpNavigation();
   }
   render() {
     return (
@@ -82,7 +99,7 @@ export default class TabNavigator extends React.Component<IProps> {
 
     switch (headTitle) {
       case 'HomeTopTab':
-        return '首页';
+        return '';
       case 'Listen':
         return '我听';
       case 'Found':
@@ -90,7 +107,7 @@ export default class TabNavigator extends React.Component<IProps> {
       case 'Account':
         return '我的';
       default:
-        return '首页';
+        return '';
     }
   }
 }
