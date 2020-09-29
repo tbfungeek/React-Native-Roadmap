@@ -41,11 +41,19 @@ type IProps = MaterialTopTabBarProps & ModelState;
 
 class TopTabBarWrapper extends React.Component<IProps> {
   render() {
-    const {
+    let {
       linearGradient = ['#ccc', '#e2e2e2'],
       gradientVisible,
+      indicatorStyle,
       ...restProps
     } = this.props;
+    const textStyle = {color: !gradientVisible ? '#666' : '#fff'};
+
+    if (gradientVisible) {
+      indicatorStyle = StyleSheet.compose(indicatorStyle, {
+        backgroundColor: '#fff',
+      });
+    }
     return (
       <View style={styles.topbarWrapper}>
         {gradientVisible && (
@@ -54,19 +62,23 @@ class TopTabBarWrapper extends React.Component<IProps> {
             style={styles.linearGradientStyle}
           />
         )}
-
         <View style={styles.tarbarView}>
-          <MaterialTopTabBar {...restProps} style={styles.barStyle} />
+          <MaterialTopTabBar
+            {...restProps}
+            style={styles.barStyle}
+            activeTintColor={!gradientVisible ? '#666' : '#fff'}
+            indicatorStyle={indicatorStyle}
+          />
           <Touchable style={styles.catagoriesBtn}>
-            <Text style={styles.catagoriesText}>分类</Text>
+            <Text style={[textStyle, styles.catagoriesText]}>分类</Text>
           </Touchable>
         </View>
         <View style={styles.bar}>
           <Touchable style={styles.searchBar}>
-            <Text style={styles.searchText}>搜索</Text>
+            <Text style={[styles.searchText, textStyle]}>搜索</Text>
           </Touchable>
           <Touchable style={styles.historyBar}>
-            <Text style={styles.historyText}>历史</Text>
+            <Text style={[styles.historyText, textStyle]}>历史</Text>
           </Touchable>
         </View>
       </View>
