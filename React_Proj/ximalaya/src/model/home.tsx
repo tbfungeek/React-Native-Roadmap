@@ -55,6 +55,7 @@ export interface HomeState {
   channelList: IChannel[];
   pageInfo: IPageInfo;
   activeCarouselIndex: number;
+  gradientVisible: boolean;
 }
 
 const initialState = {
@@ -67,6 +68,7 @@ const initialState = {
     hasMore: false,
   },
   activeCarouselIndex: 0,
+  gradientVisible: true,
 };
 
 const homeModel: HomeModel = {

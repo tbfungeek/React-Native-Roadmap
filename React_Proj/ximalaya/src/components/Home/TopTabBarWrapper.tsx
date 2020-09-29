@@ -16,6 +16,7 @@ import {
  */
 const mapStateToProps = ({home}: RootState) => {
   return {
+    gradientVisible: home.gradientVisible,
     linearGradient:
       home.carousel && home.carousel.length > 0
         ? home.carousel[home.activeCarouselIndex].colors
@@ -40,13 +41,20 @@ type IProps = MaterialTopTabBarProps & ModelState;
 
 class TopTabBarWrapper extends React.Component<IProps> {
   render() {
-    const {linearGradient = ['#ccc', '#e2e2e2'], ...restProps} = this.props;
+    const {
+      linearGradient = ['#ccc', '#e2e2e2'],
+      gradientVisible,
+      ...restProps
+    } = this.props;
     return (
       <View style={styles.topbarWrapper}>
-        <LinearAnimatedGradientTransition
-          colors={linearGradient}
-          style={styles.linearGradientStyle}
-        />
+        {gradientVisible && (
+          <LinearAnimatedGradientTransition
+            colors={linearGradient}
+            style={styles.linearGradientStyle}
+          />
+        )}
+
         <View style={styles.tarbarView}>
           <MaterialTopTabBar {...restProps} style={styles.barStyle} />
           <Touchable style={styles.catagoriesBtn}>

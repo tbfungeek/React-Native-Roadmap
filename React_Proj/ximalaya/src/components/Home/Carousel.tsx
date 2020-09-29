@@ -13,7 +13,7 @@ import {RootState} from '@/model/index';
 const contentWidth = wp(90); //内容宽度
 const itemHorizontalMargin = wp(2); //间距宽度
 const itemVerticalMargin = wp(4); //间距宽度
-const contentHeight = hp(26);
+export const contentHeight = hp(26);
 const carouselWidth = screenWidth; //轮播图宽度
 const itemWidth = contentWidth + itemHorizontalMargin * 2; //每项宽度
 const carouselHeight = contentHeight + itemVerticalMargin * 2;

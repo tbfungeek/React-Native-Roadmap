@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {RootStackNavigation} from '@/navigators/StackNavigator';
 import Carousel from '@/components/Home/Carousel';
 import Guess from '@/components/Home/Guess';
@@ -14,7 +14,9 @@ class HomeScreen extends React.Component<IProps> {
     return (
       <View>
         <Carousel />
-        <Guess />
+        <View style={styles.container}>
+          <Guess />
+        </View>
       </View>
     );
   }
@@ -22,5 +24,11 @@ class HomeScreen extends React.Component<IProps> {
     return <ChannelList listHeader={this.header} />;
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    backgroundColor: '#fff',
+  },
+});
 
 export default HomeScreen;

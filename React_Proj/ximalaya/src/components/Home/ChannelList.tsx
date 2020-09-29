@@ -1,10 +1,19 @@
 import React from 'react';
-import {View, StyleSheet, FlatList, Text, Image} from 'react-native';
+import {
+  View,
+  StyleSheet,
+  FlatList,
+  Text,
+  Image,
+  NativeSyntheticEvent,
+  NativeScrollEvent,
+} from 'react-native';
 import {connect, ConnectedProps} from 'react-redux';
 import {RootState} from '@/model/index';
 import {IChannel} from '../../model/home';
 import Icon from '@/assets/iconfont';
 import Touchable from '@/components/Common/Touchable';
+import {contentHeight} from './Carousel';
 
 interface IProps {
   data: IChannel;
@@ -48,6 +57,7 @@ const mapStateToProps = ({home, loading}: RootState) => {
     channelList: home.channelList,
     loading: loading.effects['home/fetchChannelList'],
     hasMore: home.pageInfo.hasMore,
+    gradientVisible: home.gradientVisible,
   };
 };
 
@@ -87,6 +97,7 @@ class ChannelList extends React.Component<IChannelListProps> {
         onEndReached={this.onEndReached}
         onEndReachedThreshold={0.2}
         refreshing={refreshing}
+        onScroll={this.onScroll}
       />
     );
   }
@@ -134,6 +145,22 @@ class ChannelList extends React.Component<IChannelListProps> {
         this.setState({
           refreshing: false,
         });
+      },
+    });
+  };
+
+  onScroll = ({nativeEvent}: NativeSyntheticEvent<NativeScrollEvent>) => {
+    const offsetY = nativeEvent.contentOffset.y;
+    let newGradientVisible = offsetY < contentHeight;
+    const {gradientVisible, dispatch} = this.props;
+    if (gradientVisible === newGradientVisible) {
+      return;
+    }
+
+    dispatch({
+      type: 'home/setState',
+      payload: {
+        gradientVisible: newGradientVisible,
       },
     });
   };
