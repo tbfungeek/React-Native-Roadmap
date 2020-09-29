@@ -9,7 +9,6 @@ import {screenWidth, wp, hp} from '@/utils/DimensionsUtils';
 import {ICarousel} from '@/model/home';
 import {connect, ConnectedProps} from 'react-redux';
 import {RootState} from '@/model/index';
-import {type} from '../../assets/iconfont/index';
 
 const contentWidth = wp(90); //内容宽度
 const itemHorizontalMargin = wp(2); //间距宽度
@@ -25,6 +24,7 @@ interface IProps {
 
 const mapStateToProps = ({home}: RootState) => ({
   carousel: home.carousel,
+  activeCarouselIndex: home.activeCarouselIndex,
 });
 
 const Connector = connect(mapStateToProps);
@@ -32,10 +32,6 @@ const Connector = connect(mapStateToProps);
 type ModelState = ConnectedProps<typeof Connector>;
 
 class Carousel extends React.Component<ModelState> {
-  state = {
-    activeDotIndex: 0,
-  };
-
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch({
@@ -61,8 +57,12 @@ class Carousel extends React.Component<ModelState> {
   };
 
   onSnapToItem = (index: number) => {
-    this.setState({
-      activeDotIndex: index,
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'home/setState',
+      payload: {
+        activeCarouselIndex: index,
+      },
     });
   };
   /*https://github.com/archriss/react-native-snap-carousel/issues/61*/
@@ -88,7 +88,7 @@ class Carousel extends React.Component<ModelState> {
   }
 
   get pagination() {
-    const {activeDotIndex} = this.state;
+    const {activeCarouselIndex} = this.props;
     const {carousel} = this.props;
     return (
       <View style={styles.paginationWrapper}>
@@ -97,7 +97,7 @@ class Carousel extends React.Component<ModelState> {
           dotContainerStyle={styles.dotContainerStyle}
           containerStyle={styles.paginationContainer}
           dotsLength={carousel.length}
-          activeDotIndex={activeDotIndex}
+          activeDotIndex={activeCarouselIndex}
           inactiveDotScale={0.6}
           inactiveDotOpacity={0.9}
           inactiveDotColor={'rgba(255,255,255,0.9)'}

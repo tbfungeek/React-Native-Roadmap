@@ -3,25 +3,49 @@ import {View, StyleSheet, Text} from 'react-native';
 import {getStatusBarHeight} from 'react-native-iphone-x-helper';
 import Touchable from '@/components/Common/Touchable';
 import LinearGradient from 'react-native-linear-gradient';
+import {RootState} from '@/model/index';
+import {connect, ConnectedProps} from 'react-redux';
 
 import {
   MaterialTopTabBarProps,
   MaterialTopTabBar,
 } from '@react-navigation/material-top-tabs';
 
-interface IProps extends MaterialTopTabBarProps {}
+/**
+ *  先建立state到prop的映射表
+ */
+const mapStateToProps = ({home}: RootState) => {
+  return {
+    linearGradient: home.carousel[home.activeCarouselIndex].colors,
+  };
+};
+
+/**
+ * 将映射表用connect连接起来
+ */
+const Connector = connect(mapStateToProps);
+
+/**
+ * 定义一个ModelState
+ */
+type ModelState = ConnectedProps<typeof Connector>;
+
+/**
+ * 声明Props类型
+ */
+type IProps = MaterialTopTabBarProps & ModelState;
 
 class TopTabBarWrapper extends React.Component<IProps> {
   render() {
-    const {props} = this;
+    const {linearGradient = ['#ccc', '#e2e2e2'], ...restProps} = this.props;
     return (
       <View style={styles.topbarWrapper}>
         <LinearGradient
-          colors={['red', 'blue']}
+          colors={linearGradient}
           style={styles.linearGradientStyle}
         />
         <View style={styles.tarbarView}>
-          <MaterialTopTabBar {...props} style={styles.barStyle} />
+          <MaterialTopTabBar {...restProps} style={styles.barStyle} />
           <Touchable style={styles.catagoriesBtn}>
             <Text style={styles.catagoriesText}>分类</Text>
           </Touchable>
@@ -96,4 +120,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default TopTabBarWrapper;
+export default Connector(TopTabBarWrapper);

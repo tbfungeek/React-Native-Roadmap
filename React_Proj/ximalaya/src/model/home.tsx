@@ -54,6 +54,7 @@ export interface HomeState {
   guess: IGuess[];
   channelList: IChannel[];
   pageInfo: IPageInfo;
+  activeCarouselIndex: number;
 }
 
 const initialState = {
@@ -65,6 +66,7 @@ const initialState = {
     results: 150,
     hasMore: false,
   },
+  activeCarouselIndex: 0,
 };
 
 const homeModel: HomeModel = {
