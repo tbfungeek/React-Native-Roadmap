@@ -3,10 +3,9 @@ import {View, StyleSheet, Text} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import {ICategory} from '../../../model/category';
-import {screenWidth} from '@/utils/DimensionsUtils';
 import _ from 'lodash';
-
-const itemWidth = (screenWidth - 10) / 4;
+import {ScrollView} from 'react-native-gesture-handler';
+import Item from './Item';
 
 const mapStateToProps = ({category}: RootState) => {
   return {
@@ -27,31 +26,33 @@ class Category extends React.Component<IProps, IState> {
     myCategories: this.props.myCategories,
   };
 
-  renderItem = (item: ICategory/*, index: number*/) => {
-    return (
-      <View key={item.id} style={styles.itemStyle}>
-        <View style={styles.itemContainer}>
-          <Text style={styles.itemText}>{item.name}</Text>
-        </View>
-      </View>
-    );
+  renderItem = (item: ICategory /*, index: number*/) => {
+    return <Item key={item.id} item={item} />;
   };
   render() {
     const {categories} = this.props;
     const {myCategories} = this.state;
     const classifyGroup = _.groupBy(categories, (item) => item.typeName);
-    console.log('=============>', classifyGroup);
     return (
-      <View style={styles.container}>
+      <ScrollView style={styles.container}>
         <Text style={styles.classifyTitle}>我的分类</Text>
         <View style={styles.classifyView}>
           {myCategories.map(this.renderItem)}
         </View>
-        <Text style={styles.classifyTitle}>所有分类</Text>
-        <View style={styles.classifyView}>
-          {categories.map(this.renderItem)}
+
+        <View>
+          {Object.keys(classifyGroup).map((classify) => {
+            return (
+              <View key={classify}>
+                <Text style={styles.classifyTitle}>{classify}</Text>
+                <View style={styles.classifyView}>
+                  {classifyGroup[classify].map(this.renderItem)}
+                </View>
+              </View>
+            );
+          })}
         </View>
-      </View>
+      </ScrollView>
     );
   }
 }
@@ -73,21 +74,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     flexWrap: 'wrap',
     marginHorizontal: 5,
-  },
-  itemStyle: {
-    width: itemWidth,
-    height: 46,
-  },
-  itemContainer: {
-    backgroundColor: '#fff',
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    margin: 5,
-    borderRadius: 1,
-  },
-  itemText: {
-    color: '#666',
   },
 });
 
