@@ -5,7 +5,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import {ICategory} from '../../../model/category';
 import _ from 'lodash';
 import {ScrollView} from 'react-native-gesture-handler';
-import Item from './Item';
+import Item from '../../../components/Category/ItemCell';
 
 const mapStateToProps = ({category}: RootState) => {
   return {

@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 import {screenWidth} from '@/utils/DimensionsUtils';
-import {ICategory} from '../../../model/category';
+import {ICategory} from '../../model/category';
 
 const itemWidth = (screenWidth - 10) / 4;
 
