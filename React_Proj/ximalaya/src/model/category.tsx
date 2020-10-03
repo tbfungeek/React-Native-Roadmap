@@ -6,7 +6,7 @@ import axios from 'axios';
 
 const CATEGORY_URL = '/mock/11/ximalaya/category';
 
-interface ICategory {
+export interface ICategory {
   id: string;
   name: string;
   classify?: string;
