@@ -12,6 +12,7 @@ import {
 import React from 'react';
 import TabNavigator from './TabNavigator';
 import Detail from '@/screens/pages/Detail';
+import Category from '@/screens/pages/Category/CategoryScreen';
 import {Platform, StyleSheet, StatusBar} from 'react-native';
 
 type RootStackParamList = {
@@ -21,6 +22,7 @@ type RootStackParamList = {
   Detail: {
     id: number;
   };
+  Category: {};
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
@@ -60,6 +62,7 @@ export default class StackNavigator extends React.Component {
           }}>
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="Detail" component={Detail} />
+          <Stack.Screen name="Category" component={Category} />
         </Stack.Navigator>
       </NavigationContainer>
     );

@@ -45,6 +45,8 @@ const categoryModel: CategoryModel = {
       // 从storage获取数据
       const myCategories = yield call(load, {key: 'myCategories'});
       const categories = yield call(load, {key: 'categories'});
+      console.log('========>myCategories', myCategories);
+      console.log('========>categories', categories);
       //发送数据存储到state中
       if (myCategories) {
         yield put({
@@ -77,7 +79,7 @@ const categoryModel: CategoryModel = {
       dispatch({type: 'loadData'});
     },
     asyncStorage() {
-      storage.sync.categorys = async () => {
+      storage.sync.categories = async () => {
         const {data} = await axios.get(CATEGORY_URL);
         return data;
       };

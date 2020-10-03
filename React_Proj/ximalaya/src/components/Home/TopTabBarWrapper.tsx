@@ -40,6 +40,11 @@ type ModelState = ConnectedProps<typeof Connector>;
 type IProps = MaterialTopTabBarProps & ModelState;
 
 class TopTabBarWrapper extends React.Component<IProps> {
+  gotoCategory = () => {
+    const {navigation} = this.props;
+    navigation.navigate('Category');
+  };
+
   render() {
     let {
       linearGradient = ['#ccc', '#e2e2e2'],
@@ -69,7 +74,7 @@ class TopTabBarWrapper extends React.Component<IProps> {
             activeTintColor={!gradientVisible ? '#666' : '#fff'}
             indicatorStyle={indicatorStyle}
           />
-          <Touchable style={styles.catagoriesBtn}>
+          <Touchable style={styles.catagoriesBtn} onPress={this.gotoCategory}>
             <Text style={[textStyle, styles.catagoriesText]}>分类</Text>
           </Touchable>
         </View>
