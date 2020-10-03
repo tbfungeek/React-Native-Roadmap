@@ -5,7 +5,8 @@ import {connect, ConnectedProps} from 'react-redux';
 
 const mapStateToProps = ({category}: RootState) => {
   return {
-    category: category,
+    categories: category.categories,
+    myCategories: category.myCategories,
   };
 };
 
@@ -13,8 +14,9 @@ const Connector = connect(mapStateToProps);
 
 type ModelState = ConnectedProps<typeof Connector>;
 
-class Category extends React.Component<ModelState> {
+interface IProps extends ModelState {}
 
+class Category extends React.Component<IProps> {
   render() {
     const {category} = this.props;
     return <View style={styles.container}></View>;
