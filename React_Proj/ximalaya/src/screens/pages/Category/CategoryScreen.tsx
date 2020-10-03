@@ -3,6 +3,9 @@ import {View, StyleSheet, Text} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import {ICategory} from '../../../model/category';
+import {screenWidth} from '@/utils/DimensionsUtils';
+
+const itemWidth = (screenWidth - 10) / 4;
 
 const mapStateToProps = ({category}: RootState) => {
   return {
@@ -25,8 +28,10 @@ class Category extends React.Component<IProps, IState> {
 
   renderItem = (item: ICategory, index: number) => {
     return (
-      <View key={item.id}>
-        <Text>{item.name}</Text>
+      <View key={item.id} style={styles.itemStyle}>
+        <View style={styles.itemContainer}>
+          <Text style={styles.itemText}>{item.name}</Text>
+        </View>
       </View>
     );
   };
@@ -35,10 +40,14 @@ class Category extends React.Component<IProps, IState> {
     const {myCategories} = this.state;
     return (
       <View style={styles.container}>
-        <Text>我的分类</Text>
-        <View>{myCategories.map(this.renderItem)}</View>
-        <Text>所有分类</Text>
-        <View>{categories.map(this.renderItem)}</View>
+        <Text style={styles.classifyTitle}>我的分类</Text>
+        <View style={styles.classifyView}>
+          {myCategories.map(this.renderItem)}
+        </View>
+        <Text style={styles.classifyTitle}>所有分类</Text>
+        <View style={styles.classifyView}>
+          {categories.map(this.renderItem)}
+        </View>
       </View>
     );
   }
@@ -47,6 +56,35 @@ class Category extends React.Component<IProps, IState> {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#f3f6f6',
+  },
+  classifyTitle: {
+    color: '#666',
+    fontWeight: 'bold',
+    fontSize: 14,
+    marginTop: 10,
+    marginBottom: 8,
+    marginHorizontal: 10,
+  },
+  classifyView: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    marginHorizontal: 5,
+  },
+  itemStyle: {
+    width: itemWidth,
+    height: 46,
+  },
+  itemContainer: {
+    backgroundColor: '#fff',
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    margin: 5,
+    borderRadius: 1,
+  },
+  itemText: {
+    color: '#666',
   },
 });
 
