@@ -4,6 +4,7 @@ import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import {ICategory} from '../../../model/category';
 import {screenWidth} from '@/utils/DimensionsUtils';
+import _ from 'lodash';
 
 const itemWidth = (screenWidth - 10) / 4;
 
@@ -26,7 +27,7 @@ class Category extends React.Component<IProps, IState> {
     myCategories: this.props.myCategories,
   };
 
-  renderItem = (item: ICategory, index: number) => {
+  renderItem = (item: ICategory/*, index: number*/) => {
     return (
       <View key={item.id} style={styles.itemStyle}>
         <View style={styles.itemContainer}>
@@ -38,6 +39,8 @@ class Category extends React.Component<IProps, IState> {
   render() {
     const {categories} = this.props;
     const {myCategories} = this.state;
+    const classifyGroup = _.groupBy(categories, (item) => item.typeName);
+    console.log('=============>', classifyGroup);
     return (
       <View style={styles.container}>
         <Text style={styles.classifyTitle}>我的分类</Text>
