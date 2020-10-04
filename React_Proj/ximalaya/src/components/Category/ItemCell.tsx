@@ -8,16 +8,17 @@ const itemWidth = (screenWidth - 10) / 4;
 interface IProps {
   item: ICategory;
   isEdit: boolean;
+  disable: boolean;
   isMyCategories: boolean;
 }
 
 class Item extends React.Component<IProps> {
   render() {
-    const {item, isEdit, isMyCategories} = this.props;
+    const {item, isEdit, disable, isMyCategories} = this.props;
     return (
       <View key={item.id} style={styles.itemStyle}>
-        <View style={styles.itemContainer}>
-          {isEdit && (
+        <View style={[styles.itemContainer, disable && styles.disable]}>
+          {isEdit && !disable && (
             <View style={styles.itemIndicator}>
               <Text style={styles.itemIndicatorText}>
                 {isMyCategories ? '-' : '+'}
@@ -62,6 +63,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     textAlign: 'center',
     fontSize: 12,
+  },
+  disable: {
+    backgroundColor: '#ccc',
   },
 });
 

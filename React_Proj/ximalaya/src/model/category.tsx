@@ -4,6 +4,7 @@ import {load} from './storage/storage';
 import storage from './storage/storage';
 import axios from 'axios';
 import {RootState} from '@/model/index';
+import {store} from '@/model/dva';
 
 const CATEGORY_URL = '/mock/11/ximalaya/category';
 
@@ -68,12 +69,18 @@ const categoryModel: CategoryModel = {
         });
       }
     },
-    *toggle(_, {put, select}) {
-      const {isEdit} = yield select((state: RootState) => state.category);
+    *toggle({payload}, {put, select}) {
+      const category = yield select((state: RootState) => state.category);
+      if (category.isEdit) {
+        storage.save({
+          key: 'myCategories',
+          data: payload.myCategories,
+        });
+      }
       yield put({
         type: 'setState',
         payload: {
-          isEdit: !isEdit,
+          isEdit: !category.isEdit,
         },
       });
     },

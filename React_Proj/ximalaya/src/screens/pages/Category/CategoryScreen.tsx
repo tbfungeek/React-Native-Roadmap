@@ -3,7 +3,7 @@ import {View, StyleSheet, Text} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import {ICategory} from '../../../model/category';
-import _, {isNil} from 'lodash';
+import _ from 'lodash';
 import {ScrollView} from 'react-native-gesture-handler';
 import Item from '../../../components/Category/ItemCell';
 import {RootStackNavigation} from '@/navigators/StackNavigator';
@@ -27,6 +27,8 @@ interface IState {
   myCategories: ICategory[];
 }
 
+const fixItemsIndex = [0, 1];
+
 class Category extends React.Component<IProps, IState> {
   state = {
     myCategories: this.props.myCategories,
@@ -37,12 +39,25 @@ class Category extends React.Component<IProps, IState> {
   };
 
   onSubmit = () => {
-    console.log('onSubmitonSubmitonSubmit');
     const {dispatch} = this.props;
+    const {myCategories} = this.state;
     dispatch({
       type: 'category/toggle',
+      payload: {
+        myCategories,
+      },
     });
   };
+
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'category/setState',
+      payload: {
+        isEdit: false,
+      },
+    });
+  }
 
   constructor(props: IProps) {
     super(props);
@@ -68,8 +83,9 @@ class Category extends React.Component<IProps, IState> {
     item: ICategory,
     isEdit: boolean,
     isMyCategories: boolean,
+    disable: boolean,
   ) {
-    if (!isEdit) {
+    if (!isEdit || disable) {
       return;
     }
     const {myCategories} = this.state;
@@ -84,6 +100,14 @@ class Category extends React.Component<IProps, IState> {
         ),
       });
     }
+
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'category/setState',
+      payload: {
+        myCategories,
+      },
+    });
   }
 
   renderItem = (item: ICategory, index: number) => {
@@ -92,20 +116,31 @@ class Category extends React.Component<IProps, IState> {
       <Touchable
         key={item.id}
         onLongPress={this.longPress}
-        onPress={() => this.onItemClick(index, item, isEdit, false)}>
-        <Item item={item} isEdit={isEdit} isMyCategories={false} />
+        onPress={() => this.onItemClick(index, item, isEdit, false, false)}>
+        <Item
+          item={item}
+          isEdit={isEdit}
+          disable={false}
+          isMyCategories={false}
+        />
       </Touchable>
     );
   };
 
   renderMyCategoryItem = (item: ICategory, index: number) => {
     const {isEdit} = this.props;
+    const disable = fixItemsIndex.indexOf(index) > -1;
     return (
       <Touchable
         key={item.id}
         onLongPress={this.longPress}
-        onPress={() => this.onItemClick(index, item, isEdit, true)}>
-        <Item item={item} isEdit={isEdit} isMyCategories={true} />
+        onPress={() => this.onItemClick(index, item, isEdit, true, disable)}>
+        <Item
+          item={item}
+          isEdit={isEdit}
+          disable={disable}
+          isMyCategories={true}
+        />
       </Touchable>
     );
   };
