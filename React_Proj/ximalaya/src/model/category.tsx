@@ -3,6 +3,7 @@ import {Reducer} from 'redux';
 import {load} from './storage/storage';
 import storage from './storage/storage';
 import axios from 'axios';
+import {RootState} from '@/model/index';
 
 const CATEGORY_URL = '/mock/11/ximalaya/category';
 
@@ -16,6 +17,7 @@ export interface ICategory {
 interface CategoryModelState {
   myCategories: ICategory[];
   categories: ICategory[];
+  isEdit: boolean;
 }
 
 interface CategoryModel extends Model {
@@ -23,6 +25,7 @@ interface CategoryModel extends Model {
   state: CategoryModelState;
   effects: {
     loadData: Effect;
+    toggle: Effect;
   };
   reducers: {
     setState: Reducer<CategoryModelState>;
@@ -36,6 +39,7 @@ const initialState = {
     {id: 'vip', name: 'Vip'},
   ],
   categories: [],
+  isEdit: false,
 };
 
 const categoryModel: CategoryModel = {
@@ -46,8 +50,6 @@ const categoryModel: CategoryModel = {
       // 从storage获取数据
       const myCategories = yield call(load, {key: 'myCategories'});
       const categories = yield call(load, {key: 'categories'});
-      console.log('========>myCategories', myCategories);
-      console.log('========>categories', categories);
       //发送数据存储到state中
       if (myCategories) {
         yield put({
@@ -65,6 +67,15 @@ const categoryModel: CategoryModel = {
           },
         });
       }
+    },
+    *toggle(_, {put, select}) {
+      const {isEdit} = yield select((state: RootState) => state.category);
+      yield put({
+        type: 'setState',
+        payload: {
+          isEdit: !isEdit,
+        },
+      });
     },
   },
   reducers: {

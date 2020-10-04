@@ -6,6 +6,8 @@ import {ICategory} from '../../../model/category';
 import _ from 'lodash';
 import {ScrollView} from 'react-native-gesture-handler';
 import Item from '../../../components/Category/ItemCell';
+import {RootStackNavigation} from '@/navigators/StackNavigator';
+import HeaderRightButton from '@/components/Category/HeaderRightButton';
 
 const mapStateToProps = ({category}: RootState) => {
   return {
@@ -15,7 +17,9 @@ const mapStateToProps = ({category}: RootState) => {
 };
 const Connector = connect(mapStateToProps);
 type ModelState = ConnectedProps<typeof Connector>;
-interface IProps extends ModelState {}
+interface IProps extends ModelState {
+  navigation: RootStackNavigation;
+}
 
 interface IState {
   myCategories: ICategory[];
@@ -25,6 +29,27 @@ class Category extends React.Component<IProps, IState> {
   state = {
     myCategories: this.props.myCategories,
   };
+
+  headerRight = () => {
+    return <HeaderRightButton onSubmit={this.onSubmit} />;
+  };
+
+  onSubmit = () => {
+    console.log('onSubmitonSubmitonSubmit');
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'category/toggle',
+    });
+  };
+
+  constructor(props: IProps) {
+    super(props);
+    props.navigation.setOptions({
+      headerRight: this.headerRight,
+      headerTitle: '分类',
+      headerTintColor: '#fff',
+    });
+  }
 
   renderItem = (item: ICategory /*, index: number*/) => {
     return <Item key={item.id} item={item} />;

@@ -14,7 +14,6 @@ import TabNavigator from './TabNavigator';
 import Detail from '@/screens/pages/Detail';
 import Category from '@/screens/pages/Category/CategoryScreen';
 import {Platform, StyleSheet, StatusBar} from 'react-native';
-import HeaderRightButton from '@/components/Category/HeaderRightButton';
 
 type RootStackParamList = {
   TabNavigator: {
@@ -35,9 +34,6 @@ export type TabRouteProp = RouteProp<RootStackParamList, 'TabNavigator'> & {
 const Stack = createStackNavigator<RootStackParamList>();
 
 export default class StackNavigator extends React.Component {
-  headerRight = () => {
-    return <HeaderRightButton />;
-  };
   render() {
     return (
       <NavigationContainer>
@@ -66,13 +62,7 @@ export default class StackNavigator extends React.Component {
           }}>
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="Detail" component={Detail} />
-          <Stack.Screen
-            name="Category"
-            component={Category}
-            options={{
-              headerRight: this.headerRight,
-            }}
-          />
+          <Stack.Screen name="Category" component={Category} />
         </Stack.Navigator>
       </NavigationContainer>
     );
