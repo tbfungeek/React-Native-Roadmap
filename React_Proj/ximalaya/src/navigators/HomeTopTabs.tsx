@@ -6,14 +6,43 @@ import {
 } from '@react-navigation/material-top-tabs';
 import HomeScreen from '@/screens/pages/Home/HomeScreen';
 import TopTabBarWrapper from '@/components/Home/TopTabBarWrapper';
+import {RootState} from '@/model/index';
+import {connect, ConnectedProps} from 'react-redux';
+import {ICategory} from '../model/category';
 
-const TopTab = createMaterialTopTabNavigator();
+type HomeTabParamList = {
+  [key: string]: undefined;
+};
+const mapStateToProps = ({category}: RootState) => {
+  return {
+    myCategories: category.myCategories,
+  };
+};
 
-export default class HomeTopTabNavigator extends React.Component {
+const connector = connect(mapStateToProps);
+
+type ModelState = ConnectedProps<typeof connector>;
+
+const TopTab = createMaterialTopTabNavigator<HomeTabParamList>();
+
+class HomeTopTabNavigator extends React.Component<ModelState> {
   renderTabBar = (props: MaterialTopTabBarProps) => {
     return <TopTabBarWrapper {...props} />;
   };
+
+  renderTopTab = (item: ICategory) => {
+    return (
+      <TopTab.Screen
+        key={item.id}
+        component={HomeScreen}
+        name={item.id}
+        options={{tabBarLabel: item.name}}
+      />
+    );
+  };
+
   render() {
+    const {myCategories} = this.props;
     return (
       <TopTab.Navigator
         lazy
@@ -32,9 +61,9 @@ export default class HomeTopTabNavigator extends React.Component {
             backgroundColor: '#e94922',
           },
           activeTintColor: '#e94922',
-          inactiveTintColor: '#333',
+          inactiveTintColor: '#F8F8F8',
         }}>
-        <TopTab.Screen name="Home" component={HomeScreen} />
+        {myCategories.map(this.renderTopTab)}
       </TopTab.Navigator>
     );
   }
@@ -45,3 +74,5 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
   },
 });
+
+export default connector(HomeTopTabNavigator);
