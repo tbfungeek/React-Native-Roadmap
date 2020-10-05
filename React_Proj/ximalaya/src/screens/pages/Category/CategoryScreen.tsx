@@ -1,14 +1,19 @@
 import React from 'react';
-import {View, StyleSheet, Text} from 'react-native';
+import {View, StyleSheet, Text, SafeAreaView} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import {ICategory} from '../../../model/category';
 import _ from 'lodash';
 import {ScrollView} from 'react-native-gesture-handler';
-import Item from '../../../components/Category/ItemCell';
+import Item, {
+  itemHeight,
+  itemWidth,
+  parentWidth,
+} from '../../../components/Category/ItemCell';
 import {RootStackNavigation} from '@/navigators/StackNavigator';
 import HeaderRightButton from '@/components/Category/HeaderRightButton';
 import Touchable from '@/components/Common/Touchable';
+import {DragSortableView} from 'react-native-drag-sort';
 
 const mapStateToProps = ({category}: RootState) => {
   return {
@@ -25,12 +30,14 @@ interface IProps extends ModelState {
 
 interface IState {
   myCategories: ICategory[];
+  scrollEnabled: boolean;
 }
 
 const fixItemsIndex = [0, 1];
 
 class Category extends React.Component<IProps, IState> {
   state = {
+    scrollEnabled: true,
     myCategories: this.props.myCategories,
   };
 
@@ -131,54 +138,86 @@ class Category extends React.Component<IProps, IState> {
     const {isEdit} = this.props;
     const disable = fixItemsIndex.indexOf(index) > -1;
     return (
-      <Touchable
-        key={item.id}
-        onLongPress={this.longPress}
-        onPress={() => this.onItemClick(index, item, isEdit, true, disable)}>
-        <Item
-          item={item}
-          isEdit={isEdit}
-          disable={disable}
-          isMyCategories={true}
-        />
-      </Touchable>
+      <Item
+        item={item}
+        isEdit={isEdit}
+        disable={disable}
+        isMyCategories={true}
+      />
     );
   };
 
+  onClickItem = (data: ICategory[], item: ICategory, index: number) => {
+    const {isEdit} = this.props;
+    this.onItemClick(index, item, isEdit, true, false);
+  };
+
+  onDataChange = (data: ICategory[]) => {
+    this.setState({
+      myCategories: data,
+    });
+  };
+
   render() {
-    const {categories} = this.props;
+    const {categories, isEdit} = this.props;
     const {myCategories} = this.state;
     const classifyGroup = _.groupBy(categories, (item) => item.typeName);
     return (
-      <ScrollView style={styles.container}>
-        <Text style={styles.classifyTitle}>我的分类</Text>
-        <View style={styles.classifyView}>
-          {myCategories.map(this.renderMyCategoryItem)}
-        </View>
+      <SafeAreaView style={{backgroundColor: '#fff', flex: 1}}>
+        <ScrollView
+          scrollEnabled={this.state.scrollEnabled}
+          style={styles.container}>
+          <Text style={styles.classifyTitle}>我的分类</Text>
+          <View style={styles.classifyView}>
+            <DragSortableView
+              dataSource={myCategories}
+              renderItem={this.renderMyCategoryItem}
+              parentWidth={parentWidth}
+              childrenHeight={itemHeight}
+              childrenWidth={itemWidth}
+              sortable={isEdit}
+              marginChildrenTop={5}
+              onClickItem={this.onClickItem}
+              onDataChange={this.onDataChange}
+              onDragStart={() => {
+                this.setState({
+                  scrollEnabled: false,
+                });
+              }}
+              onDragEnd={() => {
+                this.setState({
+                  scrollEnabled: true,
+                });
+              }}
+              fixedItems={fixItemsIndex}
+              keyExtractor={(item) => item.id}
+            />
+          </View>
 
-        <View>
-          {Object.keys(classifyGroup).map((classify) => {
-            return (
-              <View key={classify}>
-                <Text style={styles.classifyTitle}>{classify}</Text>
-                <View style={styles.classifyView}>
-                  {classifyGroup[classify].map((item, index) => {
-                    if (
-                      myCategories.find(
-                        (itemOfMyCategories) =>
-                          itemOfMyCategories.id === item.id,
-                      )
-                    ) {
-                      return null;
-                    }
-                    return this.renderItem(item, index);
-                  })}
+          <View>
+            {Object.keys(classifyGroup).map((classify) => {
+              return (
+                <View key={classify}>
+                  <Text style={styles.classifyTitle}>{classify}</Text>
+                  <View style={styles.classifyView}>
+                    {classifyGroup[classify].map((item, index) => {
+                      if (
+                        myCategories.find(
+                          (itemOfMyCategories) =>
+                            itemOfMyCategories.id === item.id,
+                        )
+                      ) {
+                        return null;
+                      }
+                      return this.renderItem(item, index);
+                    })}
+                  </View>
                 </View>
-              </View>
-            );
-          })}
-        </View>
-      </ScrollView>
+              );
+            })}
+          </View>
+        </ScrollView>
+      </SafeAreaView>
     );
   }
 }

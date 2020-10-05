@@ -3,7 +3,9 @@ import {View, Text, StyleSheet} from 'react-native';
 import {screenWidth} from '@/utils/DimensionsUtils';
 import {ICategory} from '../../model/category';
 
-const itemWidth = (screenWidth - 10) / 4;
+export const parentWidth = screenWidth - 10;
+export const itemWidth = parentWidth / 4;
+export const itemHeight = 46;
 
 interface IProps {
   item: ICategory;
@@ -35,7 +37,7 @@ class Item extends React.Component<IProps> {
 const styles = StyleSheet.create({
   itemStyle: {
     width: itemWidth,
-    height: 46,
+    height: itemHeight,
   },
   itemContainer: {
     backgroundColor: '#fff',
