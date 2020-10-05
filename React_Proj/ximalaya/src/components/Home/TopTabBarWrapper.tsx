@@ -10,16 +10,19 @@ import {
   MaterialTopTabBarProps,
   MaterialTopTabBar,
 } from '@react-navigation/material-top-tabs';
+import getActiveRouteName from '@/utils/utils';
 
 /**
  *  先建立state到prop的映射表
  */
-const mapStateToProps = ({home}: RootState) => {
+const mapStateToProps = (state: RootState, props: MaterialTopTabBarProps) => {
+  const routeName = 'tabs-' + getActiveRouteName(props.state);
+  const modelState = state[routeName];
   return {
-    gradientVisible: home.gradientVisible,
+    gradientVisible: modelState.gradientVisible,
     linearGradient:
-      home.carousel && home.carousel.length > 0
-        ? home.carousel[home.activeCarouselIndex].colors
+      modelState.carousel && modelState.carousel.length > 0
+        ? modelState.carousel[modelState.activeCarouselIndex].colors
         : undefined,
   };
 };
