@@ -6,15 +6,23 @@ import Icon from '@/assets/iconfont';
 import Touchable from '@/components/Common/Touchable';
 import {IGuess} from '@/model/home';
 
-const mapStateToProps = ({home}: RootState) => ({
-  guess: home.guess,
-});
+const mapStateToProps = (state: RootState, props) => {
+  const {modelNameSpace} = props;
+  const modelState = state[modelNameSpace];
+  return {
+    guess: modelState.guess,
+  };
+};
 
 const Connecter = connect(mapStateToProps);
 
 type ModelState = ConnectedProps<typeof Connecter>;
 
-class Guess extends React.PureComponent<ModelState> {
+interface IProps extends ModelState {
+  modelNameSpace: string;
+}
+
+class Guess extends React.PureComponent<IProps> {
   renderItem = ({item}: {item: IGuess}) => {
     return (
       <Touchable
@@ -71,9 +79,9 @@ class Guess extends React.PureComponent<ModelState> {
   }
 
   freshGuess = () => {
-    const {dispatch} = this.props;
+    const {dispatch, modelNameSpace} = this.props;
     dispatch({
-      type: 'home/fetchGuess',
+      type: modelNameSpace + '/fetchGuess',
     });
   };
 }

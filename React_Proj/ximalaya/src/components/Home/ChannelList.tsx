@@ -52,12 +52,14 @@ class ChannelInfoCell extends React.PureComponent<IProps> {
   }
 }
 
-const mapStateToProps = ({home, loading}: RootState) => {
+const mapStateToProps = (state: RootState, props) => {
+  const {modelNameSpace} = props;
+  const modelState = state[modelNameSpace];
   return {
-    channelList: home.channelList,
-    loading: loading.effects['home/fetchChannelList'],
-    hasMore: home.pageInfo.hasMore,
-    gradientVisible: home.gradientVisible,
+    channelList: modelState.channelList,
+    loading: state.loading.effects[modelNameSpace + '/fetchChannelList'],
+    hasMore: modelState.pageInfo.hasMore,
+    gradientVisible: modelState.gradientVisible,
   };
 };
 
@@ -67,6 +69,7 @@ type ModelState = ConnectedProps<typeof Connecter>;
 
 interface IChannelListProps extends ModelState {
   listHeader: React.ReactElement;
+  modelNameSpace: string;
 }
 
 class ChannelList extends React.Component<IChannelListProps> {
@@ -75,9 +78,9 @@ class ChannelList extends React.Component<IChannelListProps> {
   };
 
   componentDidMount() {
-    const {dispatch} = this.props;
+    const {dispatch, modelNameSpace} = this.props;
     dispatch({
-      type: 'home/fetchChannelList',
+      type: modelNameSpace + '/fetchChannelList',
     });
   }
 
@@ -138,9 +141,9 @@ class ChannelList extends React.Component<IChannelListProps> {
     this.setState({
       refreshing: true,
     });
-    const {dispatch} = this.props;
+    const {dispatch, modelNameSpace} = this.props;
     dispatch({
-      type: 'home/fetchChannelList',
+      type: modelNameSpace + '/fetchChannelList',
       callback: () => {
         this.setState({
           refreshing: false,
@@ -152,13 +155,13 @@ class ChannelList extends React.Component<IChannelListProps> {
   onScroll = ({nativeEvent}: NativeSyntheticEvent<NativeScrollEvent>) => {
     const offsetY = nativeEvent.contentOffset.y;
     let newGradientVisible = offsetY < contentHeight;
-    const {gradientVisible, dispatch} = this.props;
+    const {gradientVisible, dispatch, modelNameSpace} = this.props;
     if (gradientVisible === newGradientVisible) {
       return;
     }
 
     dispatch({
-      type: 'home/setState',
+      type: modelNameSpace + '/setState',
       payload: {
         gradientVisible: newGradientVisible,
       },
@@ -166,12 +169,12 @@ class ChannelList extends React.Component<IChannelListProps> {
   };
 
   onEndReached = () => {
-    const {dispatch, loading, hasMore} = this.props;
+    const {dispatch, loading, hasMore, modelNameSpace} = this.props;
     if (loading || !hasMore) {
       return;
     }
     dispatch({
-      type: 'home/fetchChannelList',
+      type: modelNameSpace + '/fetchChannelList',
       payload: {
         loadMore: true,
       },

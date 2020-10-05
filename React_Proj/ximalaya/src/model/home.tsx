@@ -105,11 +105,13 @@ const homeModel: HomeModel = {
         },
       });
     },
-    *fetchChannelList({callback, payload}, {call, put, select}) {
+    *fetchChannelList({callback, payload, type}, {call, put, select}) {
       console.log('[LXH][开始请求频道列表数据......]');
 
+      const namespace = type.split('/')[0];
+
       const {channelList, pageInfo} = yield select(
-        (state: RootState) => state.home,
+        (state: RootState) => state[namespace],
       );
 
       let page = 1;

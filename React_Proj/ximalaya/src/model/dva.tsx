@@ -37,6 +37,8 @@ function registerModel(model: Model) {
 }
 
 export function createHomeModel(namespace: string) {
-  const model = modelExtend(homeModel, {namespace});
+  const model = modelExtend(homeModel, {
+    namespace: namespace ? namespace : 'home',
+  });
   registerModel(model);
 }

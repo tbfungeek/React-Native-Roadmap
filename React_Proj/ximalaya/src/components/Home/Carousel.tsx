@@ -18,25 +18,30 @@ const carouselWidth = screenWidth; //轮播图宽度
 const itemWidth = contentWidth + itemHorizontalMargin * 2; //每项宽度
 const carouselHeight = contentHeight + itemVerticalMargin * 2;
 
-interface IProps {
-  data: ICarousel[];
-}
-
-const mapStateToProps = ({home}: RootState) => ({
-  carousel: home.carousel,
-  activeCarouselIndex: home.activeCarouselIndex,
-});
+const mapStateToProps = (state: RootState, props) => {
+  const {modelNameSpace} = props;
+  const modelState = state[modelNameSpace];
+  return {
+    carousel: modelState.carousel,
+    activeCarouselIndex: modelState.activeCarouselIndex,
+  };
+};
 
 const Connector = connect(mapStateToProps);
 
 type ModelState = ConnectedProps<typeof Connector>;
 
-class Carousel extends React.Component<ModelState> {
+interface IProps extends ModelState {
+  modelNameSpace: string;
+}
+
+class Carousel extends React.Component<IProps> {
   componentDidMount() {
-    const {dispatch} = this.props;
+    const {dispatch, modelNameSpace} = this.props;
     dispatch({
-      type: 'home/fetchCarousel',
+      type: modelNameSpace + '/fetchCarousel',
     });
+    console.log('=======>', modelNameSpace + '/fetchCarousel');
   }
 
   renderItem = (
@@ -57,9 +62,9 @@ class Carousel extends React.Component<ModelState> {
   };
 
   onSnapToItem = (index: number) => {
-    const {dispatch} = this.props;
+    const {dispatch, modelNameSpace} = this.props;
     dispatch({
-      type: 'home/setState',
+      type: modelNameSpace + '/setState',
       payload: {
         activeCarouselIndex: index,
       },

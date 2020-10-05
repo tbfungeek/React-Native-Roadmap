@@ -9,9 +9,12 @@ import TopTabBarWrapper from '@/components/Home/TopTabBarWrapper';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import {ICategory} from '../model/category';
+import {createHomeModel} from '@/model/dva';
 
-type HomeTabParamList = {
-  [key: string]: undefined;
+export type HomeTabParamList = {
+  [key: string]: {
+    namespace: string;
+  };
 };
 const mapStateToProps = ({category}: RootState) => {
   return {
@@ -31,12 +34,18 @@ class HomeTopTabNavigator extends React.Component<ModelState> {
   };
 
   renderTopTab = (item: ICategory) => {
+    //动态创建一个model添加到dva
+    createHomeModel('tabs-' + item.id);
     return (
       <TopTab.Screen
         key={item.id}
         component={HomeScreen}
         name={item.id}
         options={{tabBarLabel: item.name}}
+        initialParams={{
+          //告诉tab要获取哪个model
+          namespace: 'tabs-' + item.id,
+        }}
       />
     );
   };

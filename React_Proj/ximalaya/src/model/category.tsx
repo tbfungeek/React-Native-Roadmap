@@ -11,7 +11,7 @@ const CATEGORY_URL = '/mock/11/ximalaya/category';
 export interface ICategory {
   id: string;
   name: string;
-  type?: string;
+  type: string;
   typeName?: string;
 }
 
