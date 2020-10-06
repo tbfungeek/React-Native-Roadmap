@@ -33,6 +33,7 @@ type ModelState = ConnectedProps<typeof Connector>;
 
 interface IProps extends ModelState {
   modelNameSpace: string;
+  navigation: RootStackNavigation;
 }
 
 class Carousel extends React.Component<IProps> {
@@ -41,7 +42,6 @@ class Carousel extends React.Component<IProps> {
     dispatch({
       type: modelNameSpace + '/fetchCarousel',
     });
-    console.log('=======>', modelNameSpace + '/fetchCarousel');
   }
 
   renderItem = (

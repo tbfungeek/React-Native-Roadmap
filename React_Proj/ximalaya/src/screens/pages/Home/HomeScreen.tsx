@@ -14,21 +14,27 @@ interface IProps /*extends ModelState*/ {
 
 class HomeScreen extends React.Component<IProps> {
   get header() {
-    const {route} = this.props;
+    const {route, navigation} = this.props;
     const namespace = route.params.namespace;
     return (
       <View>
-        <Carousel modelNameSpace={namespace} />
+        <Carousel modelNameSpace={namespace} navigation={navigation} />
         <View style={styles.container}>
-          <Guess modelNameSpace={namespace} />
+          <Guess modelNameSpace={namespace} navigation={navigation} />
         </View>
       </View>
     );
   }
   render() {
-    const {route} = this.props;
+    const {route, navigation} = this.props;
     const namespace = route.params.namespace;
-    return <ChannelList modelNameSpace={namespace} listHeader={this.header} />;
+    return (
+      <ChannelList
+        modelNameSpace={namespace}
+        listHeader={this.header}
+        navigation={navigation}
+      />
+    );
   }
 }
 

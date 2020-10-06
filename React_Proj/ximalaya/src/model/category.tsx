@@ -4,14 +4,13 @@ import {load} from './storage/storage';
 import storage from './storage/storage';
 import axios from 'axios';
 import {RootState} from '@/model/index';
-import {store} from '@/model/dva';
 
 const CATEGORY_URL = '/mock/11/ximalaya/category';
 
 export interface ICategory {
   id: string;
   name: string;
-  type: string;
+  type?: string;
   typeName?: string;
 }
 
