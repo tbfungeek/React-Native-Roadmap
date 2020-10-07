@@ -26,7 +26,13 @@ type RootStackParamList = {
   Detail: {
     id: number;
   };
-  Album: undefined;
+  Album: {
+    item: {
+      id: string;
+      title: string;
+      image: string;
+    };
+  };
   Category: {};
 };
 
@@ -37,6 +43,16 @@ export type TabRouteProp = RouteProp<RootStackParamList, 'TabNavigator'> & {
 };
 
 const Stack = createStackNavigator<RootStackParamList>();
+
+function getAlbumOptions({
+  route,
+}: {
+  route: RouteProp<RootStackParamList, 'Album'>;
+}) {
+  return {
+    headerTitle: route.params.item.title,
+  };
+}
 
 export default class StackNavigator extends React.Component {
   render() {
@@ -68,7 +84,11 @@ export default class StackNavigator extends React.Component {
           <Stack.Screen name="TabNavigator" component={TabNavigator} />
           <Stack.Screen name="Detail" component={Detail} />
           <Stack.Screen name="Category" component={Category} />
-          <Stack.Screen name="Album" component={Album} />
+          <Stack.Screen
+            name="Album"
+            component={Album}
+            options={getAlbumOptions}
+          />
         </Stack.Navigator>
       </NavigationContainer>
     );

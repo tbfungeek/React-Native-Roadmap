@@ -40,7 +40,7 @@ class HomeScreen extends React.Component<IProps> {
 
   goAlbum = (item: IChannel | IGuess) => {
     const {navigation} = this.props;
-    navigation.navigate('Album');
+    navigation.navigate('Album', {item});
   };
 }
 
