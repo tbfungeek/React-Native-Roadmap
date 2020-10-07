@@ -15,11 +15,12 @@ import Detail from '@/screens/pages/Detail';
 import Category from '@/screens/pages/Category/CategoryScreen';
 import {Platform, StyleSheet, StatusBar} from 'react-native';
 import Album from '../screens/pages/Album/AlbumScreen';
+import Animated from 'react-native-reanimated';
 
 /**
  * 路由传值类型定义
  */
-type RootStackParamList = {
+export type RootStackParamList = {
   TabNavigator: {
     screen: string;
   };
@@ -51,8 +52,25 @@ function getAlbumOptions({
 }) {
   return {
     headerTitle: route.params.item.title,
+    //透明标题栏
+    headerTransparent: true,
+    headerTitleStyle: {
+      opacity: 0,
+    },
+    //透明标题栏
+    headerBackground: () => {
+      return <Animated.View style={styles.headerBackground} />;
+    },
   };
 }
+
+const styles = StyleSheet.create({
+  headerBackground: {
+    flex: 1,
+    backgroundColor: '#fff',
+    opacity: 0,
+  },
+});
 
 export default class StackNavigator extends React.Component {
   render() {
