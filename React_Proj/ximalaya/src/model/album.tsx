@@ -73,7 +73,7 @@ const albumModel: IAlbumModel = {
       yield put({
         type: 'setState',
         payload: {
-          albums: data,
+          ...data,
         },
       });
     },
