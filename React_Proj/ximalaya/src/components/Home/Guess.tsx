@@ -5,7 +5,6 @@ import {RootState} from '@/model/index';
 import Icon from '@/assets/iconfont';
 import Touchable from '@/components/Common/Touchable';
 import {IGuess} from '@/model/home';
-import {RootStackNavigation} from '@/navigators/StackNavigator';
 
 const mapStateToProps = (state: RootState, props) => {
   const {modelNameSpace} = props;
@@ -21,24 +20,24 @@ type ModelState = ConnectedProps<typeof Connecter>;
 
 interface IProps extends ModelState {
   modelNameSpace: string;
-  navigation: RootStackNavigation;
+  goAlbum: (item: IGuess) => void;
 }
 
 class Guess extends React.PureComponent<IProps> {
   renderItem = ({item}: {item: IGuess}) => {
+    const {goAlbum} = this.props;
     return (
-      <Touchable style={styles.item} onPress={this.onItemPress}>
+      <Touchable
+        style={styles.item}
+        onPress={() => {
+          goAlbum(item);
+        }}>
         <Image source={{uri: item.image}} style={styles.image} />
         <Text numberOfLines={2} style={styles.title}>
           {item.title}
         </Text>
       </Touchable>
     );
-  };
-
-  onItemPress = () => {
-    const {navigation} = this.props;
-    navigation.navigate('Album');
   };
 
   keyExtractor = (item: IGuess) => item.id;

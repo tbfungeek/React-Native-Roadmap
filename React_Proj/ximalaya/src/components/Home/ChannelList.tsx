@@ -14,7 +14,6 @@ import {IChannel} from '../../model/home';
 import Icon from '@/assets/iconfont';
 import Touchable from '@/components/Common/Touchable';
 import {contentHeight} from './Carousel';
-import {RootStackNavigation} from '@/navigators/StackNavigator';
 
 interface IProps {
   data: IChannel;
@@ -71,7 +70,7 @@ type ModelState = ConnectedProps<typeof Connecter>;
 interface IChannelListProps extends ModelState {
   listHeader: React.ReactElement;
   modelNameSpace: string;
-  navigation: RootStackNavigation;
+  goAlbum: (item: IChannel) => void;
 }
 
 class ChannelList extends React.Component<IChannelListProps> {
@@ -136,7 +135,8 @@ class ChannelList extends React.Component<IChannelListProps> {
 
   //ListRenderItemInfo
   renderItem = ({item}: {item: IChannel}) => {
-    return <ChannelInfoCell data={item} onItemPress={this.onItemPress} />;
+    const {goAlbum} = this.props;
+    return <ChannelInfoCell data={item} onItemPress={goAlbum} />;
   };
 
   onRefresh = () => {
@@ -181,11 +181,6 @@ class ChannelList extends React.Component<IChannelListProps> {
         loadMore: true,
       },
     });
-  };
-
-  onItemPress = (_) => {
-    const {navigation} = this.props;
-    navigation.navigate('Album');
   };
 }
 

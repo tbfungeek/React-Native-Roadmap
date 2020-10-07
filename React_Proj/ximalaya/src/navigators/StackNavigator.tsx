@@ -16,6 +16,9 @@ import Category from '@/screens/pages/Category/CategoryScreen';
 import {Platform, StyleSheet, StatusBar} from 'react-native';
 import Album from '../screens/pages/Album/AlbumScreen';
 
+/**
+ * 路由传值类型定义
+ */
 type RootStackParamList = {
   TabNavigator: {
     screen: string;
