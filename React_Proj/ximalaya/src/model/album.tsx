@@ -11,7 +11,7 @@ interface IAuthor {
   avatar: string;
 }
 
-interface IProgram {
+export interface IProgram {
   id: string;
   title: string;
   playVolume: number;

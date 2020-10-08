@@ -7,6 +7,7 @@ import {RouteProp} from '@react-navigation/native';
 import {RootStackParamList} from '@/navigators/StackNavigator';
 import coverRight from '../../../assets/cover-right.png';
 import {BlurView} from '@react-native-community/blur';
+import Tab from '@/components/Album/Tab';
 
 const mapStateToProps = ({album}: RootState) => {
   return {
@@ -49,7 +50,7 @@ class AlbumScreen extends React.Component<IProps> {
           style={StyleSheet.absoluteFillObject}
           blurType={'light'}
           blurAmount={1}
-          blurRadius={7}
+          blurRadius={1}
         />
         <View style={styles.leftView}>
           <Image source={coverRight} style={styles.coverRight} />
@@ -74,7 +75,12 @@ class AlbumScreen extends React.Component<IProps> {
     );
   };
   render() {
-    return <View style={styles.container}>{this.renderHeader()}</View>;
+    return (
+      <View style={styles.container}>
+        {this.renderHeader()}
+        <Tab />
+      </View>
+    );
   }
 }
 
@@ -84,7 +90,9 @@ function Wrapper(props: IProps) {
 }
 
 const styles = StyleSheet.create({
-  container: {},
+  container: {
+    flex: 1,
+  },
   backgroundImage: {
     ...StyleSheet.absoluteFillObject,
     backgroundColor: '#eee',
@@ -108,6 +116,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   title: {
+    color: '#fff',
     fontSize: 14,
     fontWeight: 'bold',
   },
@@ -128,6 +137,7 @@ const styles = StyleSheet.create({
     borderRadius: 4,
   },
   summeryText: {
+    color: '#fff',
     fontSize: 12,
   },
   author: {
@@ -141,6 +151,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
   },
   authorName: {
+    color: '#fff',
     fontSize: 12,
   },
 });
