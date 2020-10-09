@@ -16,7 +16,7 @@ export interface IProgram {
   title: string;
   playVolume: number;
   duration: number;
-  data: string;
+  date: string;
   serial: number;
 }
 
