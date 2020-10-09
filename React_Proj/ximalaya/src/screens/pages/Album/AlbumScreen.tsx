@@ -13,6 +13,7 @@ import {
   PanGestureHandlerStateChangeEvent,
   State,
 } from 'react-native-gesture-handler';
+import {screenHeight} from '@/utils/DimensionsUtils';
 
 const mapStateToProps = ({album}: RootState) => {
   return {
@@ -30,10 +31,13 @@ interface IProps extends ModelState {
   route: RouteProp<RootStackParamList, 'Album'>;
 }
 
+const HEADER_HEIGHT = 260;
 class AlbumScreen extends React.Component<IProps> {
+  translationYValue = 0;
   translationY = new Animated.Value(0);
   translateYOffset = new Animated.Value(0);
   translateY = Animated.add(this.translationY, this.translateYOffset);
+  RANGE = [-(HEADER_HEIGHT - this.props.headerHeight), 0];
   componentDidMount() {
     const {dispatch, route} = this.props;
     const {id} = route.params.item;
@@ -64,6 +68,21 @@ class AlbumScreen extends React.Component<IProps> {
       //value = value + offset
       this.translateYOffset.flattenOffset();
       this.translationY.setValue(0);
+      this.translationYValue += translationY;
+
+      if (this.translationYValue < this.RANGE[0]) {
+        this.translationYValue = this.RANGE[0];
+        Animated.timing(this.translateYOffset, {
+          toValue: this.RANGE[0],
+          useNativeDriver: true,
+        }).start();
+      } else if (this.translationYValue > this.RANGE[1]) {
+        this.translationYValue = this.RANGE[1];
+        Animated.timing(this.translateYOffset, {
+          toValue: this.RANGE[1],
+          useNativeDriver: true,
+        }).start();
+      }
     }
   };
 
@@ -113,11 +132,21 @@ class AlbumScreen extends React.Component<IProps> {
           style={[
             styles.container,
             {
-              transform: [{translateY: this.translateY}],
+              transform: [
+                {
+                  translateY: this.translateY.interpolate({
+                    inputRange: this.RANGE,
+                    outputRange: this.RANGE,
+                    extrapolate: 'clamp',
+                  }),
+                },
+              ],
             },
           ]}>
           {this.renderHeader()}
-          <Tab />
+          <View style={{height: screenHeight - this.props.headerHeight}}>
+            <Tab />
+          </View>
         </Animated.View>
       </PanGestureHandler>
     );
@@ -138,7 +167,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#eee',
   },
   header: {
-    height: 260,
+    height: HEADER_HEIGHT,
     flexDirection: 'row',
     paddingHorizontal: 20,
     alignItems: 'center',
