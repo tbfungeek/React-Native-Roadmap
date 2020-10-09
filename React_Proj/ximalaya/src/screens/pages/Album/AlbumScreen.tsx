@@ -1,5 +1,5 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image} from 'react-native';
+import {StyleSheet, View, Text, Image, Animated} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import {useHeaderHeight} from '@react-navigation/stack';
@@ -8,6 +8,11 @@ import {RootStackParamList} from '@/navigators/StackNavigator';
 import coverRight from '../../../assets/cover-right.png';
 import {BlurView} from '@react-native-community/blur';
 import Tab from '@/components/Album/Tab';
+import {
+  PanGestureHandler,
+  PanGestureHandlerStateChangeEvent,
+  State,
+} from 'react-native-gesture-handler';
 
 const mapStateToProps = ({album}: RootState) => {
   return {
@@ -26,6 +31,9 @@ interface IProps extends ModelState {
 }
 
 class AlbumScreen extends React.Component<IProps> {
+  translationY = new Animated.Value(0);
+  translateYOffset = new Animated.Value(0);
+  translateY = Animated.add(this.translationY, this.translateYOffset);
   componentDidMount() {
     const {dispatch, route} = this.props;
     const {id} = route.params.item;
@@ -36,6 +44,28 @@ class AlbumScreen extends React.Component<IProps> {
       },
     });
   }
+
+  /*onGestureEvent = (gestureEvent: PanGestureHandlerGestureEvent) => {
+    console.log(gestureEvent.nativeEvent.translationY);
+  };*/
+
+  onGestureEvent = Animated.event([
+    {nativeEvent: {translationY: this.translationY}},
+  ]);
+
+  onHandlerStateChange = ({nativeEvent}: PanGestureHandlerStateChangeEvent) => {
+    if (nativeEvent.oldState === State.ACTIVE) {
+      let {translationY} = nativeEvent;
+      //value => offset
+      //value = 0
+      this.translateYOffset.extractOffset();
+      //value = translationY
+      this.translateYOffset.setValue(translationY);
+      //value = value + offset
+      this.translateYOffset.flattenOffset();
+      this.translationY.setValue(0);
+    }
+  };
 
   renderHeader = () => {
     const {headerHeight, summary, author, route} = this.props;
@@ -76,10 +106,20 @@ class AlbumScreen extends React.Component<IProps> {
   };
   render() {
     return (
-      <View style={styles.container}>
-        {this.renderHeader()}
-        <Tab />
-      </View>
+      <PanGestureHandler
+        onGestureEvent={this.onGestureEvent}
+        onHandlerStateChange={this.onHandlerStateChange}>
+        <Animated.View
+          style={[
+            styles.container,
+            {
+              transform: [{translateY: this.translateY}],
+            },
+          ]}>
+          {this.renderHeader()}
+          <Tab />
+        </Animated.View>
+      </PanGestureHandler>
     );
   }
 }
