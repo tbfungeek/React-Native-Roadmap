@@ -1,7 +1,7 @@
 import {extend} from 'lodash';
 import React from 'react';
-import {View, Text, StyleSheet} from 'react-native';
-import {TabView} from 'react-native-tab-view';
+import {View, Text, StyleSheet, Platform} from 'react-native';
+import {SceneRendererProps, TabBar, TabView} from 'react-native-tab-view';
 import AlbumList from './AlbumList';
 import Introduction from './Introduction';
 
@@ -10,7 +10,14 @@ interface IRoute {
   title: string;
 }
 
-class Tab extends React.Component {
+interface IState {
+  routes: IRoute[];
+  index: number;
+}
+
+interface IProps {}
+
+class Tab extends React.Component<IProps, IState> {
   state = {
     index: 1,
     routes: [
@@ -24,9 +31,23 @@ class Tab extends React.Component {
         navigationState={this.state}
         onIndexChange={this.onIndexChange}
         renderScene={this.renderScene}
+        renderTabBar={this.renderTabBar}
       />
     );
   }
+
+  renderTabBar = (props: SceneRendererProps & {navigationState: IState}) => {
+    return (
+      <TabBar
+        {...props}
+        scrollEnabled={true}
+        tabStyle={styles.tabStyle}
+        labelStyle={styles.labelStyle}
+        style={styles.tabbar}
+        indicatorStyle={styles.indicatorStyle}
+      />
+    );
+  };
 
   renderScene = ({route}: {route: IRoute}) => {
     switch (route.key) {
@@ -45,6 +66,28 @@ class Tab extends React.Component {
 const styles = StyleSheet.create({
   container: {
     backgroundColor: 'red',
+  },
+  tabStyle: {
+    width: 90,
+  },
+  labelStyle: {
+    color: '#333',
+  },
+  tabbar: {
+    backgroundColor: '#fff',
+  },
+  indicatorStyle: {
+    backgroundColor: '#F75959',
+    borderLeftWidth: 20,
+    borderRightWidth: 20,
+    borderLeftColor: '#fff',
+    borderRightColor: '#fff',
+    ...Platform.select({
+      android: {
+        elevation: 0,
+        borderBottomWidth: 0,
+      },
+    }),
   },
 });
 
