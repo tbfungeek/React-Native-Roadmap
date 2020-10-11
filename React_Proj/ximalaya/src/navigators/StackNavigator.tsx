@@ -98,7 +98,6 @@ function RootStackScreens() {
         },
       }}>
       <Stack.Screen name="TabNavigator" component={TabNavigator} />
-      <Stack.Screen name="Detail" component={Detail} />
       <Stack.Screen name="Category" component={Category} />
       <Stack.Screen name="Album" component={Album} options={getAlbumOptions} />
     </Stack.Navigator>

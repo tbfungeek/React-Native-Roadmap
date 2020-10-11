@@ -4,6 +4,7 @@ import {View, Text, StyleSheet, Platform} from 'react-native';
 import {SceneRendererProps, TabBar, TabView} from 'react-native-tab-view';
 import AlbumList from './AlbumList';
 import Introduction from './Introduction';
+import {IProgram} from '@/model/album';
 
 interface IRoute {
   key: string;
@@ -15,7 +16,9 @@ interface IState {
   index: number;
 }
 
-interface IProps {}
+interface IProps {
+  onItemPress: (item: IProgram, index: number) => void;
+}
 
 class Tab extends React.Component<IProps, IState> {
   state = {
@@ -50,11 +53,12 @@ class Tab extends React.Component<IProps, IState> {
   };
 
   renderScene = ({route}: {route: IRoute}) => {
+    const {onItemPress} = this.props;
     switch (route.key) {
       case 'introductions':
         return <Introduction />;
       case 'albums':
-        return <AlbumList />;
+        return <AlbumList onItemPress={onItemPress} />;
     }
   };
 

@@ -1,10 +1,13 @@
 import React from 'react';
-import {StyleSheet, View, Text, Image, Animated} from 'react-native';
+import {StyleSheet, View, Text, Image, Animated, Alert} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import {useHeaderHeight} from '@react-navigation/stack';
 import {RouteProp} from '@react-navigation/native';
-import {RootStackParamList} from '@/navigators/StackNavigator';
+import {
+  ModelStackNavigation,
+  RootStackParamList,
+} from '@/navigators/StackNavigator';
 import coverRight from '../../../assets/cover-right.png';
 import {BlurView} from '@react-native-community/blur';
 import Tab from '@/components/Album/Tab';
@@ -14,6 +17,7 @@ import {
   State,
 } from 'react-native-gesture-handler';
 import {screenHeight} from '@/utils/DimensionsUtils';
+import {IProgram} from '@/model/album';
 
 const mapStateToProps = ({album}: RootState) => {
   return {
@@ -29,6 +33,7 @@ type ModelState = ConnectedProps<typeof connecter>;
 interface IProps extends ModelState {
   headerHeight: number;
   route: RouteProp<RootStackParamList, 'Album'>;
+  navigation: ModelStackNavigation;
 }
 
 const HEADER_HEIGHT = 260;
@@ -56,6 +61,11 @@ class AlbumScreen extends React.Component<IProps> {
   onGestureEvent = Animated.event([
     {nativeEvent: {translationY: this.translationY}},
   ]);
+
+  onItemPress = (item: IProgram, index: number) => {
+    const {navigation} = this.props;
+    navigation.navigate('Detail');
+  };
 
   onHandlerStateChange = ({nativeEvent}: PanGestureHandlerStateChangeEvent) => {
     if (nativeEvent.oldState === State.ACTIVE) {
@@ -145,7 +155,7 @@ class AlbumScreen extends React.Component<IProps> {
           ]}>
           {this.renderHeader()}
           <View style={{height: screenHeight - this.props.headerHeight}}>
-            <Tab />
+            <Tab onItemPress={this.onItemPress} />
           </View>
         </Animated.View>
       </PanGestureHandler>

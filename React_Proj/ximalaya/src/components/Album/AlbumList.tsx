@@ -16,20 +16,15 @@ import Touchable from '@/components/Common/Touchable';
 interface IAlbumItemCellProps {
   item: IProgram;
   index: number;
-  onPress: (item: IProgram) => void;
+  onItemPress: (item: IProgram, index: number) => void;
 }
 class AlbumItemCell extends React.Component<IAlbumItemCellProps> {
-  onPress = () => {
-    const {item, onPress} = this.props;
-    if (!onPress) {
-      return;
-    }
-    onPress(item);
-  };
   render() {
-    const {item, index} = this.props;
+    const {item, index, onItemPress} = this.props;
     return (
-      <Touchable style={cellStyles.container} onPress={this.onPress}>
+      <Touchable
+        style={cellStyles.container}
+        onPress={() => onItemPress(item, index)}>
         <Text style={cellStyles.indexStyle}>{index + 1}</Text>
         <View style={cellStyles.info}>
           <Text style={cellStyles.title}>{item.title}</Text>
@@ -103,20 +98,21 @@ const connector = connect(mapStateToProps);
 
 type ModelState = ConnectedProps<typeof connector>;
 
-class AlbumList extends React.Component<ModelState> {
+interface IProps extends ModelState {
+  onItemPress: (item: IProgram, index: number) => void;
+}
+
+class AlbumList extends React.Component<IProps> {
   renderItem = ({item, index}: ListRenderItemInfo<IProgram>) => {
+    const {onItemPress} = this.props;
     return (
-      <AlbumItemCell item={item} index={index} onPress={this.onItemPress} />
+      <AlbumItemCell item={item} index={index} onItemPress={onItemPress} />
     );
   };
   render() {
     const {albumList} = this.props;
     return <FlatList data={albumList} renderItem={this.renderItem} />;
   }
-
-  onItemPress = (item: IProgram) => {
-    Alert.alert(item.title);
-  };
 }
 
 export default connector(AlbumList);

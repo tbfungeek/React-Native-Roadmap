@@ -8,11 +8,10 @@ interface IProps {
 
 export default class Detail extends React.Component<IProps> {
   render() {
-    const {route} = this.props;
+    //const {route} = this.props;
     return (
       <View>
-        <Text>Home</Text>
-        <Text>{route.params.id}</Text>
+        <Text>Detail</Text>
       </View>
     );
   }
