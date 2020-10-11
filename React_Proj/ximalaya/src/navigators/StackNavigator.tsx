@@ -8,6 +8,7 @@ import {
   StackNavigationProp,
   HeaderStyleInterpolators,
   CardStyleInterpolators,
+  TransitionPresets,
 } from '@react-navigation/stack';
 import React from 'react';
 import TabNavigator from './TabNavigator';
@@ -16,6 +17,7 @@ import Category from '@/screens/pages/Category/CategoryScreen';
 import {Platform, StyleSheet, StatusBar} from 'react-native';
 import Album from '../screens/pages/Album/AlbumScreen';
 import Animated from 'react-native-reanimated';
+import Icon from '@/assets/iconfont';
 
 /**
  * 路由传值类型定义
@@ -70,6 +72,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     opacity: 0,
   },
+  headerBackImage: {
+    marginHorizontal: 8,
+  },
 });
 
 function RootStackScreens() {
@@ -119,13 +124,38 @@ const ModelStack = createStackNavigator<ModelStackParamList>();
 
 function ModelStackScreens() {
   return (
-    <ModelStack.Navigator mode="modal" headerMode="screen">
+    <ModelStack.Navigator
+      mode="modal"
+      headerMode="screen"
+      screenOptions={{
+        headerTitleAlign: 'center',
+        gestureEnabled: true,
+        ...TransitionPresets.ModalPresentationIOS,
+        headerBackTitleVisible: false,
+      }}>
       <ModelStack.Screen
         name="Root"
         component={RootStackScreens}
         options={{headerShown: false}}
       />
-      <ModelStack.Screen name="Detail" component={Detail} />
+      <ModelStack.Screen
+        name="Detail"
+        component={Detail}
+        options={{
+          headerTintColor: '#fff',
+          headerTitle: '',
+          headerTransparent: true,
+          cardStyle: {backgroundColor: '#807c66'},
+          headerBackImage: ({tintColor}) => (
+            <Icon
+              name="icondown"
+              color={tintColor}
+              size={18}
+              style={styles.headerBackImage}
+            />
+          ),
+        }}
+      />
     </ModelStack.Navigator>
   );
 }
