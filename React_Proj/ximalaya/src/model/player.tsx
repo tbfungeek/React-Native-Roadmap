@@ -1,6 +1,7 @@
 import {Model, Effect} from 'dva-core-ts';
 import {Reducer} from 'redux';
 import axios from 'axios';
+import {initPlayer, playComplete} from '@/utils/sound';
 
 const PLAYINFO_URL: string = '/mock/11/ximalaya/show';
 
@@ -13,6 +14,7 @@ interface Player {
 
 interface PlayerModelState {
   player: Player;
+  playState: string;
 }
 
 interface PlayerModel extends Model {
@@ -23,6 +25,7 @@ interface PlayerModel extends Model {
   };
   effects: {
     fetchPlayerInfo: Effect;
+    play: Effect;
   };
 }
 
@@ -33,6 +36,7 @@ const initState = {
     thumbnailUrl: '',
     soundUrl: '',
   },
+  playState: '',
 };
 
 const playerModel: PlayerModel = {
@@ -48,11 +52,34 @@ const playerModel: PlayerModel = {
   },
   effects: {
     *fetchPlayerInfo(_, {call, put}) {
+      //拉取播放数据
       const {data} = yield call(axios.get, PLAYINFO_URL);
+      //存储到state
       yield put({
         type: 'setState',
         payload: {
           player: data,
+        },
+      });
+      //使用拉到到音频地址初始化播放器
+      yield call(initPlayer, data.soundUrl);
+      //播放音频
+      yield put({
+        type: 'play',
+      });
+    },
+    *play(_, {call, put}) {
+      yield put({
+        type: 'setState',
+        payload: {
+          playState: 'playing',
+        },
+      });
+      yield call(playComplete);
+      yield put({
+        type: 'setState',
+        payload: {
+          playState: 'paused',
         },
       });
     },
