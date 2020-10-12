@@ -12,7 +12,7 @@ import {
 } from '@react-navigation/stack';
 import React from 'react';
 import TabNavigator from './TabNavigator';
-import Detail from '@/screens/pages/Detail';
+import PlayerScreen from '@/screens/pages/Player/PlayerScreen';
 import Category from '@/screens/pages/Category/CategoryScreen';
 import {Platform, StyleSheet, StatusBar} from 'react-native';
 import Album from '../screens/pages/Album/AlbumScreen';
@@ -26,7 +26,7 @@ export type RootStackParamList = {
   TabNavigator: {
     screen: string;
   };
-  Detail: {
+  PlayerScreen: {
     id: number;
   };
   Album: {
@@ -40,7 +40,7 @@ export type RootStackParamList = {
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
-export type DetailRouteProp = RouteProp<RootStackParamList, 'Detail'>;
+export type DetailRouteProp = RouteProp<RootStackParamList, 'PlayerScreen'>;
 export type TabRouteProp = RouteProp<RootStackParamList, 'TabNavigator'> & {
   state?: TabNavigationState;
 };
@@ -114,7 +114,7 @@ function RootStackScreens() {
  */
 export type ModelStackParamList = {
   Root: undefined /** 跳转到Root页面传递的参数 */;
-  Detail: undefined /** 跳转到Detail页面传递的参数 */;
+  PlayerScreen: undefined /** 跳转到Detail页面传递的参数 */;
 };
 
 /**
@@ -139,8 +139,8 @@ function ModelStackScreens() {
         options={{headerShown: false}}
       />
       <ModelStack.Screen
-        name="Detail"
-        component={Detail}
+        name="PlayerScreen"
+        component={PlayerScreen}
         options={{
           headerTintColor: '#fff',
           headerTitle: '',

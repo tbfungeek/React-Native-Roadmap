@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import Icon from '@/assets/iconfont';
@@ -21,7 +21,7 @@ interface IProps extends ModelState {
   headerHeight: number;
 }
 
-class Detail extends React.Component<IProps> {
+class PlayerScreen extends React.Component<IProps> {
   componentDidMount() {
     const {dispatch} = this.props;
     dispatch({

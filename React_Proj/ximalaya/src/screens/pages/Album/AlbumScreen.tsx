@@ -64,7 +64,7 @@ class AlbumScreen extends React.Component<IProps> {
 
   onItemPress = (item: IProgram, index: number) => {
     const {navigation} = this.props;
-    navigation.navigate('Detail');
+    navigation.navigate('PlayerScreen');
   };
 
   onHandlerStateChange = ({nativeEvent}: PanGestureHandlerStateChangeEvent) => {
