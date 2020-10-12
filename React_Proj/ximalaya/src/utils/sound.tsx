@@ -61,3 +61,5 @@ const getDuration = () => {
 };
 
 export {sound, initPlayer, playComplete, stop, getCurrentTime, getDuration};
+
+""
