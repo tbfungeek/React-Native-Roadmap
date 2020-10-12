@@ -1,7 +1,7 @@
-import {Model, Effect} from 'dva-core-ts';
+import {Model, Effect, EffectWithType, EffectsCommandMap} from 'dva-core-ts';
 import {Reducer} from 'redux';
 import axios from 'axios';
-import {initPlayer, playComplete, pause} from '@/utils/sound';
+import {initPlayer, playComplete, pause, getCurrentTime} from '@/utils/sound';
 
 const PLAYINFO_URL: string = '/mock/11/ximalaya/show';
 
@@ -15,6 +15,7 @@ interface Player {
 interface PlayerModelState {
   player: Player;
   playState: string;
+  currentTime: number;
 }
 
 interface PlayerModel extends Model {
@@ -27,6 +28,7 @@ interface PlayerModel extends Model {
     fetchPlayerInfo: Effect;
     play: Effect;
     pause: Effect;
+    watcherCurrentTime: EffectWithType;
   };
 }
 
@@ -38,7 +40,24 @@ const initState = {
     soundUrl: '',
   },
   playState: '',
+  currentTime: 0,
 };
+
+const delay = (timeout: number) =>
+  new Promise((resolve) => setTimeout(resolve, timeout));
+
+function* currentTime({call, put}: EffectsCommandMap) {
+  while (true) {
+    yield call(delay, 1000);
+    const currentTime = yield call(getCurrentTime);
+    yield put({
+      type: 'setState',
+      payload: {
+        currentTime,
+      },
+    });
+  }
+}
 
 const playerModel: PlayerModel = {
   namespace: 'player',
@@ -93,6 +112,20 @@ const playerModel: PlayerModel = {
         },
       });
     },
+    watcherCurrentTime: [
+      //dva 加载的时候会执行这个方法
+      function* (sagaEffects) {
+        const {call, take, race} = sagaEffects;
+        while (true) {
+          yield take('play'); //play执行的时候才会执行下面的代码
+          yield race([
+            call(currentTime, sagaEffects),
+            take('pause') /*pause执行的时候call中的方法就会退出*/,
+          ]); //数组任意一项执行的时候推出
+        }
+      },
+      {type: 'watcher'},
+    ],
   },
 };
 

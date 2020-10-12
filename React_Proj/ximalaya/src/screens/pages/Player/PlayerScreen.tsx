@@ -5,6 +5,7 @@ import {connect, ConnectedProps} from 'react-redux';
 import Icon from '@/assets/iconfont';
 import {useHeaderHeight} from '@react-navigation/stack';
 import Touchable from '@/components/Common/Touchable';
+import PlayerSlider from '@/screens/pages/Player/PlayerSlider';
 
 const mapStateToProps = ({player}: RootState) => {
   return {
@@ -29,18 +30,27 @@ class PlayerScreen extends React.Component<IProps> {
     });
   }
   render() {
-    const {headerHeight,player, playStatus} = this.props;
+    const {headerHeight, player, playStatus} = this.props;
     const playerHeaderStyle = {
       paddingTop: headerHeight,
     };
-    return <View style={playerHeaderStyle}>{this.playButton()}</View>;
+    return (
+      <View style={playerHeaderStyle}>
+        <PlayerSlider />
+        {this.playButton()}
+      </View>
+    );
   }
 
   playButton = () => {
     const {playStatus} = this.props;
     return (
       <Touchable onPress={this.togglePlayer}>
-        <Icon name={playStatus === 'playing' ? 'iconpause' : 'iconplay'} />
+        <Icon
+          name={playStatus === 'playing' ? 'iconpause' : 'iconplay'}
+          color={'white'}
+          size={26}
+        />
       </Touchable>
     );
   };
@@ -55,7 +65,7 @@ class PlayerScreen extends React.Component<IProps> {
 
 function Wrapper(props: IProps) {
   const headerHeight = useHeaderHeight();
-  return <Detail {...props} headerHeight={headerHeight} />;
+  return <PlayerScreen {...props} headerHeight={headerHeight} />;
 }
 
 export default connector(Wrapper);
