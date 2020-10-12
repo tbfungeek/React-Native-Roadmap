@@ -1,7 +1,7 @@
 import {Model, Effect} from 'dva-core-ts';
 import {Reducer} from 'redux';
 import axios from 'axios';
-import {initPlayer, playComplete} from '@/utils/sound';
+import {initPlayer, playComplete, pause} from '@/utils/sound';
 
 const PLAYINFO_URL: string = '/mock/11/ximalaya/show';
 
@@ -26,6 +26,7 @@ interface PlayerModel extends Model {
   effects: {
     fetchPlayerInfo: Effect;
     play: Effect;
+    pause: Effect;
   };
 }
 
@@ -76,6 +77,15 @@ const playerModel: PlayerModel = {
         },
       });
       yield call(playComplete);
+      yield put({
+        type: 'setState',
+        payload: {
+          playState: 'paused',
+        },
+      });
+    },
+    *pause(_, {call, put}) {
+      yield call(pause);
       yield put({
         type: 'setState',
         payload: {
