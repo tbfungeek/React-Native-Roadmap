@@ -6,6 +6,7 @@ import Icon from '@/assets/iconfont';
 import {useHeaderHeight} from '@react-navigation/stack';
 import Touchable from '@/components/Common/Touchable';
 import PlayerSlider from '@/screens/pages/Player/PlayerSlider';
+import {PlayScreenRouteProp} from '@/navigators/StackNavigator';
 
 const mapStateToProps = ({player}: RootState) => {
   return {
@@ -20,17 +21,22 @@ type ModelState = ConnectedProps<typeof connector>;
 
 interface IProps extends ModelState {
   headerHeight: number;
+  route: PlayScreenRouteProp;
 }
 
 class PlayerScreen extends React.Component<IProps> {
   componentDidMount() {
-    const {dispatch} = this.props;
+    const {dispatch, route} = this.props;
+    const {id} = route.params;
     dispatch({
       type: 'player/fetchPlayerInfo',
+      payload: {
+        id,
+      },
     });
   }
   render() {
-    const {headerHeight, player, playStatus} = this.props;
+    const {headerHeight} = this.props;
     const playerHeaderStyle = {
       paddingTop: headerHeight,
     };

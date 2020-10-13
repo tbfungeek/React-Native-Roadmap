@@ -79,9 +79,11 @@ const playerModel: PlayerModel = {
     },
   },
   effects: {
-    *fetchPlayerInfo(_, {call, put}) {
+    *fetchPlayerInfo(payload, {call, put}) {
       //拉取播放数据
-      const {data} = yield call(axios.get, PLAYINFO_URL);
+      const {data} = yield call(axios.get, PLAYINFO_URL, {
+        params: {id: payload.id},
+      });
       yield call(initPlayer, data.soundUrl);
       //存储到state
       yield put({

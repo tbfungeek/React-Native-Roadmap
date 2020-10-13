@@ -27,7 +27,7 @@ export type RootStackParamList = {
     screen: string;
   };
   PlayerScreen: {
-    id: number;
+    id: string;
   };
   Album: {
     item: {
@@ -40,7 +40,12 @@ export type RootStackParamList = {
 };
 
 export type RootStackNavigation = StackNavigationProp<RootStackParamList>;
-export type DetailRouteProp = RouteProp<RootStackParamList, 'PlayerScreen'>;
+export type PlayScreenRouteProp = RouteProp<
+  RootStackParamList,
+  'PlayerScreen'
+> & {
+  id?: string;
+};
 export type TabRouteProp = RouteProp<RootStackParamList, 'TabNavigator'> & {
   state?: TabNavigationState;
 };
@@ -114,7 +119,9 @@ function RootStackScreens() {
  */
 export type ModelStackParamList = {
   Root: undefined /** 跳转到Root页面传递的参数 */;
-  PlayerScreen: undefined /** 跳转到Detail页面传递的参数 */;
+  PlayerScreen: {
+    id: string;
+  } /** 跳转到Detail页面传递的参数 */;
 };
 
 /**
