@@ -23,6 +23,7 @@ const mapStateToProps = ({album}: RootState) => {
   return {
     summary: album.summary,
     author: album.author,
+    list: album.list,
   };
 };
 
@@ -63,7 +64,15 @@ class AlbumScreen extends React.Component<IProps> {
   ]);
 
   onItemPress = (item: IProgram, index: number) => {
-    const {navigation} = this.props;
+    const {navigation, dispatch, list} = this.props;
+    dispatch({
+      type: 'player/setState',
+      payload: {
+        currentIndex: index,
+        playlist: list,
+      },
+    });
+
     navigation.navigate('PlayerScreen', {id: item.id});
   };
 

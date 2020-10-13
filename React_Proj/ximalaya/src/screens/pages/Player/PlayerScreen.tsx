@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {View, StyleSheet} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import Icon from '@/assets/iconfont';
@@ -43,7 +43,15 @@ class PlayerScreen extends React.Component<IProps> {
     return (
       <View style={playerHeaderStyle}>
         <PlayerSlider />
-        {this.playButton()}
+        <View style={styles.playButtonsStyles}>
+          <Touchable>
+            <Icon name="iconprev" color={'white'} size={26} />
+          </Touchable>
+          {this.playButton()}
+          <Touchable>
+            <Icon name="iconkaishi" color={'white'} size={26} />
+          </Touchable>
+        </View>
       </View>
     );
   }
@@ -68,6 +76,15 @@ class PlayerScreen extends React.Component<IProps> {
     });
   };
 }
+
+const styles = StyleSheet.create({
+  playButtonsStyles: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    marginVertical: 10,
+    marginHorizontal: 50,
+  },
+});
 
 function Wrapper(props: IProps) {
   const headerHeight = useHeaderHeight();

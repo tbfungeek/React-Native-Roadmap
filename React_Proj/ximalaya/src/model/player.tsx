@@ -7,7 +7,9 @@ import {
   pause,
   getCurrentTime,
   getDuration,
+  stop,
 } from '@/utils/sound';
+import {IProgram} from './album';
 
 const PLAYINFO_URL: string = '/mock/11/ximalaya/show';
 
@@ -23,6 +25,8 @@ interface PlayerModelState {
   playState: string;
   currentTime: number;
   duration: number;
+  currentIndex: number;
+  playlist: IProgram[];
 }
 
 interface PlayerModel extends Model {
@@ -36,6 +40,8 @@ interface PlayerModel extends Model {
     play: Effect;
     pause: Effect;
     watcherCurrentTime: EffectWithType;
+    previous: Effect;
+    next: Effect;
   };
 }
 
@@ -49,6 +55,8 @@ const initState = {
   playState: '',
   currentTime: 0,
   duration: 0,
+  currentIndex: 0,
+  playlist: [],
 };
 
 const delay = (timeout: number) =>
@@ -57,11 +65,11 @@ const delay = (timeout: number) =>
 function* currentTime({call, put}: EffectsCommandMap) {
   while (true) {
     yield call(delay, 1000);
-    const currentTime = yield call(getCurrentTime);
+    const currentTimes = yield call(getCurrentTime);
     yield put({
       type: 'setState',
       payload: {
-        currentTime,
+        currentTime: currentTimes,
       },
     });
   }
@@ -124,6 +132,16 @@ const playerModel: PlayerModel = {
         },
       });
     },
+    *previous({payload}, {call, put}) {
+      yield call(stop);
+      yield put({
+        type: 'setState',
+        payload: {
+          playState: 'paused',
+        },
+      });
+    },
+    *next({payload}, {call, put}) {},
     watcherCurrentTime: [
       //dva 加载的时候会执行这个方法
       function* (sagaEffects) {

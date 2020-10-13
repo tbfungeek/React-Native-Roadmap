@@ -32,6 +32,18 @@ const playComplete = () => {
 const pause = () => {
   return new Promise((resolve, reject) => {
     if (sound) {
+      sound.pause(() => {
+        resolve();
+      });
+    } else {
+      reject();
+    }
+  });
+};
+
+const stop = () => {
+  return new Promise((resolve, reject) => {
+    if (sound) {
       sound.stop(() => {
         resolve();
       });
@@ -60,4 +72,12 @@ const getDuration = () => {
   return 0;
 };
 
-export {sound, initPlayer, playComplete, pause, getCurrentTime, getDuration};
+export {
+  sound,
+  initPlayer,
+  playComplete,
+  pause,
+  stop,
+  getCurrentTime,
+  getDuration,
+};

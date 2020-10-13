@@ -49,7 +49,8 @@ class PlayerSlider extends React.Component<IProps> {
 
 const styles = StyleSheet.create({
   container: {
-    margin: 10,
+    marginVertical: 10,
+    marginHorizontal: 20,
   },
   thumber: {
     width: 86,
