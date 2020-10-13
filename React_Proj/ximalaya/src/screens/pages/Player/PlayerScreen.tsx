@@ -35,6 +35,21 @@ class PlayerScreen extends React.Component<IProps> {
       },
     });
   }
+
+  prev = () => {
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'player/previous',
+    });
+  };
+
+  next = () => {
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'player/next',
+    });
+  };
+
   render() {
     const {headerHeight} = this.props;
     const playerHeaderStyle = {
@@ -44,12 +59,17 @@ class PlayerScreen extends React.Component<IProps> {
       <View style={playerHeaderStyle}>
         <PlayerSlider />
         <View style={styles.playButtonsStyles}>
-          <Touchable>
+          <Touchable onPress={this.prev}>
             <Icon name="iconprev" color={'white'} size={26} />
           </Touchable>
           {this.playButton()}
           <Touchable>
-            <Icon name="iconkaishi" color={'white'} size={26} />
+            <Icon
+              name="iconkaishi"
+              color={'white'}
+              size={26}
+              onPress={this.next}
+            />
           </Touchable>
         </View>
       </View>

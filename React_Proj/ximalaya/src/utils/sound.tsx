@@ -1,4 +1,3 @@
-import {reject} from 'lodash';
 import Sound from 'react-native-sound';
 
 Sound.setCategory('Playback');
@@ -6,11 +5,14 @@ Sound.setCategory('Playback');
 let sound: Sound;
 
 const initPlayer = (filePath: string) => {
+  console.log('>>>>>filePath', filePath);
   return new Promise((resolve, reject) => {
     sound = new Sound(filePath, '', (error) => {
       if (error) {
+        console.log('>>>>>', error);
         reject(error);
       } else {
+        console.log('>>>>>sound', sound);
         resolve(sound);
       }
     });

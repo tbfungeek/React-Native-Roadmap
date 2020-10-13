@@ -10,6 +10,7 @@ import {
   stop,
 } from '@/utils/sound';
 import {IProgram} from './album';
+import {RootState} from '@/model/index';
 
 const PLAYINFO_URL: string = '/mock/11/ximalaya/show';
 
@@ -26,6 +27,8 @@ interface PlayerModelState {
   currentTime: number;
   duration: number;
   currentIndex: number;
+  prevIndex: number;
+  nextIndex: number;
   playlist: IProgram[];
 }
 
@@ -56,6 +59,8 @@ const initState = {
   currentTime: 0,
   duration: 0,
   currentIndex: 0,
+  prevIndex: 0,
+  nextIndex: 0,
   playlist: [],
 };
 
@@ -87,12 +92,13 @@ const playerModel: PlayerModel = {
     },
   },
   effects: {
-    *fetchPlayerInfo(payload, {call, put}) {
+    *fetchPlayerInfo({payload}, {call, put}) {
       //拉取播放数据
       const {data} = yield call(axios.get, PLAYINFO_URL, {
         params: {id: payload.id},
       });
       yield call(initPlayer, data.soundUrl);
+
       //存储到state
       yield put({
         type: 'setState',
@@ -115,7 +121,9 @@ const playerModel: PlayerModel = {
           playState: 'playing',
         },
       });
+
       yield call(playComplete);
+
       yield put({
         type: 'setState',
         payload: {
@@ -132,21 +140,64 @@ const playerModel: PlayerModel = {
         },
       });
     },
-    *previous({payload}, {call, put}) {
+    *previous(_, {call, put, select}) {
       yield call(stop);
+
+      const {currentIndex, playlist} = yield select(
+        ({player}: RootState) => player,
+      );
+
       yield put({
         type: 'setState',
         payload: {
           playState: 'paused',
+          currentIndex: currentIndex - 1,
+          prevIndex: currentIndex - 2,
+          nextIndex: currentIndex,
+        },
+      });
+
+      const index = Math.max(currentIndex - 1, 0);
+
+      yield put({
+        type: 'fetchPlayerInfo',
+        payload: {
+          id: playlist[index].id,
         },
       });
     },
-    *next({payload}, {call, put}) {},
+    *next(_, {call, put, select}) {
+      yield call(stop);
+
+      const {currentIndex, playlist} = yield select(
+        ({player}: RootState) => player,
+      );
+
+      yield put({
+        type: 'setState',
+        payload: {
+          playState: 'paused',
+          currentIndex: currentIndex + 1,
+          prevIndex: currentIndex,
+          nextIndex: currentIndex + 2,
+        },
+      });
+
+      const index = Math.min(currentIndex + 1, playlist.length);
+
+      yield put({
+        type: 'fetchPlayerInfo',
+        payload: {
+          id: playlist[index].id,
+        },
+      });
+    },
     watcherCurrentTime: [
       //dva 加载的时候会执行这个方法
       function* (sagaEffects) {
         const {call, take, race} = sagaEffects;
-        while (true) {
+        //暂时不跑这里这里有bug
+        while (false) {
           yield take('play'); //play执行的时候才会执行下面的代码
           yield race([
             call(currentTime, sagaEffects),
