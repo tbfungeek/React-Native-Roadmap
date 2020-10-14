@@ -1,15 +1,16 @@
 import React from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, Animated, Text} from 'react-native';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import Icon from '@/assets/iconfont';
-import {useHeaderHeight} from '@react-navigation/stack';
 import Touchable from '@/components/Common/Touchable';
 import PlayerSlider from '@/screens/pages/Player/PlayerSlider';
+import {screenWidth} from '@/utils/DimensionsUtils';
 import {
   ModelStackNavigation,
   PlayScreenRouteProp,
 } from '@/navigators/StackNavigator';
+import LinearGradient from 'react-native-linear-gradient';
 
 const mapStateToProps = ({player}: RootState) => {
   return {
@@ -19,6 +20,7 @@ const mapStateToProps = ({player}: RootState) => {
     prevIndex: player.prevIndex,
     nextIndex: player.nextIndex,
     playlist: player.playlist,
+    thumbnailUrl: player.player.thumbnailUrl,
   };
 };
 
@@ -32,7 +34,20 @@ interface IProps extends ModelState {
   route: PlayScreenRouteProp;
 }
 
-class PlayerScreen extends React.Component<IProps> {
+interface IState {
+  barrage: Boolean;
+}
+
+const IMAGE_SIZE = 180;
+const IMAGE_PADDING_TOP = (screenWidth - IMAGE_SIZE) / 2;
+
+const animate = new Animated.Value(1);
+
+class PlayerScreen extends React.Component<IProps, IState> {
+  state = {
+    barrage: false,
+  };
+
   componentDidMount() {
     const {dispatch, route, player, navigation} = this.props;
     const {id} = route.params;
@@ -75,15 +90,32 @@ class PlayerScreen extends React.Component<IProps> {
       type: 'player/next',
     });
   };
+
   render() {
-    const {headerHeight, currentIndex, playlist} = this.props;
+    const {currentIndex, playlist, thumbnailUrl} = this.props;
+    const {barrage} = this.state;
     const playerHeaderStyle = {
-      paddingTop: headerHeight,
+      paddingTop: IMAGE_PADDING_TOP,
     };
     const prevDisable = currentIndex === 0;
     const nextDisable = currentIndex === playlist.length - 1;
     return (
       <View style={playerHeaderStyle}>
+        <View style={styles.thumbnailContainer}>
+          <Animated.Image
+            source={{uri: thumbnailUrl}}
+            style={[styles.thumbnailStyle, {transform: [{scale: animate}]}]}
+          />
+        </View>
+        {barrage && (
+          <LinearGradient
+            style={styles.linearGradient}
+            colors={['rgba(128,104,102,0.5)', '#807c66']}
+          />
+        )}
+        <Touchable onPress={this.barrageBtnClick} style={styles.barrage}>
+          <Text style={styles.barrageText}>弹幕</Text>
+        </Touchable>
         <PlayerSlider />
         <View style={styles.playButtonsStyles}>
           <Touchable onPress={this.prev} disabled={prevDisable}>
@@ -97,6 +129,18 @@ class PlayerScreen extends React.Component<IProps> {
       </View>
     );
   }
+
+  barrageBtnClick = () => {
+    this.setState({
+      barrage: !this.state.barrage,
+    });
+
+    Animated.timing(animate, {
+      toValue: this.state.barrage ? 1 : screenWidth / IMAGE_SIZE,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+  };
 
   playButton = () => {
     const {playStatus} = this.props;
@@ -126,11 +170,36 @@ const styles = StyleSheet.create({
     marginVertical: 10,
     marginHorizontal: 50,
   },
+  thumbnailStyle: {
+    width: IMAGE_SIZE,
+    height: IMAGE_SIZE,
+    borderRadius: 8,
+    borderWidth: 1,
+  },
+  thumbnailContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  barrage: {
+    width: 50,
+    height: 20,
+    borderRadius: 10,
+    borderColor: 'white',
+    borderWidth: 1,
+    alignItems: 'center',
+    marginLeft: 20,
+    marginTop: 20,
+  },
+  barrageText: {
+    color: 'white',
+    fontSize: 12,
+  },
+  linearGradient: {
+    position: 'absolute',
+    top: 0,
+    height: screenWidth,
+    width: screenWidth,
+  },
 });
 
-function Wrapper(props: IProps) {
-  const headerHeight = useHeaderHeight();
-  return <PlayerScreen {...props} headerHeight={headerHeight} />;
-}
-
-export default connector(Wrapper);
+export default connector(PlayerScreen);

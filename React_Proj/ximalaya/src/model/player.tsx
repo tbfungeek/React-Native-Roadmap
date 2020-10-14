@@ -14,7 +14,7 @@ import {RootState} from '@/model/index';
 
 const PLAYINFO_URL: string = '/mock/11/ximalaya/show';
 
-interface Player {
+export interface Player {
   id: string;
   title: string;
   thumbnailUrl: string;
