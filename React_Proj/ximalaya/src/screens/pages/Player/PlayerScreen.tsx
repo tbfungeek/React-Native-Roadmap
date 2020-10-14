@@ -6,12 +6,19 @@ import Icon from '@/assets/iconfont';
 import {useHeaderHeight} from '@react-navigation/stack';
 import Touchable from '@/components/Common/Touchable';
 import PlayerSlider from '@/screens/pages/Player/PlayerSlider';
-import {PlayScreenRouteProp} from '@/navigators/StackNavigator';
+import {
+  ModelStackNavigation,
+  PlayScreenRouteProp,
+} from '@/navigators/StackNavigator';
 
 const mapStateToProps = ({player}: RootState) => {
   return {
     player: player.player,
     playStatus: player.playState,
+    currentIndex: player.currentIndex,
+    prevIndex: player.prevIndex,
+    nextIndex: player.nextIndex,
+    playlist: player.playlist,
   };
 };
 
@@ -21,18 +28,37 @@ type ModelState = ConnectedProps<typeof connector>;
 
 interface IProps extends ModelState {
   headerHeight: number;
+  navigation: ModelStackNavigation;
   route: PlayScreenRouteProp;
 }
 
 class PlayerScreen extends React.Component<IProps> {
   componentDidMount() {
-    const {dispatch, route} = this.props;
+    const {dispatch, route, player, navigation} = this.props;
     const {id} = route.params;
     dispatch({
       type: 'player/fetchPlayerInfo',
       payload: {
         id,
       },
+    });
+
+    navigation.setOptions({
+      headerTitle: player.title,
+    });
+  }
+
+  componentDidUpdate() {
+    const {player, navigation} = this.props;
+    navigation.setOptions({
+      headerTitle: player.title,
+    });
+  }
+
+  componentWillUnmount() {
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'player/stop',
     });
   }
 
@@ -49,27 +75,23 @@ class PlayerScreen extends React.Component<IProps> {
       type: 'player/next',
     });
   };
-
   render() {
-    const {headerHeight} = this.props;
+    const {headerHeight, currentIndex, playlist} = this.props;
     const playerHeaderStyle = {
       paddingTop: headerHeight,
     };
+    const prevDisable = currentIndex === 0;
+    const nextDisable = currentIndex === playlist.length - 1;
     return (
       <View style={playerHeaderStyle}>
         <PlayerSlider />
         <View style={styles.playButtonsStyles}>
-          <Touchable onPress={this.prev}>
+          <Touchable onPress={this.prev} disabled={prevDisable}>
             <Icon name="iconprev" color={'white'} size={26} />
           </Touchable>
           {this.playButton()}
-          <Touchable>
-            <Icon
-              name="iconkaishi"
-              color={'white'}
-              size={26}
-              onPress={this.next}
-            />
+          <Touchable onPress={this.next} disabled={nextDisable}>
+            <Icon name="iconkaishi" color={'white'} size={26} />
           </Touchable>
         </View>
       </View>

@@ -45,6 +45,7 @@ interface PlayerModel extends Model {
     watcherCurrentTime: EffectWithType;
     previous: Effect;
     next: Effect;
+    stop: Effect;
   };
 }
 
@@ -133,6 +134,15 @@ const playerModel: PlayerModel = {
     },
     *pause(_, {call, put}) {
       yield call(pause);
+      yield put({
+        type: 'setState',
+        payload: {
+          playState: 'paused',
+        },
+      });
+    },
+    *stop(_, {call, put}) {
+      yield call(stop);
       yield put({
         type: 'setState',
         payload: {
