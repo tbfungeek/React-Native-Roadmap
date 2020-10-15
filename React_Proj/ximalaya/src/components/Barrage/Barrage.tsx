@@ -11,6 +11,7 @@ interface IProps {
 
 export interface IBarrage extends Message {
   trackerIndex: number;
+  isFree?: boolean;
 }
 
 interface IState {
@@ -22,6 +23,11 @@ function getAvailableTrackIndex(list: IBarrage[][], maxTrack: number): number {
   for (let i = 0; i < maxTrack; i++) {
     const barrageChannelOfTrack = list[i];
     if (!barrageChannelOfTrack || barrageChannelOfTrack.length === 0) {
+      return i;
+    }
+    const lastItemOfTrack =
+      barrageChannelOfTrack[barrageChannelOfTrack.length - 1];
+    if (lastItemOfTrack.isFree) {
       return i;
     }
   }

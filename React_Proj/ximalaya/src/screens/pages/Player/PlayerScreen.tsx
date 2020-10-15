@@ -113,7 +113,7 @@ class PlayerScreen extends React.Component<IProps, IState> {
           barrageData: [{id, title}],
         });
       }
-    }, 500);
+    }, 1000);
   };
 
   componentWillUnmount() {
