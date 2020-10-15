@@ -11,6 +11,7 @@ import {
   PlayScreenRouteProp,
 } from '@/navigators/StackNavigator';
 import LinearGradient from 'react-native-linear-gradient';
+import Barrage from '../../../components/Barrage/Barrage';
 
 const mapStateToProps = ({player}: RootState) => {
   return {
@@ -34,8 +35,14 @@ interface IProps extends ModelState {
   route: PlayScreenRouteProp;
 }
 
+export interface Message {
+  id: number;
+  title: string;
+}
+
 interface IState {
   barrage: Boolean;
+  barrageData: Message[];
 }
 
 const IMAGE_SIZE = 180;
@@ -43,9 +50,33 @@ const IMAGE_PADDING_TOP = (screenWidth - IMAGE_SIZE) / 2;
 
 const animate = new Animated.Value(1);
 
+const data: string[] = [
+  '最灵繁的人也看不见自己的背脊',
+  '朝闻道，夕死可矣',
+  '阅读是人类进步的阶梯',
+  '内外相应，言行相称',
+  '人的一生是短的',
+  '抛弃时间的人，时间也抛弃他',
+  '自信在于沉稳',
+  '过犹不及',
+  '开卷有益',
+  '有志者事竟成',
+  '合理安排时间，就等于节约时间',
+  '成功源于不懈的努力',
+];
+
+function randomIndex(length: number) {
+  return Math.floor(Math.random() * (length + 1));
+}
+
+function getText() {
+  return data[randomIndex(data.length - 1)];
+}
+
 class PlayerScreen extends React.Component<IProps, IState> {
   state = {
     barrage: false,
+    barrageData: [],
   };
 
   componentDidMount() {
@@ -61,6 +92,8 @@ class PlayerScreen extends React.Component<IProps, IState> {
     navigation.setOptions({
       headerTitle: player.title,
     });
+
+    this.addBarrage();
   }
 
   componentDidUpdate() {
@@ -69,6 +102,19 @@ class PlayerScreen extends React.Component<IProps, IState> {
       headerTitle: player.title,
     });
   }
+
+  addBarrage = () => {
+    setInterval(() => {
+      const {barrage} = this.state;
+      if (barrage) {
+        const id = Date.now();
+        const title = getText();
+        this.setState({
+          barrageData: [{id, title}],
+        });
+      }
+    }, 500);
+  };
 
   componentWillUnmount() {
     const {dispatch} = this.props;
@@ -93,7 +139,7 @@ class PlayerScreen extends React.Component<IProps, IState> {
 
   render() {
     const {currentIndex, playlist, thumbnailUrl} = this.props;
-    const {barrage} = this.state;
+    const {barrage, barrageData} = this.state;
     const playerHeaderStyle = {
       paddingTop: IMAGE_PADDING_TOP,
     };
@@ -108,11 +154,15 @@ class PlayerScreen extends React.Component<IProps, IState> {
           />
         </View>
         {barrage && (
-          <LinearGradient
-            style={styles.linearGradient}
-            colors={['rgba(128,104,102,0.5)', '#807c66']}
-          />
+          <>
+            <LinearGradient
+              style={styles.linearGradient}
+              colors={['rgba(128,104,102,0.5)', '#807c66']}
+            />
+            <Barrage data={barrageData} maxTrack={5} />
+          </>
         )}
+
         <Touchable onPress={this.barrageBtnClick} style={styles.barrage}>
           <Text style={styles.barrageText}>弹幕</Text>
         </Touchable>

@@ -14,7 +14,7 @@ modules.forEach((model) => {
 });
 
 app.use(createLoading());
-app.use(createLogger());
+//app.use(createLogger());
 
 //启动dva
 app.start();
