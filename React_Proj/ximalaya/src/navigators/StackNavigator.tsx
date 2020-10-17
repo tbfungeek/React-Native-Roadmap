@@ -1,5 +1,6 @@
 import {
   NavigationContainer,
+  NavigationState,
   RouteProp,
   TabNavigationState,
 } from '@react-navigation/native';
@@ -18,6 +19,8 @@ import {Platform, StyleSheet, StatusBar} from 'react-native';
 import Album from '../screens/pages/Album/AlbumScreen';
 import Animated from 'react-native-reanimated';
 import Icon from '@/assets/iconfont';
+import PlayView from '@/screens/pages/Player/PlayerView';
+import getActiveRouteName from '@/utils/utils';
 
 /**
  * 路由传值类型定义
@@ -170,10 +173,23 @@ function ModelStackScreens() {
 export type ModelStackNavigation = StackNavigationProp<ModelStackParamList>;
 
 export default class StackNavigator extends React.Component {
+  state = {
+    routeName: 'Root',
+  };
+  onStateChange = (state: NavigationState | undefined) => {
+    if (typeof state !== 'undefined') {
+      const routeName = getActiveRouteName(state);
+      this.setState({
+        routeName,
+      });
+    }
+  };
   render() {
+    const {routeName} = this.state;
     return (
-      <NavigationContainer>
+      <NavigationContainer onStateChange={this.onStateChange}>
         <ModelStackScreens />
+        <PlayView routeName={routeName} />
       </NavigationContainer>
     );
   }

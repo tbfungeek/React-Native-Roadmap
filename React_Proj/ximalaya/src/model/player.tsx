@@ -56,7 +56,7 @@ const initState = {
     thumbnailUrl: '',
     soundUrl: '',
   },
-  playState: '',
+  playState: 'pause',
   currentTime: 0,
   duration: 0,
   currentIndex: 0,
