@@ -4,6 +4,7 @@ import Icon from '@/assets/iconfont';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
 import Touchable from './Touchable';
+import Progress from './Progress';
 
 const mapStateToProps = ({player}: RootState) => {
   return {
@@ -62,13 +63,15 @@ class Play extends React.Component<IProps> {
     const {thumbnailUrl} = this.props;
     return (
       <Touchable style={styles.player}>
-        <Animated.View style={{transform: [{rotate: this.rotate}]}}>
-          {thumbnailUrl ? (
-            <Image source={{uri: thumbnailUrl}} style={styles.playImage} />
-          ) : (
-            <Icon name="iconplay1" size={40} color={'#424242'} />
-          )}
-        </Animated.View>
+        <Progress>
+          <Animated.View style={{transform: [{rotate: this.rotate}]}}>
+            {thumbnailUrl ? (
+              <Image source={{uri: thumbnailUrl}} style={styles.playImage} />
+            ) : (
+              <Icon name="iconplay1" size={40} color={'#424242'} />
+            )}
+          </Animated.View>
+        </Progress>
       </Touchable>
     );
   }
