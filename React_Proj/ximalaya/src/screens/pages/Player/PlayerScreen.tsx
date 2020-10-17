@@ -116,12 +116,7 @@ class PlayerScreen extends React.Component<IProps, IState> {
     }, 1000);
   };
 
-  componentWillUnmount() {
-    const {dispatch} = this.props;
-    dispatch({
-      type: 'player/stop',
-    });
-  }
+  componentWillUnmount() {}
 
   prev = () => {
     const {dispatch} = this.props;

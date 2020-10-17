@@ -7,10 +7,12 @@ import Account from '@/screens/pages/Account';
 import {RootStackNavigation} from '@/navigators/StackNavigator';
 import Icon from '@/assets/iconfont';
 import HomeTopTabNavigator from '@/navigators/HomeTopTabs';
+import Play from '@/components/Common/Play';
 
 export type TabRootParamList = {
   HomeTopTabNavigator: undefined;
   Found: undefined;
+  Play: undefined;
   Listen: undefined;
   Account: undefined;
 };
@@ -66,6 +68,15 @@ export default class TabNavigator extends React.Component<IProps> {
             tabBarIcon: ({color, size}) => (
               <Icon name="iconqingting" color={color} size={size} />
             ),
+          }}
+        />
+        <Tab.Screen
+          name="Play"
+          component={Play}
+          options={{
+            tabBarButton: () => {
+              return <Play />;
+            },
           }}
         />
         <Tab.Screen
