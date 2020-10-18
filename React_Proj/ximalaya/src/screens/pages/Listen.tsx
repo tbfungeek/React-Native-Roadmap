@@ -1,12 +1,17 @@
 import React from 'react';
-import {View, Text} from 'react-native';
+import {FlatList, ListRenderItemInfo, View, Text} from 'react-native';
+import realm, {IProgram} from '../../model/storage/realm';
 
 export default class Listen extends React.Component {
-  render() {
+  renderItem = ({item}: ListRenderItemInfo<IProgram>) => {
     return (
       <View>
-        <Text>Listen</Text>
+        <Text>{item.title}</Text>
       </View>
     );
+  };
+  render() {
+    const programs = realm.objects<IProgram>('Program');
+    return <FlatList data={programs} renderItem={this.renderItem} />;
   }
 }

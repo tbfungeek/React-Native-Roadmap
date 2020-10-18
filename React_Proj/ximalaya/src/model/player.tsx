@@ -11,6 +11,7 @@ import {
 } from '@/utils/sound';
 import {IProgram} from './album';
 import {RootState} from '@/model/index';
+import {saveProgram} from './storage/realm';
 
 const PLAYINFO_URL: string = '/mock/11/ximalaya/show';
 
@@ -93,11 +94,17 @@ const playerModel: PlayerModel = {
     },
   },
   effects: {
-    *fetchPlayerInfo({payload}, {call, put}) {
+    *fetchPlayerInfo({payload}, {call, put, select}) {
       //拉取播放数据
       const {data} = yield call(axios.get, PLAYINFO_URL, {
         params: {id: payload.id},
       });
+
+      /*id: string;
+  title: string;
+  thumbnailUrl: string;
+  soundUrl: string;*/
+
       yield call(initPlayer, data.soundUrl);
 
       //存储到state
@@ -109,6 +116,15 @@ const playerModel: PlayerModel = {
         },
       });
       //使用拉到到音频地址初始化播放器
+
+      const {player, duration} = yield select(({player}: RootState) => player);
+
+      saveProgram({
+        id: player.id,
+        title: player.title,
+        thumbnailUrl: player.thumbnailUrl,
+        duration: duration,
+      });
 
       //播放音频
       yield put({
