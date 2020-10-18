@@ -4,6 +4,8 @@ import {View, StyleSheet, Platform} from 'react-native';
 import {screenWidth} from '@/utils/DimensionsUtils';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
+import {navigate} from '../../../utils/utils';
+import {PlayerScreen} from '@/screens/pages/Player/PlayerScreen';
 
 const mapStateToProps = ({player}: RootState) => {
   return {
@@ -31,7 +33,11 @@ class PlayView extends React.Component<IProps> {
     }
     return (
       <View style={styles.container}>
-        <Play />
+        <Play
+          onPress={() => {
+            navigate('PlayerScreen');
+          }}
+        />
       </View>
     );
   }

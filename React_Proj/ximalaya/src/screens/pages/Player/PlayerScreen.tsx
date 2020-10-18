@@ -81,13 +81,15 @@ class PlayerScreen extends React.Component<IProps, IState> {
 
   componentDidMount() {
     const {dispatch, route, player, navigation} = this.props;
-    const {id} = route.params;
-    dispatch({
-      type: 'player/fetchPlayerInfo',
-      payload: {
-        id,
-      },
-    });
+    if (route.params) {
+      const {id} = route.params;
+      dispatch({
+        type: 'player/fetchPlayerInfo',
+        payload: {
+          id,
+        },
+      });
+    }
 
     navigation.setOptions({
       headerTitle: player.title,

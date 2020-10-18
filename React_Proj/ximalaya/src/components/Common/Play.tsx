@@ -17,7 +17,9 @@ const connector = connect(mapStateToProps);
 
 type ModelState = ConnectedProps<typeof connector>;
 
-interface IProps extends ModelState {}
+interface IProps extends ModelState {
+  onPress: () => void;
+}
 
 class Play extends React.Component<IProps> {
   animate = new Animated.Value(0);
@@ -59,10 +61,17 @@ class Play extends React.Component<IProps> {
     }
   }
 
+  onPress = () => {
+    const {playState, onPress} = this.props;
+    if (playState === 'playing' && onPress) {
+      onPress();
+    }
+  };
+
   render() {
     const {thumbnailUrl} = this.props;
     return (
-      <Touchable style={styles.player}>
+      <Touchable style={styles.player} onPress={this.onPress}>
         <Progress>
           <Animated.View style={{transform: [{rotate: this.rotate}]}}>
             {thumbnailUrl ? (

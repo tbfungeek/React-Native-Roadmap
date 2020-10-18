@@ -73,11 +73,17 @@ export default class TabNavigator extends React.Component<IProps> {
         <Tab.Screen
           name="Play"
           component={Play}
-          options={{
+          options={({navigation}) => ({
             tabBarButton: () => {
-              return <Play />;
+              return (
+                <Play
+                  onPress={() => {
+                    navigation.navigate('PlayerScreen');
+                  }}
+                />
+              );
             },
-          }}
+          })}
         />
         <Tab.Screen
           name="Found"

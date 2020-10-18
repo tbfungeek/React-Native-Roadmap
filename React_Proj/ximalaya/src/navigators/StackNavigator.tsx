@@ -20,7 +20,7 @@ import Album from '../screens/pages/Album/AlbumScreen';
 import Animated from 'react-native-reanimated';
 import Icon from '@/assets/iconfont';
 import PlayView from '@/screens/pages/Player/PlayerView';
-import getActiveRouteName from '@/utils/utils';
+import getActiveRouteName, {navigationRef} from '@/utils/utils';
 
 /**
  * 路由传值类型定义
@@ -187,7 +187,9 @@ export default class StackNavigator extends React.Component {
   render() {
     const {routeName} = this.state;
     return (
-      <NavigationContainer onStateChange={this.onStateChange}>
+      <NavigationContainer
+        onStateChange={this.onStateChange}
+        ref={navigationRef}>
         <ModelStackScreens />
         <PlayView routeName={routeName} />
       </NavigationContainer>
