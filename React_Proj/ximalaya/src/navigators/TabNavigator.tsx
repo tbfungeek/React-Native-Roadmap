@@ -2,7 +2,7 @@ import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {TabRouteProp} from './StackNavigator';
 import Listen from '@/screens/pages/Listen';
-import Found from '@/screens/pages/Found';
+import FoundScreen from '@/screens/pages/Found/FoundScreen';
 import Account from '@/screens/pages/Account';
 import {RootStackNavigation} from '@/navigators/StackNavigator';
 import Icon from '@/assets/iconfont';
@@ -11,7 +11,7 @@ import Play from '@/components/Common/Play';
 
 export type TabRootParamList = {
   HomeTopTabNavigator: undefined;
-  Found: undefined;
+  FoundScreen: undefined;
   Play: undefined;
   Listen: undefined;
   Account: undefined;
@@ -86,8 +86,8 @@ export default class TabNavigator extends React.Component<IProps> {
           })}
         />
         <Tab.Screen
-          name="Found"
-          component={Found}
+          name="FoundScreen"
+          component={FoundScreen}
           options={{
             tabBarLabel: '发现',
             tabBarIcon: ({color, size}) => (
@@ -119,7 +119,7 @@ export default class TabNavigator extends React.Component<IProps> {
         return '';
       case 'Listen':
         return '我听';
-      case 'Found':
+      case 'FoundScreen':
         return '发现';
       case 'Account':
         return '我的';

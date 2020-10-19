@@ -1393,6 +1393,14 @@
     "@types/react" "*"
     "@types/react-native" "*"
 
+"@types/react-native-video@^5.0.3":
+  version "5.0.3"
+  resolved "https://r.cnpmjs.org/@types/react-native-video/download/@types/react-native-video-5.0.3.tgz#21aef3c087d498d75cb4631e8197d2b4b913170c"
+  integrity sha1-Ia7zwIfUmNdctGMegZfStLkTFww=
+  dependencies:
+    "@types/react" "*"
+    "@types/react-native" "*"
+
 "@types/react-native@*":
   version "0.63.20"
   resolved "https://r.cnpmjs.org/@types/react-native/download/@types/react-native-0.63.20.tgz#15ccf000bf849d867b15d14d2b4acc364fb7fa27"
@@ -2912,6 +2920,11 @@ ee-first@1.1.1:
   version "1.1.1"
   resolved "https://r.cnpmjs.org/ee-first/download/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
   integrity sha1-WQxhFWsK4vTwJVcyoViyZrxWsh0=
+
+eme-encryption-scheme-polyfill@^2.0.1:
+  version "2.0.1"
+  resolved "https://r.cnpmjs.org/eme-encryption-scheme-polyfill/download/eme-encryption-scheme-polyfill-2.0.1.tgz#b080b01bffd74c75c9cf8044c1cabedf3b83954f"
+  integrity sha1-sICwG//XTHXJz4BEwcq+3zuDlU8=
 
 emoji-regex@^7.0.1:
   version "7.0.3"
@@ -5055,6 +5068,11 @@ jsx-ast-utils@^2.2.3:
     array-includes "^3.1.1"
     object.assign "^4.1.0"
 
+keymirror@^0.1.1:
+  version "0.1.1"
+  resolved "https://r.cnpmjs.org/keymirror/download/keymirror-0.1.1.tgz#918889ea13f8d0a42e7c557250eee713adc95c35"
+  integrity sha1-kYiJ6hP40KQufFVyUO7nE63JXDU=
+
 kind-of@^1.1.0:
   version "1.1.0"
   resolved "https://r.cnpmjs.org/kind-of/download/kind-of-1.1.0.tgz#140a3d2d41a36d2efcfa9377b62c24f8495a5c44"
@@ -6641,6 +6659,22 @@ react-native-tab-view@^2.15.1:
   resolved "https://r.cnpmjs.org/react-native-tab-view/download/react-native-tab-view-2.15.1.tgz#cf4df4ffdec504263a2e06a6becd8831b9a19ad9"
   integrity sha1-z030/97FBCY6Lgamvs2IMbmhmtk=
 
+react-native-video-custom-controls@^0.1.0:
+  version "0.1.0"
+  resolved "https://r.cnpmjs.org/react-native-video-custom-controls/download/react-native-video-custom-controls-0.1.0.tgz#70b5d9bcfdec69a883bbc008b002cb876247c878"
+  integrity sha1-cLXZvP3saaiDu8AIsALLh2JHyHg=
+  dependencies:
+    lodash "^4.17.15"
+
+react-native-video@^5.1.0-alpha8:
+  version "5.1.0-alpha8"
+  resolved "https://r.cnpmjs.org/react-native-video/download/react-native-video-5.1.0-alpha8.tgz#f0cb4cb2d74154b7916e68bef0f9b9cdcfe5f568"
+  integrity sha1-8MtMstdBVLeRbmi+8Pm5zc/l9Wg=
+  dependencies:
+    keymirror "^0.1.1"
+    prop-types "^15.7.2"
+    shaka-player "^2.5.9"
+
 react-native@0.63.2:
   version "0.63.2"
   resolved "https://r.cnpmjs.org/react-native/download/react-native-0.63.2.tgz#eaebf3430577b37fbd66ef228a86b3408259ef8e"
@@ -7232,6 +7266,13 @@ setprototypeof@1.1.1:
   version "1.1.1"
   resolved "https://r.cnpmjs.org/setprototypeof/download/setprototypeof-1.1.1.tgz#7e95acb24aa92f5885e0abef5ba131330d4ae683"
   integrity sha1-fpWsskqpL1iF4KvvW6ExMw1K5oM=
+
+shaka-player@^2.5.9:
+  version "2.5.17"
+  resolved "https://r.cnpmjs.org/shaka-player/download/shaka-player-2.5.17.tgz#824740a0db06fd433397389650ec94ce3b57a26d"
+  integrity sha1-gkdAoNsG/UMzlziWUOyUzjtXom0=
+  dependencies:
+    eme-encryption-scheme-polyfill "^2.0.1"
 
 shebang-command@^1.2.0:
   version "1.2.0"
