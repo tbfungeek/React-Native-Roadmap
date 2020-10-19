@@ -45,6 +45,10 @@ class FoundScreen extends React.Component<IProps, IState> {
     this.setState({
       currentId: id,
     });
+    const {dispatch} = this.props;
+    dispatch({
+      type: 'player/pause',
+    });
   };
 
   onPause = () => {
