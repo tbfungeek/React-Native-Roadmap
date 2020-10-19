@@ -89,6 +89,7 @@ class FoundScreen extends React.Component<IProps, IState> {
 
 const styles = StyleSheet.create({
   video: {
+    marginVertical: 1,
     height: 220,
   },
 });
