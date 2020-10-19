@@ -61,7 +61,6 @@ class FoundScreen extends React.Component<IProps, IState> {
     const {currentId} = this.state;
     return (
       <View>
-        <Text>{item.videoUrl}</Text>
         <VideoPlayer
           source={{uri: 'https://www.runoob.com/try/demo_source/mov_bbb.mp4'}}
           onPlay={() => {
