@@ -18,11 +18,13 @@ interface IProps extends ModelState {}
 
 interface IState {
   data: Found[];
+  currentId: string;
 }
 
 class FoundScreen extends React.Component<IProps, IState> {
   state = {
     data: [],
+    currentId: '',
   };
 
   componentDidMount() {
@@ -39,13 +41,32 @@ class FoundScreen extends React.Component<IProps, IState> {
     });
   };
 
+  onPlay = (id: string) => {
+    this.setState({
+      currentId: id,
+    });
+  };
+
+  onPause = () => {
+    this.setState({
+      currentId: '',
+    });
+  };
+
   renderItem = ({item}: ListRenderItemInfo<Found>) => {
+    const {currentId} = this.state;
     return (
       <View>
         <Text>{item.videoUrl}</Text>
         <VideoPlayer
           source={{uri: 'https://www.runoob.com/try/demo_source/mov_bbb.mp4'}}
-          paused
+          onPlay={() => {
+            this.onPlay(item.id);
+          }}
+          onPause={() => {
+            this.onPause();
+          }}
+          paused={currentId !== item.id}
           style={styles.video}
         />
       </View>
@@ -53,7 +74,13 @@ class FoundScreen extends React.Component<IProps, IState> {
   };
   render() {
     const {data} = this.state;
-    return <FlatList data={data} renderItem={this.renderItem} />;
+    return (
+      <FlatList
+        data={data}
+        renderItem={this.renderItem}
+        extraData={this.state.currentId}
+      />
+    );
   }
 }
 
