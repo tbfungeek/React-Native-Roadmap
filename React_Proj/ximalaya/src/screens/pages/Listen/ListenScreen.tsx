@@ -7,12 +7,12 @@ import {
   StyleSheet,
   Image,
 } from 'react-native';
-import realm, {IProgram} from '../../model/storage/realm';
+import realm, {IProgram} from '../../../model/storage/realm';
 import Icon from '@/assets/iconfont';
 import {getTimeString} from '@/utils/utils';
 import Touchable from '@/components/Common/Touchable';
 
-export default class Listen extends React.Component {
+export default class ListenScreen extends React.Component {
   renderItem = ({item}: ListRenderItemInfo<IProgram>) => {
     return (
       <View style={styles.container}>

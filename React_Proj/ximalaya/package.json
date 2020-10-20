@@ -25,6 +25,7 @@
     "dva-loading-ts": "^3.0.23",
     "dva-logger": "^1.0.0",
     "dva-model-extend": "^0.1.2",
+    "formik": "^2.2.0",
     "lodash": "^4.17.20",
     "react": "16.13.1",
     "react-native": "0.63.2",

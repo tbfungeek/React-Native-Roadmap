@@ -21,6 +21,7 @@ import Animated from 'react-native-reanimated';
 import Icon from '@/assets/iconfont';
 import PlayView from '@/screens/pages/Player/PlayerView';
 import getActiveRouteName, {navigationRef} from '@/utils/utils';
+import LoginScreen from '../screens/pages/Account/LoginScreen';
 
 /**
  * 路由传值类型定义
@@ -125,6 +126,7 @@ export type ModelStackParamList = {
   PlayerScreen: {
     id: string;
   } /** 跳转到Detail页面传递的参数 */;
+  LoginScreen: undefined;
 };
 
 /**
@@ -164,6 +166,13 @@ function ModelStackScreens() {
               style={styles.headerBackImage}
             />
           ),
+        }}
+      />
+      <ModelStack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{
+          headerTitle: '登陆',
         }}
       />
     </ModelStack.Navigator>
