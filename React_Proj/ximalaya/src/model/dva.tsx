@@ -4,9 +4,18 @@ import createLoading from 'dva-loading-ts';
 import createLogger from 'dva-logger';
 import modelExtend from 'dva-model-extend';
 import homeModel from './home';
+import Toast from 'react-native-root-toast';
 
 //创建应用
-const app = create();
+const app = create({
+  onError: (e) => {
+    Toast.show(e.message, {
+      duration: Toast.durations.LONG,
+      position: Toast.positions.CENTER,
+      shadow: true,
+    });
+  },
+});
 
 //加载model
 modules.forEach((model) => {
