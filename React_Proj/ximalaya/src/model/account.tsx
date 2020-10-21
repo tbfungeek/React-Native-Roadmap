@@ -1,9 +1,9 @@
 import {Model, Effect, SubscriptionsMapObject} from 'dva-core-ts';
 import {Reducer} from 'redux';
 import axios from 'axios';
-import {Alert} from 'react-native';
 import {goBack} from '@/utils/utils';
 import storage, {load} from './storage/storage';
+import Toast from 'react-native-root-toast';
 
 const LOGIN_URL = '/mock/11/ximalaya/login';
 
@@ -40,15 +40,29 @@ const accountModel: IAccountModel = {
   effects: {
     *login({payload}, {call, put}) {
       const {status, data} = yield call(axios.post, LOGIN_URL, payload);
+      console.log('===========>', status, data);
       if (status === 200) {
         yield put({
           type: 'setState',
           payload: {user: data},
         });
         storage.save({key: 'user', data: data});
+        console.log('===========>', '登陆成功', payload);
+        Toast.show('登陆成功', {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.CENTER,
+          shadow: true,
+          animation: true,
+        });
         goBack();
       } else {
-        //Alert.alert('登陆失败');
+        console.log('===========>', '登陆失败', payload);
+        Toast.show('登陆失败', {
+          duration: Toast.durations.LONG,
+          position: Toast.positions.CENTER,
+          shadow: true,
+          animation: true,
+        });
       }
     },
     *logOut(_, {put}) {

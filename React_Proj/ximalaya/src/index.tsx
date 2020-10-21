@@ -6,6 +6,7 @@ import {Provider} from 'react-redux';
 import store from '@/model/dva';
 //这里一定要import否则请求会失败
 import '@/configs/https';
+import {RootSiblingParent} from 'react-native-root-siblings';
 
 class App extends React.Component {
   render() {
@@ -16,7 +17,9 @@ class App extends React.Component {
           barStyle={'light-content'}
           translucent
         />
-        <Navigator />
+        <RootSiblingParent>
+          <Navigator />
+        </RootSiblingParent>
       </Provider>
     );
   }
