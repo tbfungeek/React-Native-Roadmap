@@ -43,6 +43,7 @@ class LoginScreen extends React.Component<IProps> {
     });
   };
   render() {
+    const {loading} = this.props;
     return (
       <ScrollView keyboardShouldPersistTaps="handled">
         <Text style={styles.logo}>听书</Text>
@@ -64,7 +65,10 @@ class LoginScreen extends React.Component<IProps> {
                   secureTextEntry
                   placeholder="请输入密码"
                 />
-                <Touchable onPress={handleSubmit} style={styles.loginBtn}>
+                <Touchable
+                  onPress={handleSubmit}
+                  style={styles.loginBtn}
+                  disabled={loading}>
                   <Text style={styles.loginBtnText}>登陆</Text>
                 </Touchable>
               </View>
