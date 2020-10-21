@@ -1,10 +1,9 @@
 import React from 'react';
 import {View, Text, StyleSheet, Image} from 'react-native';
-import defaultAvatarImage from '@/assets/default_avatar.png';
 import Touchable from '@/components/Common/Touchable';
-import {ModelStackNavigation} from '@/navigators/StackNavigator';
 import {RootState} from '@/model/index';
 import {connect, ConnectedProps} from 'react-redux';
+import Authorized from '@/components/Login/Authorized';
 
 const mapStateToProps = ({account}: RootState) => {
   return {
@@ -16,16 +15,7 @@ const connector = connect(mapStateToProps);
 
 type ModelState = ConnectedProps<typeof connector>;
 
-interface IProps extends ModelState {
-  navigation: ModelStackNavigation;
-}
-
-class AccountScreen extends React.Component<IProps> {
-  login = () => {
-    const {navigation} = this.props;
-    navigation.navigate('LoginScreen');
-  };
-
+class AccountScreen extends React.Component<ModelState> {
   loginOut = () => {
     const {dispatch} = this.props;
     dispatch({
@@ -35,37 +25,22 @@ class AccountScreen extends React.Component<IProps> {
 
   render() {
     const {user} = this.props;
-    if (user) {
-      return (
+    return (
+      <Authorized>
         <View style={styles.container}>
           <Image
-            source={{uri: user.avatar}}
+            source={{uri: user?.avatar}}
             style={styles.defaultAvatarStyle}
           />
           <View style={styles.right}>
-            <Text style={styles.username}>{user.name} </Text>
+            <Text style={styles.username}>{user?.name} </Text>
             <Touchable style={styles.loginOutButton} onPress={this.loginOut}>
               <Text style={styles.loginButtonText}>退出登陆</Text>
             </Touchable>
           </View>
         </View>
-      );
-    } else {
-      return (
-        <View style={styles.container}>
-          <Image
-            source={defaultAvatarImage}
-            style={styles.defaultAvatarStyle}
-          />
-          <View style={styles.right}>
-            <Touchable style={styles.loginButton} onPress={this.login}>
-              <Text style={styles.loginButtonText}>立即登陆</Text>
-            </Touchable>
-            <Text style={styles.loginTips}>登陆后享受更多服务 ~ </Text>
-          </View>
-        </View>
-      );
-    }
+      </Authorized>
+    );
   }
 }
 
