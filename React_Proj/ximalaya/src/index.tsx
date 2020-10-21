@@ -7,6 +7,9 @@ import store from '@/model/dva';
 //这里一定要import否则请求会失败
 import '@/configs/https';
 import {RootSiblingParent} from 'react-native-root-siblings';
+import {enableScreens} from 'react-native-screens';
+
+enableScreens();
 
 class App extends React.Component {
   render() {
