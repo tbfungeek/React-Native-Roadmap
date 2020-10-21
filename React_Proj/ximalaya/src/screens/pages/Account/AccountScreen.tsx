@@ -26,7 +26,7 @@ class AccountScreen extends React.Component<ModelState> {
   render() {
     const {user} = this.props;
     return (
-      <Authorized>
+      <Authorized authority={!!user}>
         <View style={styles.container}>
           <Image
             source={{uri: user?.avatar}}

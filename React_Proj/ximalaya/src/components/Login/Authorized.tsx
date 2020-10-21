@@ -1,42 +1,46 @@
 import React from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
-import {RootState} from '@/model/index';
-import {connect, ConnectedProps} from 'react-redux';
 import Touchable from '../Common/Touchable';
 import defaultAvatarImage from '@/assets/default_avatar.png';
 import {navigate} from '@/utils/utils';
 
-const mapStateToProps = ({account}: RootState) => {
-  return {
-    user: account.user,
-  };
-};
+interface IProps {
+  authority?: boolean;
+  notLoginElement?: JSX.Element;
+}
 
-const connector = connect(mapStateToProps);
-
-type ModelState = ConnectedProps<typeof connector>;
-
-class Authorized extends React.Component<ModelState> {
+class Authorized extends React.Component<IProps> {
   login = () => {
     navigate('LoginScreen');
   };
   render() {
-    const {user, children} = this.props;
-    if (user) {
+    const {authority, children} = this.props;
+    if (authority) {
       return children;
     }
-    return (
-      <View style={styles.container}>
-        <Image source={defaultAvatarImage} style={styles.defaultAvatarStyle} />
-        <View style={styles.right}>
-          <Touchable style={styles.loginButton} onPress={this.login}>
-            <Text style={styles.loginButtonText}>立即登陆</Text>
-          </Touchable>
-          <Text style={styles.loginTips}>登陆后享受更多服务 ~ </Text>
-        </View>
-      </View>
-    );
+    return this.renderNotLoginElement();
   }
+
+  renderNotLoginElement = () => {
+    if (this.props.notLoginElement) {
+      return <View>this.props.notLoginElement()</View>;
+    } else {
+      return (
+        <View style={styles.container}>
+          <Image
+            source={defaultAvatarImage}
+            style={styles.defaultAvatarStyle}
+          />
+          <View style={styles.right}>
+            <Touchable style={styles.loginButton} onPress={this.login}>
+              <Text style={styles.loginButtonText}>立即登陆</Text>
+            </Touchable>
+            <Text style={styles.loginTips}>登陆后享受更多服务 ~ </Text>
+          </View>
+        </View>
+      );
+    }
+  };
 }
 
 const styles = StyleSheet.create({
@@ -79,4 +83,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default connector(Authorized);
+export default Authorized;
