@@ -53,10 +53,19 @@ class LoginScreen extends React.Component<IProps> {
           {({handleSubmit}) => {
             return (
               <View>
-                <Field name="account" component={Input} />
-                <Field name="password" component={Input} secureTextEntry />
-                <Touchable onPress={handleSubmit}>
-                  <Text>登陆</Text>
+                <Field
+                  name="account"
+                  component={Input}
+                  placeholder="请输入账号"
+                />
+                <Field
+                  name="password"
+                  component={Input}
+                  secureTextEntry
+                  placeholder="请输入密码"
+                />
+                <Touchable onPress={handleSubmit} style={styles.loginBtn}>
+                  <Text style={styles.loginBtnText}>登陆</Text>
                 </Touchable>
               </View>
             );
@@ -78,6 +87,21 @@ const styles = StyleSheet.create({
     fontSize: 50,
     textAlign: 'center',
     marginTop: 40,
+  },
+  loginBtn: {
+    height: 40,
+    borderRadius: 20,
+    borderWidth: 2,
+    borderColor: '#ff4000',
+    paddingHorizontal: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginHorizontal: 50,
+    marginTop: 20,
+  },
+  loginBtnText: {
+    color: '#ff4000',
+    fontWeight: 'bold',
   },
 });
 
