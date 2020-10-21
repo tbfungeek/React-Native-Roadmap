@@ -36,7 +36,7 @@ const accountModel: IAccountModel = {
   effects: {
     *login({payload}, {call, put}) {
       const {status, data} = yield call(axios.post, LOGIN_URL, payload);
-      if (status === 100) {
+      if (status === 200) {
         put({
           type: 'setState',
           user: data,
@@ -46,7 +46,7 @@ const accountModel: IAccountModel = {
         Alert.alert('登陆失败');
       }
     },
-    *logOut(_, {_, put}) {
+    *logOut({payload}, {call, put}) {
       put({
         type: 'setState',
         user: undefined,

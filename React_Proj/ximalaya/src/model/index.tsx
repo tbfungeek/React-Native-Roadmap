@@ -4,8 +4,9 @@ import category from './category';
 import album from './album';
 import player from './player';
 import found from './found';
+import account from './account';
 
-const models = [home, category, album, player, found];
+const models = [home, category, album, player, found, account];
 
 export type RootState = {
   home: typeof home.state;
