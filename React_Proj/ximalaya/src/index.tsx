@@ -9,9 +9,14 @@ import '@/configs/https';
 import {RootSiblingParent} from 'react-native-root-siblings';
 import {enableScreens} from 'react-native-screens';
 
+import SplashScreen from 'react-native-splash-screen';
+
 enableScreens();
 
 class App extends React.Component {
+  componentDidMount() {
+    SplashScreen.hide();
+  }
   render() {
     return (
       <Provider store={store}>

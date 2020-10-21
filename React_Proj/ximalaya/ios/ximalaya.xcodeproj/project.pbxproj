@@ -18,6 +18,7 @@
 		77077B58AB025F91CA4B3F9A /* libPods-ximalaya-tvOSTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 55E3E021C1FD436BCE33DE64 /* libPods-ximalaya-tvOSTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
 		D0010A656103A5D000FFB4F1 /* libPods-ximalaya-ximalayaTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 094B6CEBD616E5FF8282C930 /* libPods-ximalaya-ximalayaTests.a */; };
+		DABEEBE82540B89900355A0A /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DABEEBE72540B89900355A0A /* Launch Screen.storyboard */; };
 		DB6CC9E938B7B8A0BB849CB1 /* libPods-ximalaya.a in Frameworks */ = {isa = PBXBuildFile; fileRef = AC783CBFF2FF07DF364BA943 /* libPods-ximalaya.a */; };
 		EBEAB0AE2F3145739C0CCA44 /* libPods-ximalaya-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FEB46752F3558EA942583340 /* libPods-ximalaya-tvOS.a */; };
 /* End PBXBuildFile section */
@@ -63,6 +64,7 @@
 		A6AE3659E5A20E725D5D2F09 /* Pods-ximalaya-ximalayaTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ximalaya-ximalayaTests.release.xcconfig"; path = "Target Support Files/Pods-ximalaya-ximalayaTests/Pods-ximalaya-ximalayaTests.release.xcconfig"; sourceTree = "<group>"; };
 		AC783CBFF2FF07DF364BA943 /* libPods-ximalaya.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-ximalaya.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79F6C5BAF6027C586949DA7 /* Pods-ximalaya.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ximalaya.release.xcconfig"; path = "Target Support Files/Pods-ximalaya/Pods-ximalaya.release.xcconfig"; sourceTree = "<group>"; };
+		DABEEBE72540B89900355A0A /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
 		EC8B06AEE7C5D76D6DFC8049 /* Pods-ximalaya-tvOSTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ximalaya-tvOSTests.release.xcconfig"; path = "Target Support Files/Pods-ximalaya-tvOSTests/Pods-ximalaya-tvOSTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
@@ -159,6 +161,7 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				DABEEBE72540B89900355A0A /* Launch Screen.storyboard */,
 				13B07FAE1A68108700A75B9A /* ximalaya */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* ximalayaTests */,
@@ -194,7 +197,6 @@
 				67C1D15DAA0C86268AE7854A /* Pods-ximalaya-ximalayaTests.debug.xcconfig */,
 				A6AE3659E5A20E725D5D2F09 /* Pods-ximalaya-ximalayaTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -340,6 +342,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DABEEBE82540B89900355A0A /* Launch Screen.storyboard in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 			);
