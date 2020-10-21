@@ -1,11 +1,11 @@
 import React from 'react';
 import {Text, ScrollView, StyleSheet, View} from 'react-native';
-import {Formik} from 'formik';
-import {TextInput} from 'react-native-gesture-handler';
+import {Field, Formik} from 'formik';
 import Touchable from '@/components/Common/Touchable';
 import {RootState} from '@/model/index';
 import {ConnectedProps, connect} from 'react-redux';
 import * as Yup from 'yup';
+import Input from '@/components/Login/Input';
 
 interface Values {
   account: string;
@@ -50,26 +50,11 @@ class LoginScreen extends React.Component<IProps> {
           validationSchema={validationSchema}
           initialValues={initialValues}
           onSubmit={this.onSubmit}>
-          {({values, handleChange, handleBlur, handleSubmit, errors}) => {
+          {({handleSubmit}) => {
             return (
               <View>
-                <TextInput
-                  onChangeText={handleChange('account')}
-                  onBlur={handleBlur('account')}
-                  value={values.account}
-                />
-                {errors.account && (
-                  <Text style={styles.errorType}>{errors.account}</Text>
-                )}
-                <TextInput
-                  onChangeText={handleChange('password')}
-                  onBlur={handleBlur('password')}
-                  value={values.password}
-                  secureTextEntry
-                />
-                {errors.password && (
-                  <Text style={styles.errorType}>{errors.password}</Text>
-                )}
+                <Field name="account" component={Input} />
+                <Field name="password" component={Input} secureTextEntry />
                 <Touchable onPress={handleSubmit}>
                   <Text>登陆</Text>
                 </Touchable>
