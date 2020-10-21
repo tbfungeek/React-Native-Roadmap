@@ -20,7 +20,9 @@ class Input extends React.Component<IProps> {
           value={form.values[field.name]}
         />
         <View>
-          <Text style={styles.errorType}>{form.errors[field.name]}</Text>
+          <Text style={styles.errorType}>
+            {form.touched[field.name] && form.errors[field.name]}
+          </Text>
         </View>
       </View>
     );

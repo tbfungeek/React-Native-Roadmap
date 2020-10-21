@@ -2,6 +2,7 @@ import {Model, Effect} from 'dva-core-ts';
 import {Reducer} from 'redux';
 import axios from 'axios';
 import {Alert} from 'react-native';
+import {goBack} from '@/utils/utils';
 
 const LOGIN_URL = '/mock/11/ximalaya/login';
 
@@ -37,19 +38,19 @@ const accountModel: IAccountModel = {
     *login({payload}, {call, put}) {
       const {status, data} = yield call(axios.post, LOGIN_URL, payload);
       if (status === 200) {
-        put({
+        yield put({
           type: 'setState',
-          user: data,
+          payload: {user: data},
         });
-        Alert.alert('登陆成功');
+        goBack();
       } else {
-        Alert.alert('登陆失败');
+        //Alert.alert('登陆失败');
       }
     },
     *logOut({payload}, {call, put}) {
-      put({
+      yield put({
         type: 'setState',
-        user: undefined,
+        payload: {user: null},
       });
     },
   },

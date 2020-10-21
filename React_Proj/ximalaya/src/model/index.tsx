@@ -13,6 +13,7 @@ export type RootState = {
   category: typeof category.state;
   album: typeof album.state;
   player: typeof player.state;
+  account: typeof account.state;
   loading: DvaLoadingState;
 } & {
   [key: string]: typeof home.state;
