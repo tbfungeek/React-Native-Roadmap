@@ -11,6 +11,14 @@ import {enableScreens} from 'react-native-screens';
 
 import SplashScreen from 'react-native-splash-screen';
 
+if (!__DEV__) {
+  const emptyFunc = () => {};
+  global.console.info = emptyFunc;
+  global.console.log = emptyFunc;
+  global.console.warn = emptyFunc;
+  global.console.error = emptyFunc;
+}
+
 enableScreens();
 
 class App extends React.Component {
