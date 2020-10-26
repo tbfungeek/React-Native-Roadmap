@@ -6903,6 +6903,11 @@ kleur@^3.0.3:
   resolved "https://r.cnpmjs.org/kleur/download/kleur-3.0.3.tgz#a79c9ecc86ee1ce3fa6206d1216c501f147fc07e"
   integrity sha1-p5yezIbuHOP6YgbRIWxQHxR/wH4=
 
+klona@^2.0.4:
+  version "2.0.4"
+  resolved "https://r.cnpmjs.org/klona/download/klona-2.0.4.tgz#7bb1e3affb0cb8624547ef7e8f6708ea2e39dfc0"
+  integrity sha1-e7Hjr/sMuGJFR+9+j2cI6i4538A=
+
 language-subtag-registry@~0.3.2:
   version "0.3.20"
   resolved "https://r.cnpmjs.org/language-subtag-registry/download/language-subtag-registry-0.3.20.tgz#a00a37121894f224f763268e431c55556b0c0755"
@@ -6943,7 +6948,16 @@ less-loader@^6.1.0:
     loader-utils "^2.0.0"
     schema-utils "^2.7.0"
 
-less@^3.11.1, less@^3.11.3:
+less-loader@^7.0.2:
+  version "7.0.2"
+  resolved "https://r.cnpmjs.org/less-loader/download/less-loader-7.0.2.tgz#0d73a49ec32a9d3ff12614598e6e2b47fb2a35c4"
+  integrity sha1-DXOknsMqnT/xJhRZjm4rR/sqNcQ=
+  dependencies:
+    klona "^2.0.4"
+    loader-utils "^2.0.0"
+    schema-utils "^3.0.0"
+
+less@^3.11.1, less@^3.11.3, less@^3.12.2:
   version "3.12.2"
   resolved "https://r.cnpmjs.org/less/download/less-3.12.2.tgz#157e6dd32a68869df8859314ad38e70211af3ab4"
   integrity sha1-FX5t0ypohp34hZMUrTjnAhGvOrQ=
