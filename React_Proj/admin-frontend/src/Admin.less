@@ -1,33 +1,50 @@
 @import '~antd/dist/antd.less';
 
 .Container {
-    background-color: blue
-}
+    display: flex;
+    .NavLeft-container {
+        height: calc(100vh);
+        .NavLeft{
+            background-color: yellow
+        }
+    };
 
-.NavLeft-container {
-    background-color: red
-}
-
-.NavLeft {
-    background-color: yellow
-}
-
-.Content-container {
-    background-color: pink
-}
-
-.header {
-    flex: 1;
-    background-color: aqua
-}
-
-.Content {
-    flex: 1;
-    background-color:darkblue
-}
-
-.footer {
-    flex: 1;
-    background-color: coral
-}
+    .Content-container {
+        flex: 1;
+        background-color: pink;
+        height: calc(100vh);
+        .header {
+            background-color: aqua;
+        }
         
+        .Content {
+            background-color:darkblue;
+            position :relative;
+            padding:20px;
+        }
+        
+        .footer {
+            background-color: coral
+        }
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
