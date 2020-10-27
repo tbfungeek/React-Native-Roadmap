@@ -1,31 +1,48 @@
 @import '~antd/dist/antd.less';
+@import './styles/default.less';
 
 .Container {
-    display: flex;
+    
+    //导航容器样式
     .NavLeft-container {
+        //高度为占满屏幕高度
         height: calc(100vh);
-        .NavLeft{
-            background-color: yellow
-        }
+        background-color: #001529;
+        //导航组件的样式
+        .NavLeft{}
     };
 
+    //内容容器样式
     .Content-container {
-        flex: 1;
-        background-color: pink;
+        display: flex;
+        background-color: @colorF;
         height: calc(100vh);
+        flex-direction: column;
+        justify-content: space-between;
         .header {
-            background-color: aqua;
+            background-color: @colorM;
+            height: calc(12vh);
+        }
+
+        .footer {
+            background-color: @colorM;
+            height: calc(10vh);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
         .Content {
-            background-color:darkblue;
-            position :relative;
-            padding:20px;
-        }
-        
-        .footer {
-            background-color: coral
-        }
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 38px 20px 38px;
+            background-color: @colorM;
+            border-radius: 8px;
+        } 
     }
 }
 
