@@ -1,6 +1,7 @@
 import React from 'react';
 import { Menu } from 'antd';
 import './index.less';
+import { NavLink } from 'react-router-dom';
 import MenuConfig from '../../configs/menuConfigs';
 
 const { SubMenu } = Menu;
@@ -15,15 +16,19 @@ export default class NavLeft extends React.Component {
 					</SubMenu>
 				);
 			}
-			return <Menu.Item key={item.key} title={item.title}>{item.title}</Menu.Item>;
+			return (
+				<Menu.Item key={item.key} title={item.title}>
+					<NavLink to={`/admin${item.key}`}>{item.title}</NavLink>
+				</Menu.Item>
+			);
 		});
 	};
 
 	componentWillMount() {
-        const menuTreeNode = this.renderMenu(MenuConfig);
-        this.setState({
-            menuTreeNode
-        })
+		const menuTreeNode = this.renderMenu(MenuConfig);
+		this.setState({
+			menuTreeNode
+		});
 	}
 	render() {
 		return (
@@ -32,9 +37,9 @@ export default class NavLeft extends React.Component {
 					<img src="/assets/logo-ant.svg" alt="" />
 					<h1>CMS</h1>
 				</div>
-                <Menu mode="vertical" theme="dark">
-                    {this.state.menuTreeNode}
-                </Menu>
+				<Menu mode="vertical" theme="dark">
+					{this.state.menuTreeNode}
+				</Menu>
 			</div>
 		);
 	}
