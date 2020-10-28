@@ -1,10 +1,10 @@
 import React from 'react';
 import { Col, Row } from 'antd';
-import Header from './components/Header';
-import Footer from './components/Footer';
-import NavLeft from './components/NavLeft';
-import './Admin.less';
-import Home from './screens/Home';
+import Header from '../../components/Header';
+import Footer from '../../components/Footer';
+import NavLeft from '../../components/NavLeft';
+import './index.less';
+import Home from '../Home';
 export default class Admin extends React.Component {
 	render() {
 		return (
