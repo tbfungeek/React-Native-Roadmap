@@ -21,7 +21,7 @@ export default class Router extends React.Component {
 						render={() => (
 							<Admin>
 								<Switch>
-                                    <Route path="/admin" component={Home} />
+                                    <Route exact={true} path="/admin" component={Home} />
                                     <Route path="/admin/home" component={Home} />
 									<Route path="/admin/ui/buttons" component={Buttons} />
 									<Route component={NotMatch} />
