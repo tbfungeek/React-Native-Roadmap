@@ -9,6 +9,7 @@ import Home from '../screens/Admin/Home/index';
 
 import Buttons from '../screens/Admin/UI/buttons';
 import Modals from '../screens/Admin/UI/modals';
+import Loadings from '../screens/Admin/UI/loadings';
 import NotMatch from '../screens/Admin/noMatch/index';
 
 export default class Router extends React.Component {
@@ -26,6 +27,7 @@ export default class Router extends React.Component {
                                     <Route path="/admin/home" component={Home} />
 									<Route path="/admin/ui/buttons" component={Buttons} />
 									<Route path="/admin/ui/modals" component={Modals} />
+									<Route path="/admin/ui/loadings" component={Loadings} />
 									<Route component={NotMatch} />
 								</Switch>
 							</Admin>
