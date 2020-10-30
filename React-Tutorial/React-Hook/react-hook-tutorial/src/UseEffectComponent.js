@@ -20,10 +20,46 @@ function UseEffectDemo1(props) {
     <ul>
       {data.hits.map(item => (
         <li key={item.objectID}>
-          <a href={item.url} >{item.title}</a>
+          <a href={item.url}>{item.title}</a>
         </li>
       ))}
     </ul>
+  );
+}
+
+function UseEffectDemo2(props) {
+  
+  const [varA, setVarA] = useState(0);
+  const [varB, setVarB] = useState(0);
+
+  //如果有多个副效应，应该调用多个useEffect()，而不应该合并写在一起。
+  useEffect(() => {
+    const timerA = setTimeout(() => {
+      setVarA(varA + 1);
+    }, 1000);
+
+    // 副效应是随着组件加载而发生的，那么组件卸载时，可能需要清理这些副效应。
+    // useEffect()允许返回一个函数，在组件卸载时，执行该函数，清理副效应。如果不需要清理副效应，useEffect()就不用返回任何值。
+    return () => {
+      clearTimeout(timerA);
+    };
+  }, [varA]);
+
+  useEffect(() => {
+    const timerB = setTimeout(() => {
+      setVarB(varB + 1);
+    }, 2000);
+
+    return () => {
+      clearTimeout(timerB);
+    };
+  }, [varB]);
+
+  return (
+    <div>
+      <h1>Current A timmer Times {varA}</h1>
+      <h1>Current B timmer Times {varB}</h1>
+    </div>
   );
 }
 
@@ -43,6 +79,7 @@ export function UseEffectComponent(props) {
     <div>
       <h1>Hello , {props.name}</h1>
       <UseEffectDemo1 />
+      <UseEffectDemo2 />
     </div>
   );
 }
