@@ -8,7 +8,7 @@ import { UseStateComponent } from "../State/UseStateComponent";
 import { UseContextComponent } from "../Context/UseContextComponent";
 import { UseContextContainer } from "../Context/UseContextContainer";
 import { UseReducerComponent } from "../Reducer/UseReducerComponent";
-
+import { CustomHookComponent } from "../Custom/CustomHookComponent";
 
 function App() {
   return (
@@ -41,6 +41,10 @@ function App() {
 
           <Route exact={true} path="/usereducer">
             <UseReducerComponent />
+          </Route>
+
+          <Route exact={true} path="/customhook">
+            <CustomHookComponent />
           </Route>
 
         </MainMenu>
