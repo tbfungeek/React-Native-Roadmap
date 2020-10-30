@@ -7,7 +7,7 @@ import { MainMenu } from "../Main/MainMenu";
 import { UseStateComponent } from "../State/UseStateComponent";
 import { UseContextComponent } from "../Context/UseContextComponent";
 import { UseContextContainer } from "../Context/UseContextContainer";
-
+import { UseReducerComponent } from "../Reducer/UseReducerComponent";
 
 
 function App() {
@@ -37,6 +37,10 @@ function App() {
 
           <Route exact={true} path="/useshareContext">
             <UseContextContainer />
+          </Route>
+
+          <Route exact={true} path="/usereducer">
+            <UseReducerComponent />
           </Route>
 
         </MainMenu>

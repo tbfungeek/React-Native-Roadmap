@@ -28,6 +28,12 @@ export function MainMenu(props) {
             </a>
           </li>
 
+          <li>
+            <a>
+              <NavLink to="/usereducer">useReducer用法</NavLink>
+            </a>
+          </li>
+
           
           <li>
             <a>
