@@ -1,12 +1,12 @@
-import logo from "./logo.svg";
+import logo from "../logo.svg";
 import "./App.css";
 import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
-import { UseEffectComponent } from "./UseEffectComponent";
-import { MainMenu } from "./MainMenu";
-import { UseStateComponent } from "./UseStateComponent";
-import { UseContextComponent } from "./UseContextComponent";
-import { UseContextContainer } from "./UseContextContainer";
+import { UseEffectComponent } from "../Effect/UseEffectComponent";
+import { MainMenu } from "../Main/MainMenu";
+import { UseStateComponent } from "../State/UseStateComponent";
+import { UseContextComponent } from "../Context/UseContextComponent";
+import { UseContextContainer } from "../Context/UseContextContainer";
 
 
 
