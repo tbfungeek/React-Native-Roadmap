@@ -4,6 +4,11 @@ import React from "react";
 import { Route, Link, Switch } from "react-router-dom";
 import { UseEffectComponent } from "./UseEffectComponent";
 import { MainMenu } from "./MainMenu";
+import { UseStateComponent } from "./UseStateComponent";
+import { UseContextComponent } from "./UseContextComponent";
+import { UseContextContainer } from "./UseContextContainer";
+
+
 
 function App() {
   return (
@@ -21,6 +26,19 @@ function App() {
           <Route exact={true} path="/artical_list">
             <UseEffectComponent name="tbfungeek" />
           </Route>
+
+          <Route exact={true} path="/useState">
+            <UseStateComponent />
+          </Route>
+
+          <Route exact={true} path="/useContext">
+            <UseContextComponent />
+          </Route>
+
+          <Route exact={true} path="/useshareContext">
+            <UseContextContainer />
+          </Route>
+
         </MainMenu>
         <a
           className="App-link"

@@ -9,6 +9,26 @@ export function MainMenu(props) {
               <NavLink to="/useEffect">useEffect用法</NavLink>
             </a>
           </li>
+
+          <li>
+            <a>
+              <NavLink to="/useState">useState用法</NavLink>
+            </a>
+          </li>
+
+          <li>
+            <a>
+              <NavLink to="/useContext">useContext用法</NavLink>
+            </a>
+          </li>
+
+          <li>
+            <a>
+              <NavLink to="/useshareContext">共享Context用法</NavLink>
+            </a>
+          </li>
+
+          
           <li>
             <a>
               <NavLink to="/artical_list">
