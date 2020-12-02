@@ -29,6 +29,10 @@ export default function() {
           <Link to="/router/users/">权限路由</Link>
         </List.Item>
 
+        <List.Item>
+          <Link to="/data/dva/">Dva</Link>
+        </List.Item>
+
       </List>
     </div>
   );
