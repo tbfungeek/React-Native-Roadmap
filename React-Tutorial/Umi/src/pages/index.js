@@ -41,6 +41,10 @@ export default function() {
           <Link to="/errorboundary/">Error Boundary</Link>
         </List.Item>
 
+        <List.Item>
+          <Link to="/lazy/">Lazy</Link>
+        </List.Item>
+
       </List>
     </div>
   );
