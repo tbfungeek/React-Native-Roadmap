@@ -7,7 +7,7 @@ function getSearchResult(value) {
 }
 
 function getAsyncSearchResult(value) {
-  return fetch(`/api/asyncSearch&value=${value}`)
+  return fetch(`/api/asyncSearch?value=${value}`)
     .then(res => res.json())
     .catch(error => {
       console.log(error);

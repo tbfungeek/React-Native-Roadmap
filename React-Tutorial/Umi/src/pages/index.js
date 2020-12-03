@@ -34,6 +34,10 @@ export default function() {
         </List.Item>
 
         <List.Item>
+          <Link to="/data/context/">Context</Link>
+        </List.Item>
+
+        <List.Item>
           <Link to="/errorboundary/">Error Boundary</Link>
         </List.Item>
 
