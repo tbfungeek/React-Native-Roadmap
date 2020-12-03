@@ -1,4 +1,4 @@
-import { getSearchResult } from '../services/search';
+import { getSearchResult , getAsyncSearchResult } from '../services/search';
 
 export default {
   namespace: 'search',
@@ -17,7 +17,7 @@ export default {
   },
   effects: {
     *getSearchResult({ payload }, { call, put }) {
-      const result = yield call(getSearchResult, payload);
+      const result = yield call(getAsyncSearchResult, payload);
       yield put({
         type:'setState',
         payload:result.lists

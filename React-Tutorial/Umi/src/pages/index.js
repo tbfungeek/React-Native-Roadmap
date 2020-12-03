@@ -33,6 +33,10 @@ export default function() {
           <Link to="/data/dva/">Dva</Link>
         </List.Item>
 
+        <List.Item>
+          <Link to="/errorboundary/">Error Boundary</Link>
+        </List.Item>
+
       </List>
     </div>
   );
