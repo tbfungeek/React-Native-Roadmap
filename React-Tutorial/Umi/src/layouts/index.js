@@ -11,10 +11,11 @@ function BasicLayout(props) {
     );
   }
 
+  //<ErrorBoundary>{props.children}</ErrorBoundary>
   return (
     <div className={styles.normal}>
       <h1 className={styles.title}>Yay! Welcome to umi! 这里是全局layout</h1>
-      <ErrorBoundary>{props.children}</ErrorBoundary>
+      {props.children}
     </div>
   );
 }
