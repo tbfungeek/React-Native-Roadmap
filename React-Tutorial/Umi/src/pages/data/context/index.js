@@ -18,7 +18,6 @@ export default class SearchIndexPage extends Component {
       case 'LIST': {
 
         const res = await getAsyncSearchResult(action.payload);
-        console.log(res)
         return this.setState({
           lists: res.lists
         });

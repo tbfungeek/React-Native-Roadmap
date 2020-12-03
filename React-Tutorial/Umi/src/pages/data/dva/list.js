@@ -10,7 +10,6 @@ class Lists extends Component {
 
   render() {
     const lists = this.props.lists;
-    console.log(this.props);
     return (
       <div>
         <List>

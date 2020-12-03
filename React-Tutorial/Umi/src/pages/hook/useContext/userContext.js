@@ -2,13 +2,15 @@ import React, { useReducer } from 'react';
 
 const initialState = {
   isLogin: false,
-  nickname: 'xxxxx',
-  age: 0,
+  nickname: "",
+  age: "",
 };
+
+const UserContext = React.createContext();
 
 const reducer = (state, action) => {
   switch (action.type) {
-    case 'Login':
+    case 'LOGIN':
       return {
         ...state,
         isLogin: action.payload,
@@ -29,16 +31,16 @@ const reducer = (state, action) => {
   }
 };
 
-const UserContext = React.createContext();
-
-const UserProvider = props => {
+const UserContextProvider = (props)=>{
   const [state, dispatch] = useReducer(reducer, initialState);
-  console.log(state)
   return (
-    <UserContext.Provider value={{ state, dispatch }}>
+    <UserContext.Provider value={{state, dispatch}}>
       {props.children}
     </UserContext.Provider>
-  );
-};
+  )
+}
 
-export { UserContext, UserProvider };
+export {
+  UserContext,
+  UserContextProvider
+}

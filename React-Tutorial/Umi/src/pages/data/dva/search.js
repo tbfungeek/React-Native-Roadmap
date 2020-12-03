@@ -15,7 +15,6 @@ class Search extends Component {
   };
 
   handleSubmit = () => {
-    console.log('handleSubmit');
     this.props.dispatch({
       type: 'search/getSearchResult',
       payload: this.state.value,

@@ -1,21 +1,11 @@
-import React, { useContext } from 'react';
-import { UserContext, UserProvider } from './userContext';
-
+import React from 'react';
+import { UserContextProvider } from './userContext';
+import App from './app';
 
 export default function HookContext(props) {
-
-  const { state, dispatch } = useContext(UserContext);
-
-  console.log(state)
-
   return (
-    <UserProvider>
-      <div>
-        <input placeholder="姓名"></input>
-        <input placeholder="年龄"></input>
-        <button> {state.isLogin ? "退出登陆":"登陆"}</button>
-      </div>
-    </UserProvider>
+    <UserContextProvider>
+      <App />
+    </UserContextProvider>
   );
 }
-
