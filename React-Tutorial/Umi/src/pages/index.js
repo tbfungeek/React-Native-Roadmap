@@ -49,6 +49,10 @@ export default function() {
           <Link to="/ref/">Ref</Link>
         </List.Item>
 
+        <List.Item>
+          <Link to="/createPortal/">CreatePortal</Link>
+        </List.Item>
+
       </List>
     </div>
   );
