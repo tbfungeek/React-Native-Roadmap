@@ -53,6 +53,10 @@ export default function() {
           <Link to="/createPortal/">CreatePortal</Link>
         </List.Item>
 
+        <List.Item>
+          <Link to="/hook/">React Hook</Link>
+        </List.Item>
+
       </List>
     </div>
   );
