@@ -45,6 +45,10 @@ export default function() {
           <Link to="/lazy/">Lazy</Link>
         </List.Item>
 
+        <List.Item>
+          <Link to="/ref/">Ref</Link>
+        </List.Item>
+
       </List>
     </div>
   );
