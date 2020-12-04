@@ -35,6 +35,10 @@ export default class componentName extends Component {
             <Link to="/hook/useCallback/">useCallback 例子</Link>
           </List.Item>
 
+          <List.Item>
+            <Link to="/hook/custom/">自定义Hook 例子</Link>
+          </List.Item>
+
         </List>
       </div>
     );
